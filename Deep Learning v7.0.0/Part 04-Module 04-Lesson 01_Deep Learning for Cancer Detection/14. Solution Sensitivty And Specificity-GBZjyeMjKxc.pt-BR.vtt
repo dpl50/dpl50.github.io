@@ -1,0 +1,42 @@
+WEBVTT
+Kind: captions
+Language: pt-BR
+
+00:00:00.100 --> 00:00:03.734
+Vou usar esses termos médicos
+porque eles fazem sentido.
+
+00:00:03.767 --> 00:00:08.400
+Um algoritmo é sensível
+ao câncer se o encontra.
+
+00:00:08.434 --> 00:00:11.234
+Para deixar o algoritmo
+sensível ao máximo,
+
+00:00:11.267 --> 00:00:13.167
+você classifica
+tudo como câncer.
+
+00:00:13.200 --> 00:00:15.901
+Se encontrar tudo,
+a sensibilidade é 100%.
+
+00:00:15.934 --> 00:00:18.033
+Não é um bom algoritmo
+
+00:00:18.067 --> 00:00:20.934
+porque você vai remover
+todas as pintas.
+
+00:00:20.968 --> 00:00:22.801
+O oposto é a especificidade.
+
+00:00:22.834 --> 00:00:25.400
+Você quer uma especificidade
+de alto nível
+
+00:00:25.434 --> 00:00:27.734
+porque só quer encontrar
+o que for câncer.
+

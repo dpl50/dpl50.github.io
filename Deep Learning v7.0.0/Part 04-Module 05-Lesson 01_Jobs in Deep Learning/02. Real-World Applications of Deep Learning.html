@@ -1,0 +1,214 @@
+<!-- udacimak v1.4.4 -->
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="ie=edge" http-equiv="X-UA-Compatible"/>
+  <title>
+   Real-World Applications of Deep Learning
+  </title>
+  <link href="../assets/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="../assets/css/plyr.css" rel="stylesheet"/>
+  <link href="../assets/css/katex.min.css" rel="stylesheet"/>
+  <link href="../assets/css/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
+  <link href="../assets/css/styles.css" rel="stylesheet"/>
+  <link href="../assets/img/udacimak.png" rel="shortcut icon" type="image/png">
+  </link>
+ </head>
+ <body>
+  <div class="wrapper">
+   <nav id="sidebar">
+    <div class="sidebar-header">
+     <h3>
+      Jobs in Deep Learning
+     </h3>
+    </div>
+    <ul class="sidebar-list list-unstyled CTAs">
+     <li>
+      <a class="article" href="../index.html">
+       Back to Home
+      </a>
+     </li>
+    </ul>
+    <ul class="sidebar-list list-unstyled components">
+     <li class="">
+      <a href="01. Jobs in Deep Learning.html">
+       01. Jobs in Deep Learning
+      </a>
+     </li>
+     <li class="">
+      <a href="02. Real-World Applications of Deep Learning.html">
+       02. Real-World Applications of Deep Learning
+      </a>
+     </li>
+    </ul>
+    <ul class="sidebar-list list-unstyled CTAs">
+     <li>
+      <a class="article" href="../index.html">
+       Back to Home
+      </a>
+     </li>
+    </ul>
+   </nav>
+   <div id="content">
+    <header class="container-fluild header">
+     <div class="container">
+      <div class="row">
+       <div class="col-12">
+        <div class="align-items-middle">
+         <button class="btn btn-toggle-sidebar" id="sidebarCollapse" type="button">
+          <div>
+          </div>
+          <div>
+          </div>
+          <div>
+          </div>
+         </button>
+         <h1 style="display: inline-block">
+          02. Real-World Applications of Deep Learning
+         </h1>
+        </div>
+       </div>
+      </div>
+     </div>
+    </header>
+    <main class="container">
+     <div class="row">
+      <div class="col-12">
+       <div class="ud-atom">
+        <h3>
+        </h3>
+        <div>
+         <h1 id="real-world-applications-of-deep-learning">
+          Real-World Applications of Deep Learning
+         </h1>
+         <p>
+          From health applications to the autonomous vehicle space to language translation, and recommendation engines, deep learning skills are needed in a variety of fields. Here are just a few examples:
+         </p>
+         <h2 id="language-translation">
+          Language Translation
+         </h2>
+         <p>
+          Deep learning and recurrent neural networks are used to learn the mappings from one language to another. This is done with an encoder-decoder framework that can take an a sequence of words in one language and generate a corresponding sequence in another language. These sequences can be of variable length and are not even restricted to words; models can learn to generate a descriptive caption given an input image or to automatically translate sign language. These models can give people the ability to communicate with one another around the world.
+         </p>
+         <h2 id="optimizing-traffic-signals-and-self-driving-cars">
+          Optimizing Traffic Signals and Self-Driving Cars
+         </h2>
+         <p>
+          Deep learning can be used in city planning to optimize for housing affordability, efficient public transportation routes and more. Recently, it’s been used to look at the times of day and traffic congestion in parts of a city and plan the most efficient traffic signal patterns to help traffic flow efficiently and safely.
+         </p>
+         <p>
+          Deep learning is also used for vehicle and pedestrian recognition and tracking (to determine their speed and predict movement). Check out
+          <a href="https://www.linkedin.com/pulse/how-computer-vision-works-self-driving-cars-david-silver/" rel="noopener noreferrer" target="_blank">
+           this blog
+          </a>
+          from David Silver on how deep learning works for self-driving cars.
+         </p>
+         <h2 id="predicting-consumer-behavior">
+          Predicting Consumer Behavior
+         </h2>
+         <p>
+          Deep learning is widely used in recommending music, videos, and other content to users of an app based on their previous history. For example, Spotify looks at the artists a user listens to, what genres, tempo, and bass level they tend to prefer and they create a Discover Weekly playlist based on these variables. Deep learning is used to extrapolate based on existing user data and predict what people may want to hear or see.
+         </p>
+         <h2 id="up-next">
+          Up Next
+         </h2>
+         <p>
+          By now, you have made progress in your Nanodegree program and gotten an overview of jobs in deep learning. You should feel comfortable seeking out information online to further your knowledge of the community and new developments in the field. You should also know how to find deep learning and related jobs on job boards.
+         </p>
+        </div>
+       </div>
+       <div class="divider">
+       </div>
+      </div>
+      <div class="col-12">
+       <p class="text-right">
+       </p>
+      </div>
+     </div>
+    </main>
+    <footer class="footer">
+     <div class="container">
+      <div class="row">
+       <div class="col-12">
+        <p class="text-center">
+         udacity2.0 If you need the newest courses Plase add me wechat: udacity6
+        </p>
+       </div>
+      </div>
+     </div>
+    </footer>
+   </div>
+  </div>
+  <script src="../assets/js/jquery-3.3.1.min.js">
+  </script>
+  <script src="../assets/js/plyr.polyfilled.min.js">
+  </script>
+  <script src="../assets/js/bootstrap.min.js">
+  </script>
+  <script src="../assets/js/jquery.mCustomScrollbar.concat.min.js">
+  </script>
+  <script src="../assets/js/katex.min.js">
+  </script>
+  <script>
+   // Initialize Plyr video players
+    const players = Array.from(document.querySelectorAll('video')).map(p => new Plyr(p));
+
+    // render math equations
+    let elMath = document.getElementsByClassName('mathquill');
+    for (let i = 0, len = elMath.length; i < len; i += 1) {
+      const el = elMath[i];
+
+      katex.render(el.textContent, el, {
+        throwOnError: false
+      });
+    }
+
+    // this hack will make sure Bootstrap tabs work when using Handlebars
+    if ($('#question-tabs').length && $('#user-answer-tabs').length) {
+      $("#question-tabs a.nav-link").on('click', function () {
+        $("#question-tab-contents .tab-pane").hide();
+        $($(this).attr("href")).show();
+      });
+      $("#user-answer-tabs a.nav-link").on('click', function () {
+        $("#user-answer-tab-contents .tab-pane").hide();
+        $($(this).attr("href")).show();
+      });
+    } else {
+      $("a.nav-link").on('click', function () {
+        $(".tab-pane").hide();
+        $($(this).attr("href")).show();
+      });
+    }
+
+    // side bar events
+    $(document).ready(function () {
+      $("#sidebar").mCustomScrollbar({
+        theme: "minimal"
+      });
+
+      $('#sidebarCollapse').on('click', function () {
+        $('#sidebar, #content').toggleClass('active');
+        $('.collapse.in').toggleClass('in');
+        $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+      });
+
+      // scroll to first video on page loading
+      if ($('video').length) {
+        $('html,body').animate({ scrollTop: $('div.plyr').prev().offset().top});
+      }
+
+      // auto play first video: this may not work with chrome/safari due to autoplay policy
+      if (players && players.length > 0) {
+        players[0].play();
+      }
+
+      // scroll sidebar to current concept
+      const currentInSideBar = $( "ul.sidebar-list.components li a:contains('02. Real-World Applications of Deep Learning')" )
+      currentInSideBar.css( "text-decoration", "underline" );
+      $("#sidebar").mCustomScrollbar('scrollTo', currentInSideBar);
+    });
+  </script>
+ </body>
+</html>
