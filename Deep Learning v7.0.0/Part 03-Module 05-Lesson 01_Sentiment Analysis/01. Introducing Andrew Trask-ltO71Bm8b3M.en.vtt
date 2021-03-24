@@ -1,0 +1,28 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:03.270
+Hi there! Welcome to week two of the program.
+
+00:00:03.270 --> 00:00:06.765
+This week we have a guest instructor Andrew Trask.
+
+00:00:06.764 --> 00:00:08.459
+Andrew is a Ph.D. student at
+
+00:00:08.460 --> 00:00:13.320
+the University of Oxford where he studies deep learning for natural language processing.
+
+00:00:13.320 --> 00:00:15.720
+He's also the author of grokking deep learning,
+
+00:00:15.720 --> 00:00:20.910
+which teaches deep learning to anyone with Python skills and basic math knowledge.
+
+00:00:20.910 --> 00:00:24.240
+Andrew will be leading you through building a network to predict sentiment,
+
+00:00:24.239 --> 00:00:26.879
+positive or negative, in movie reviews.
+

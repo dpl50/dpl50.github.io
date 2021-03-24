@@ -1,0 +1,111 @@
+WEBVTT
+Kind: captions
+Language: pt-BR
+
+00:00:00.000 --> 00:00:02.400
+O primeiro projeto será
+construir uma rede neural
+
+00:00:02.434 --> 00:00:04.501
+para prever
+compartilhamento de bicicletas.
+
+00:00:04.534 --> 00:00:08.334
+Imagine que você tem uma empresa
+de compartilhamento de bicicletas.
+
+00:00:08.367 --> 00:00:10.667
+Você quer prever
+de quantas bicicletas precisa,
+
+00:00:10.701 --> 00:00:12.000
+porque se não tiver
+o bastante,
+
+00:00:12.033 --> 00:00:14.467
+vai perder dinheiro
+de ciclistas em potencial,
+
+00:00:14.501 --> 00:00:15.734
+e se tiver demais,
+
+00:00:15.767 --> 00:00:19.200
+está gastando dinheiro
+com bicicletas sem uso.
+
+00:00:19.234 --> 00:00:22.033
+Você precisa prever,
+com dados históricos,
+
+00:00:22.067 --> 00:00:24.567
+quantas bicicletas
+vai precisar no futuro.
+
+00:00:24.601 --> 00:00:27.334
+Uma boa forma de fazer
+é com uma rede neural,
+
+00:00:27.367 --> 00:00:28.868
+que é o que vamos fazer.
+
+00:00:28.901 --> 00:00:31.434
+Você vai implementar
+uma rede neural
+
+00:00:31.467 --> 00:00:34.767
+e treiná-la com dados históricos
+para fazer previsões.
+
+00:00:34.801 --> 00:00:36.934
+Primeiro, carregue
+e prepare os dados.
+
+00:00:36.968 --> 00:00:39.667
+Nós fornecemos o código
+para preparar os dados,
+
+00:00:39.701 --> 00:00:42.734
+mas você vai aprender
+a fazer isso no futuro.
+
+00:00:42.767 --> 00:00:46.601
+Pode ler, mas só vai precisar
+rodar o código.
+
+00:00:46.634 --> 00:00:49.100
+É aqui que você vai
+construir sua rede.
+
+00:00:49.133 --> 00:00:51.033
+Fornecemos parte do código,
+
+00:00:51.067 --> 00:00:53.567
+mas você vai implementar
+a maior parte.
+
+00:00:53.601 --> 00:00:56.334
+Aqui você vai
+treinar a rede
+
+00:00:56.367 --> 00:00:58.834
+e ver o desempenho
+enquanto ela treina.
+
+00:00:58.868 --> 00:01:01.834
+Finalmente, vai comparar
+as previsões da rede
+
+00:01:01.868 --> 00:01:03.133
+com os dados reais.
+
+00:01:03.167 --> 00:01:06.267
+Se construir direito,
+ela fará um bom trabalho,
+
+00:01:06.300 --> 00:01:07.968
+em grande parte.
+
+00:01:08.000 --> 00:01:11.033
+É hora de começar o projeto.
+Boa sorte!
+

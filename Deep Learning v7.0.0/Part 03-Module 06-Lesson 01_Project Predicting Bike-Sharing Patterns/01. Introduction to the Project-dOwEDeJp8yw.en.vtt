@@ -1,0 +1,109 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:01.770
+For the first project you'll build a
+
+00:00:01.770 --> 00:00:03.600
+neural network to predict bike-sharing
+
+00:00:03.600 --> 00:00:06.330
+rides. Imagine yourself owning a bike sharing
+
+00:00:06.330 --> 00:00:08.790
+company like Cycle Hop. You want to
+
+00:00:08.790 --> 00:00:10.920
+protect how many bikes you need because
+
+00:00:10.920 --> 00:00:12.750
+if you have too few you're losing money
+
+00:00:12.750 --> 00:00:15.120
+from potential riders. If you have too
+
+00:00:15.120 --> 00:00:17.250
+many you're wasting money on bikes that
+
+00:00:17.250 --> 00:00:20.490
+are just sitting around. So you need to
+
+00:00:20.490 --> 00:00:22.769
+predict from historical data how many
+
+00:00:22.769 --> 00:00:24.779
+bikes you'll need in the near future. A
+
+00:00:24.779 --> 00:00:26.609
+good way to do this is with a neural
+
+00:00:26.609 --> 00:00:28.380
+network which is exactly what you'll do.
+
+00:00:28.380 --> 00:00:30.869
+In this notebook, you'll implement a
+
+00:00:30.869 --> 00:00:32.250
+neural network and train it on
+
+00:00:32.250 --> 00:00:33.780
+historical data to make predictions.
+
+00:00:33.780 --> 00:00:37.890
+First, load and prepare the data. We
+
+00:00:37.890 --> 00:00:39.300
+provided the code to prepare the data
+
+00:00:39.300 --> 00:00:41.280
+but you'll be learning how to do all
+
+00:00:41.280 --> 00:00:43.469
+this in a future lesson. So feel free to
+
+00:00:43.469 --> 00:00:45.300
+read it over but you'll just need to run
+
+00:00:45.300 --> 00:00:46.320
+through the code.
+
+00:00:46.320 --> 00:00:48.539
+This is where you'll build your network.
+
+00:00:48.539 --> 00:00:50.700
+We provided some of the code for the
+
+00:00:50.700 --> 00:00:52.770
+network but you'll be implementing most
+
+00:00:52.770 --> 00:00:55.469
+of it. And down here is where you'll
+
+00:00:55.469 --> 00:00:57.300
+train the network and view its
+
+00:00:57.300 --> 00:00:59.430
+performance as it's being trained.
+
+00:00:59.430 --> 00:01:01.410
+Finally you'll compare your networks
+
+00:01:01.410 --> 00:01:03.420
+predictions with actual data. If you
+
+00:01:03.420 --> 00:01:04.979
+build your network right you should find
+
+00:01:04.979 --> 00:01:06.570
+the network does a really good job, for
+
+00:01:06.570 --> 00:01:09.180
+the most part. Right! It's time for you to get
+
+00:01:09.180 --> 00:01:10.320
+started on your project.
+
+00:01:10.320 --> 00:01:15.650
+Good luck!
+
