@@ -1,0 +1,133 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:03.734
+So here are my solutions for defining real and fake losses.
+
+00:00:03.734 --> 00:00:05.669
+Let's go through the real loss function first.
+
+00:00:05.669 --> 00:00:09.210
+So, this takes in the logits or outputs from our discriminator.
+
+00:00:09.210 --> 00:00:13.330
+When we train, there will be one output value for each input image in a batch,
+
+00:00:13.330 --> 00:00:17.295
+and I'm getting that batch size here by calling D_out.size of zero.
+
+00:00:17.295 --> 00:00:20.325
+This way, I know how many output values I have to look at.
+
+00:00:20.324 --> 00:00:23.445
+Next, I'm creating my ground-truth real labels,
+
+00:00:23.445 --> 00:00:26.359
+and I have two cases for defining labels here.
+
+00:00:26.359 --> 00:00:28.744
+One, is if I want to implement label smoothing.
+
+00:00:28.745 --> 00:00:30.350
+So if smooth is true,
+
+00:00:30.350 --> 00:00:34.685
+I'm creating a series of one labels and multiplying all of those by 0.9,
+
+00:00:34.685 --> 00:00:38.465
+so this creates batch size number of labels that are all 0.9.
+
+00:00:38.465 --> 00:00:39.680
+If smooth is false,
+
+00:00:39.679 --> 00:00:43.460
+I'm leaving off this multiplication parameter and I'm leaving these values as one.
+
+00:00:43.460 --> 00:00:47.719
+Next, I'm defining my last criterion, BCEWithLogitsLoss,
+
+00:00:47.719 --> 00:00:49.729
+then I'm applying that to the output of
+
+00:00:49.729 --> 00:00:52.149
+our discriminator and the labels that I created above,
+
+00:00:52.149 --> 00:00:53.804
+our target real labels.
+
+00:00:53.804 --> 00:00:58.174
+Here, I'm just squeezing any empty dimensions from the outputs, and that's it.
+
+00:00:58.174 --> 00:01:01.834
+Then, this function returns that calculated binary cross entropy loss.
+
+00:01:01.835 --> 00:01:03.965
+Recall that this function is also applying
+
+00:01:03.965 --> 00:01:08.145
+a sigmoid activation function to the D_out logits. Okay, great.
+
+00:01:08.144 --> 00:01:12.515
+Then, you can see that I'm doing almost the exact same thing in the fake loss function.
+
+00:01:12.515 --> 00:01:15.859
+In fact, this is a little simpler because we don't have a smooth parameter.
+
+00:01:15.859 --> 00:01:19.189
+First, I'm getting the batch size of our output logits,
+
+00:01:19.189 --> 00:01:21.495
+then I'm creating ground-truth fake labels,
+
+00:01:21.495 --> 00:01:23.385
+this time using torch.zeros.
+
+00:01:23.385 --> 00:01:26.660
+Then, I'm using my same BCEWithLogitsLoss criterion
+
+00:01:26.659 --> 00:01:30.259
+and applying that to our logits and these labels that I created right here.
+
+00:01:30.260 --> 00:01:34.310
+So, the big difference is that I'm using torch.zeros here instead of torch.ones,
+
+00:01:34.310 --> 00:01:38.314
+and I'm calculating the loss in the exact same way and returning that calculation.
+
+00:01:38.314 --> 00:01:41.664
+This is all I need to do to define my real and fake losses.
+
+00:01:41.665 --> 00:01:43.340
+Now, for my optimizers,
+
+00:01:43.340 --> 00:01:45.725
+I'm creating Adam optimizers as usual.
+
+00:01:45.724 --> 00:01:48.049
+Passing in the parameters for my discriminator,
+
+00:01:48.049 --> 00:01:50.989
+and my generator, and the learning rate that I specified above.
+
+00:01:50.989 --> 00:01:52.339
+Now, it's important to have
+
+00:01:52.340 --> 00:01:55.719
+these two different optimizers because I'll be training these networks separately.
+
+00:01:55.719 --> 00:01:57.909
+If you change around these hyperparameters,
+
+00:01:57.909 --> 00:02:00.560
+I'd be interested to see how your model performs versus mine.
+
+00:02:00.560 --> 00:02:03.409
+Now, training these networks is really the last step in
+
+00:02:03.409 --> 00:02:06.560
+getting a trained generator and generating new fake images,
+
+00:02:06.560 --> 00:02:08.530
+and that's what I'll go over next.
+

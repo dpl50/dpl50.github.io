@@ -1,0 +1,482 @@
+WEBVTT
+Kind: captions
+Language: pt-BR
+
+00:00:00.542 --> 00:00:03.042
+Vimos como usar redes
+gerativas adversárias, GANs,
+
+00:00:03.083 --> 00:00:04.542
+para gerar imagens.
+
+00:00:04.583 --> 00:00:06.708
+Embora isso seja divertido
+
+00:00:06.750 --> 00:00:10.083
+e esteja relacionado a pesquisas
+em Inteligência Artificial,
+
+00:00:10.125 --> 00:00:13.000
+sua aplicação é muito limitada
+a alguns domínios,
+
+00:00:13.042 --> 00:00:15.083
+como softwares
+de edição de imagem
+
+00:00:15.125 --> 00:00:19.042
+com o objetivo de produzir
+uma imagem perfeita.
+
+00:00:19.083 --> 00:00:22.000
+Uma aplicação, de modo geral,
+mais útil das GANs,
+
+00:00:22.042 --> 00:00:24.167
+é o aprendizado
+semissupervisionado,
+
+00:00:24.208 --> 00:00:27.250
+em que melhoramos o desempenho
+de um classificador
+
+00:00:27.292 --> 00:00:28.875
+com uma GAN.
+
+00:00:28.917 --> 00:00:31.208
+Muitos produtos e serviços atuais
+
+00:00:31.000 --> 00:00:33.792
+usam classificação
+no lugar da geração.
+
+00:00:33.833 --> 00:00:38.542
+Imagino que tenham mais interesse
+em criar um classificador melhor
+
+00:00:38.583 --> 00:00:41.042
+do que um gerador de imagens.
+
+00:00:41.083 --> 00:00:44.083
+Modelos de reconhecimento
+ótico baseados em deep learning
+
+00:00:44.125 --> 00:00:46.125
+geralmente atingem
+precisão sobre-humana
+
+00:00:46.167 --> 00:00:48.042
+após o treinamento.
+
+00:00:48.083 --> 00:00:50.042
+Algoritmos modernos
+de deep learning
+
+00:00:50.083 --> 00:00:53.458
+nem chegam perto da eficiência
+humana durante o aprendizado.
+
+00:00:54.167 --> 00:00:56.750
+Veja este dataset
+de números de casas
+
+00:00:56.792 --> 00:00:59.875
+usados para treinar
+modelos de transcrição de endereços.
+
+00:00:59.917 --> 00:01:04.667
+Ele contém centenas de milhares de
+fotos etiquetadas de números casas.
+
+00:01:04.708 --> 00:01:06.458
+Lembre-se de quando
+aprendeu a ler.
+
+00:01:06.500 --> 00:01:11.250
+Seu professor não precisou levá-lo
+para ver um monte de endereços
+
+00:01:11.292 --> 00:01:13.250
+e dizer o que significava
+cada um deles.
+
+00:01:13.292 --> 00:01:14.583
+Desse ponto de vista,
+
+00:01:14.625 --> 00:01:18.417
+o deep learning precisa
+de muito mais dados do nós.
+
+00:01:18.458 --> 00:01:19.792
+Entretanto,
+
+00:01:19.833 --> 00:01:23.208
+pode-se dizer que o deep learning
+não está em pé de igualdade,
+
+00:01:23.250 --> 00:01:26.458
+pois a experiência de vida
+de um modelo de deep learning
+
+00:01:26.500 --> 00:01:29.625
+se resume a um grupo
+de imagens etiquetadas.
+
+00:01:29.667 --> 00:01:33.333
+Humanos são capazes de aprender
+com poucos exemplos de um professor,
+
+00:01:33.375 --> 00:01:35.083
+mas, provavelmente, isso ocorre
+
+00:01:35.125 --> 00:01:38.000
+porque também temos várias
+formas de experiências sensoriais
+
+00:01:38.042 --> 00:01:40.208
+que não dependem de etiquetas.
+
+00:01:40.000 --> 00:01:41.458
+Ao interagir com o mundo,
+
+00:01:41.500 --> 00:01:46.625
+vemos objetos em diversas condições
+de iluminação e ângulos etc.
+
+00:01:46.667 --> 00:01:49.750
+Não recebemos etiquetas
+na maioria das nossas experiências.
+
+00:01:49.792 --> 00:01:52.958
+Temos muitas experiências
+que não se parecem em nada
+
+00:01:53.000 --> 00:01:57.167
+com o que um algoritimo moderno
+de deep learning vê no treinamento.
+
+00:01:57.208 --> 00:02:01.167
+Uma forma de aumentar a eficiência
+do aprendizado em deep learning
+
+00:02:01.208 --> 00:02:03.667
+é o aprendizado
+semissupervisionado.
+
+00:02:03.708 --> 00:02:05.458
+No aprendizado
+semissupervisionado,
+
+00:02:05.500 --> 00:02:08.750
+o modelo aprende a partir
+de exemplos etiquetados,
+
+00:02:08.792 --> 00:02:11.125
+mas também se aprimora
+na classificação
+
+00:02:11.167 --> 00:02:13.167
+ao estudar exemplos
+não etiquetados,
+
+00:02:13.208 --> 00:02:16.167
+mesmo que haja exemplos
+sem uma classe de etiquetas.
+
+00:02:16.667 --> 00:02:22.083
+Geralmente, é muito mais fácil e
+barato obter dados não etiquetados.
+
+00:02:22.833 --> 00:02:23.833
+Por exemplo,
+
+00:02:23.875 --> 00:02:28.042
+a internet é uma fonte, em tese,
+gratuita e infinita de textos,
+
+00:02:28.125 --> 00:02:30.625
+imagens e vídeos
+não etiquetados.
+
+00:02:30.667 --> 00:02:33.833
+Para fazer uma classificação
+semissupervisionada com GANs,
+
+00:02:33.875 --> 00:02:36.833
+temos que configurar a GAN
+para operar como classificadora.
+
+00:02:36.875 --> 00:02:38.292
+GANs contêm dois módulos:
+
+00:02:38.333 --> 00:02:40.792
+o gerador e o discriminante.
+
+00:02:40.833 --> 00:02:42.583
+Geralmente, treinamos ambos
+
+00:02:42.625 --> 00:02:45.042
+e descartamos
+o discriminante no final.
+
+00:02:45.083 --> 00:02:49.875
+Em geral, só usamos o gerador
+para criar amostras.
+
+00:02:49.917 --> 00:02:52.583
+O discriminante costuma
+ter um papel secundário
+
+00:02:52.625 --> 00:02:55.083
+e ser usado apenas
+para treinar o gerador.
+
+00:02:55.125 --> 00:02:56.833
+No aprendizado
+semissupervisionado,
+
+00:02:56.875 --> 00:02:59.000
+vamos focar no discriminante
+
+00:02:59.042 --> 00:03:00.833
+em vez de no gerador.
+
+00:03:00.875 --> 00:03:03.792
+Vamos empregar o discriminante
+como classificador
+
+00:03:03.833 --> 00:03:07.417
+e classificar novos dados
+após o treinamento.
+
+00:03:07.458 --> 00:03:09.750
+Nós podemos jogar
+o gerador fora
+
+00:03:09.792 --> 00:03:12.292
+a não ser
+que precisemos gerar imagens.
+
+00:03:12.333 --> 00:03:14.417
+Na classificação
+semissupervisionada,
+
+00:03:14.458 --> 00:03:16.875
+é o gerador
+que tem papel secundário.
+
+00:03:16.917 --> 00:03:19.583
+Ele apenas serve
+para treinar o discriminante.
+
+00:03:19.625 --> 00:03:22.083
+Até o momento,
+usamos o discriminante
+
+00:03:22.125 --> 00:03:24.208
+com um output sigmoide.
+
+00:03:24.250 --> 00:03:28.000
+É ele que nos dá a probabilidade
+de um output ser real,
+
+00:03:28.042 --> 00:03:30.125
+e não falso.
+
+00:03:30.167 --> 00:03:32.875
+Podemos transformar isso
+num softmax com dois outputs.
+
+00:03:32.917 --> 00:03:35.042
+Um que corresponda
+à classe verdadeira,
+
+00:03:35.083 --> 00:03:37.333
+e outra, à classe falsa.
+
+00:03:37.375 --> 00:03:40.958
+Se fizermos o hardcode dos logits
+da classe falsa para zero,
+
+00:03:41.000 --> 00:03:44.042
+o softmax vai computar
+exatamente as mesmas probabilidades
+
+00:03:44.083 --> 00:03:45.667
+que a sigmoide.
+
+00:03:46.000 --> 00:03:49.042
+Para transformar o discriminante
+num classificador,
+
+00:03:49.083 --> 00:03:50.958
+podemos dividir a classe real
+
+00:03:51.000 --> 00:03:53.792
+em todas as classes
+que queremos reconhecer.
+
+00:03:53.833 --> 00:03:58.042
+Por exemplo, para classificar
+10 dígitos do Street View, de 0 a 9,
+
+00:03:58.083 --> 00:04:01.750
+podemos criar um discriminante
+com 11 classes no total.
+
+00:04:01.792 --> 00:04:04.208
+Zeros reais,
+uns reais e por aí vai.
+
+00:04:04.000 --> 00:04:05.417
+Até os noves reais.
+
+00:04:05.458 --> 00:04:07.000
+E uma classe extra,
+
+00:04:07.042 --> 00:04:09.333
+a classe de imagens falsas.
+
+00:04:09.375 --> 00:04:12.417
+Agora podemos treinar
+o modelo com a soma de dois custos.
+
+00:04:12.458 --> 00:04:14.042
+Para exemplos com etiquetas,
+
+00:04:14.083 --> 00:04:17.375
+podemos usar o custo
+de entropia cruzada supervisionada.
+
+00:04:17.417 --> 00:04:19.292
+Para todos os outros exemplos
+
+00:04:19.333 --> 00:04:21.833
+e para as imagens falsas
+do gerador,
+
+00:04:21.875 --> 00:04:24.083
+podemos adicionar
+o custo do GAN.
+
+00:04:24.125 --> 00:04:26.167
+Para obter a probabilidade
+de o input ser real,
+
+00:04:26.208 --> 00:04:29.208
+nós somamos as probabilidades
+de todas as classes reais.
+
+00:04:29.250 --> 00:04:32.875
+Classificadores normais
+só aprendem com imagens etiquetadas.
+
+00:04:32.917 --> 00:04:35.542
+Esta nova configuração aprende
+com imagens etiquetadas,
+
+00:04:35.583 --> 00:04:39.542
+imagens reais não etiquetadas,
+e até com imagens falsas do gerador.
+
+00:04:39.583 --> 00:04:42.708
+Isso tudo resulta
+em pouquíssimos erros na amostragem.
+
+00:04:42.750 --> 00:04:45.292
+porque há muitas fontes
+de informação,
+
+00:04:45.333 --> 00:04:48.208
+mesmo não havendo
+muitas amostras etiquetadas.
+
+00:04:48.000 --> 00:04:50.875
+Para que isso funcione,
+é preciso mais um truque,
+
+00:04:50.917 --> 00:04:52.333
+a combinação de atributos.
+
+00:04:52.375 --> 00:04:57.125
+A ideia por trás desse conceito é
+adicionar um termo à função de custo
+
+00:04:57.208 --> 00:04:59.333
+e penalizar
+o erro absoluto médio
+
+00:04:59.375 --> 00:05:02.208
+entre a média
+de um conjunto de atributos
+
+00:05:02.250 --> 00:05:05.833
+e o valor médio desse conjunto
+de atributo nas amostras geradas.
+
+00:05:05.875 --> 00:05:09.292
+Os atributos podem ser grupos de
+unidades ocultas do discriminante.
+
+00:05:09.333 --> 00:05:12.917
+No artigo "Improved Techniques
+for training GANs",
+
+00:05:12.958 --> 00:05:17.542
+a Open AI atingiu uma média de erros
+inferior a 6% no Street View,
+
+00:05:17.583 --> 00:05:20.417
+usando apenas 1 mil
+amostras etiquetadas.
+
+00:05:20.458 --> 00:05:21.708
+A título de comparação,
+
+00:05:21.750 --> 00:05:24.125
+o melhor algoritmo
+semissupervisionado até então
+
+00:05:24.167 --> 00:05:26.375
+tinha uma média
+de 16% de erro,
+
+00:05:26.417 --> 00:05:28.792
+quase três vezes mais.
+
+00:05:28.833 --> 00:05:31.125
+É claro que algoritmos
+com supervisão total
+
+00:05:31.167 --> 00:05:33.667
+e milhares de amostras
+etiquetadas
+
+00:05:33.708 --> 00:05:36.083
+atingem uma média
+inferior a 2% de erro.
+
+00:05:36.125 --> 00:05:39.000
+O aprendizado semissupervisionado
+ainda tem muito que evoluir,
+
+00:05:39.042 --> 00:05:43.708
+comparado à força bruta de analisar
+uma infinidade de dados etiquetados.
+
+00:05:43.750 --> 00:05:46.708
+Geralmente, dados etiquetados
+são o gargalo que define
+
+00:05:46.750 --> 00:05:50.208
+quais tarefas resolvemos
+ou não com aprendizado de máquina.
+
+00:05:50.000 --> 00:05:52.792
+Espero que com GANs
+semissupervisionadas
+
+00:05:52.833 --> 00:05:55.958
+você resolva vários problemas
+que não conseguia antes.
+

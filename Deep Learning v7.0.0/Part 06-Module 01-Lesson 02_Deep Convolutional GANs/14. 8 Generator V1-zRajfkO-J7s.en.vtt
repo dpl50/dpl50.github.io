@@ -1,0 +1,154 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:02.745
+Here's the general structure of our generator.
+
+00:00:02.745 --> 00:00:04.935
+The input will be a noise vector Z,
+
+00:00:04.934 --> 00:00:08.730
+as before and, the output will be a tanh activated output.
+
+00:00:08.730 --> 00:00:12.585
+This time the output should be of size 32 by 32 by three,
+
+00:00:12.585 --> 00:00:15.585
+which is the size of our SVHN training images.
+
+00:00:15.585 --> 00:00:17.910
+Because we're using transpose convolutional layers,
+
+00:00:17.910 --> 00:00:21.300
+we'll have no need to reshape a vector output into an image,
+
+00:00:21.300 --> 00:00:24.269
+these layers can output the exact shape that we want.
+
+00:00:24.269 --> 00:00:26.294
+Okay, let's go step-by-step here,
+
+00:00:26.295 --> 00:00:29.295
+our generator sees a latent vector Z as input,
+
+00:00:29.295 --> 00:00:32.340
+then the first layer is going to be a fully connected layer which is
+
+00:00:32.340 --> 00:00:36.290
+responsible for turning that vector into as many outputs as we want.
+
+00:00:36.289 --> 00:00:38.689
+We'll want enough outputs to reshape the output
+
+00:00:38.689 --> 00:00:41.164
+of this linear layer into a deep and narrow layer,
+
+00:00:41.164 --> 00:00:43.820
+something like four by four by 128.
+
+00:00:43.820 --> 00:00:49.045
+You can think about this as the reverse process of what we did with our discriminator.
+
+00:00:49.045 --> 00:00:51.609
+After we've shaped the output of our linear layer,
+
+00:00:51.609 --> 00:00:54.589
+next is a series of transpose convolutional layers,
+
+00:00:54.590 --> 00:00:59.065
+where you typically have the depth and double the width and height of the previous layer.
+
+00:00:59.064 --> 00:01:02.134
+In these cases, we'll apply batch normalization and
+
+00:01:02.134 --> 00:01:05.890
+a normal ReLU activation to all but the last of these hidden layers.
+
+00:01:05.890 --> 00:01:07.195
+At the end of the last layer,
+
+00:01:07.194 --> 00:01:10.854
+we'll apply a tanh activation to get the pixel values that we want.
+
+00:01:10.855 --> 00:01:14.945
+Again, you'll probably want to use at least three transpose convolutional layers.
+
+00:01:14.944 --> 00:01:18.889
+Now, most of these transpose convolutional layers will have the same behavior,
+
+00:01:18.890 --> 00:01:20.495
+a transpose convolutional layer,
+
+00:01:20.495 --> 00:01:24.280
+followed by a batch norm layer and a ReLU activation function.
+
+00:01:24.280 --> 00:01:27.905
+So, we'll define a helper function to put these layers together.
+
+00:01:27.905 --> 00:01:29.480
+This is just a suggestion,
+
+00:01:29.480 --> 00:01:32.285
+but I would urge you to write a deconv helper function,
+
+00:01:32.284 --> 00:01:35.075
+that will create a transpose convolutional layer and
+
+00:01:35.075 --> 00:01:38.605
+append a batch norm layer if the batch norm parameter here is true.
+
+00:01:38.605 --> 00:01:41.625
+This should be really similar to the conv function above,
+
+00:01:41.625 --> 00:01:44.840
+you don't always need to use helper functions like these but I find that it's
+
+00:01:44.840 --> 00:01:48.320
+a good way to think about the repetition of layers and in the end,
+
+00:01:48.319 --> 00:01:51.879
+it makes my discriminator and generator class code a little more readable.
+
+00:01:51.879 --> 00:01:54.250
+So, I'd suggest that you complete this function,
+
+00:01:54.250 --> 00:01:55.849
+then it will be up to you to use
+
+00:01:55.849 --> 00:01:59.329
+this deconv function and define a complete generator network here.
+
+00:01:59.329 --> 00:02:02.030
+A Generator class takes in a conv_dim,
+
+00:02:02.030 --> 00:02:05.920
+which should be the depth of one of the last transpose convolutional layers.
+
+00:02:05.920 --> 00:02:07.495
+So, back to this diagram,
+
+00:02:07.495 --> 00:02:11.420
+you can imagine this going from a depth of 128 to 64
+
+00:02:11.419 --> 00:02:16.054
+then 32 and finally a depth of three for our output generated image.
+
+00:02:16.055 --> 00:02:20.305
+You should apply batch norm and ReLU functions to all but the last layer here.
+
+00:02:20.305 --> 00:02:23.200
+Okay, our generator also takes in a Z size,
+
+00:02:23.199 --> 00:02:27.489
+which will define the size of the input latent vector that this generator expects to see.
+
+00:02:27.490 --> 00:02:30.050
+Okay. So try to complete the helper function and
+
+00:02:30.050 --> 00:02:32.860
+this class on your own and if you'd like to check your work,
+
+00:02:32.860 --> 00:02:35.000
+next, I'll go over one solution.
+

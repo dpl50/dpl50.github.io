@@ -1,0 +1,415 @@
+<!-- udacimak v1.4.4 -->
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="ie=edge" http-equiv="X-UA-Compatible"/>
+  <title>
+   Benefits of Batch Normalization
+  </title>
+  <link href="../assets/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="../assets/css/plyr.css" rel="stylesheet"/>
+  <link href="../assets/css/katex.min.css" rel="stylesheet"/>
+  <link href="../assets/css/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
+  <link href="../assets/css/styles.css" rel="stylesheet"/>
+  <link href="../assets/img/udacimak.png" rel="shortcut icon" type="image/png">
+  </link>
+ </head>
+ <body>
+  <div class="wrapper">
+   <nav id="sidebar">
+    <div class="sidebar-header">
+     <h3>
+      Deep Convolutional GANs
+     </h3>
+    </div>
+    <ul class="sidebar-list list-unstyled CTAs">
+     <li>
+      <a class="article" href="../index.html">
+       Back to Home
+      </a>
+     </li>
+    </ul>
+    <ul class="sidebar-list list-unstyled components">
+     <li class="">
+      <a href="01. Deep Convolutional GANs.html">
+       01. Deep Convolutional GANs
+      </a>
+     </li>
+     <li class="">
+      <a href="02. DCGAN, Discriminator.html">
+       02. DCGAN, Discriminator
+      </a>
+     </li>
+     <li class="">
+      <a href="03. DCGAN Generator.html">
+       03. DCGAN Generator
+      </a>
+     </li>
+     <li class="">
+      <a href="04. What is Batch Normalization.html">
+       04. What is Batch Normalization?
+      </a>
+     </li>
+     <li class="">
+      <a href="05. Pre-Notebook Batch Norm.html">
+       05. Pre-Notebook: Batch Norm
+      </a>
+     </li>
+     <li class="">
+      <a href="06. Notebook Batch Norm.html">
+       06. Notebook: Batch Norm
+      </a>
+     </li>
+     <li class="">
+      <a href="07. Benefits of Batch Normalization.html">
+       07. Benefits of Batch Normalization
+      </a>
+     </li>
+     <li class="">
+      <a href="08. DCGAN Notebook &amp; Data.html">
+       08. DCGAN Notebook &amp; Data
+      </a>
+     </li>
+     <li class="">
+      <a href="09. Pre-Notebook DCGAN, SVHN.html">
+       09. Pre-Notebook: DCGAN, SVHN
+      </a>
+     </li>
+     <li class="">
+      <a href="10. Notebook DCGAN, SVHN.html">
+       10. Notebook: DCGAN, SVHN
+      </a>
+     </li>
+     <li class="">
+      <a href="11. Scaling, Solution.html">
+       11. Scaling, Solution
+      </a>
+     </li>
+     <li class="">
+      <a href="12. Discriminator.html">
+       12. Discriminator
+      </a>
+     </li>
+     <li class="">
+      <a href="13. Discriminator, Solution.html">
+       13. Discriminator, Solution
+      </a>
+     </li>
+     <li class="">
+      <a href="14. Generator.html">
+       14. Generator
+      </a>
+     </li>
+     <li class="">
+      <a href="15. Generator, Solution.html">
+       15. Generator, Solution
+      </a>
+     </li>
+     <li class="">
+      <a href="16. Optimization Strategy.html">
+       16. Optimization Strategy
+      </a>
+     </li>
+     <li class="">
+      <a href="17. Optimization Solution &amp; Samples.html">
+       17. Optimization Solution &amp; Samples
+      </a>
+     </li>
+     <li class="">
+      <a href="18. Other Applications of GANs.html">
+       18. Other Applications of GANs
+      </a>
+     </li>
+    </ul>
+    <ul class="sidebar-list list-unstyled CTAs">
+     <li>
+      <a class="article" href="../index.html">
+       Back to Home
+      </a>
+     </li>
+    </ul>
+   </nav>
+   <div id="content">
+    <header class="container-fluild header">
+     <div class="container">
+      <div class="row">
+       <div class="col-12">
+        <div class="align-items-middle">
+         <button class="btn btn-toggle-sidebar" id="sidebarCollapse" type="button">
+          <div>
+          </div>
+          <div>
+          </div>
+          <div>
+          </div>
+         </button>
+         <h1 style="display: inline-block">
+          07. Benefits of Batch Normalization
+         </h1>
+        </div>
+       </div>
+      </div>
+     </div>
+    </header>
+    <main class="container">
+     <div class="row">
+      <div class="col-12">
+       <div class="ud-atom">
+        <h3>
+        </h3>
+        <div>
+         <h2 id="adding-batch-normalization-layers-to-a-pytorch-model">
+          Adding Batch Normalization Layers to a PyTorch Model
+         </h2>
+         <p>
+          In the last notebook, you saw how a model with batch normalization applied reached a lower training loss and higher test accuracy!  There are quite a few comments in that code, and I just want to recap a few of the most important lines.
+         </p>
+         <p>
+          To add batch normalization layers to a PyTorch model:
+         </p>
+         <ul>
+          <li>
+           You add batch normalization to layers inside the
+           <code>
+            __init__
+           </code>
+           function.
+          </li>
+          <li>
+           Layers with batch normalization do not include a bias term. So, for linear or convolutional layers, you'll need to set
+           <code>
+            bias=False
+           </code>
+           if you plan to add batch normalization on the outputs.
+          </li>
+          <li>
+           You can use PyTorch's [BatchNorm1d] function to handle the math on linear outputs
+           <em>
+            or
+           </em>
+           [BatchNorm2d] for 2D outputs, like filtered images from convolutional layers.
+          </li>
+          <li>
+           You add the batch normalization layer
+           <em>
+            before
+           </em>
+           calling the activation function, so it always goes layer &gt; batch norm &gt; activation.
+          </li>
+         </ul>
+         <p>
+          Finally, when you tested your model, you set it to
+          <code>
+           .eval()
+          </code>
+          mode, which ensures that the batch normalization layers use the
+          <em>
+           population
+          </em>
+          rather than the
+          <em>
+           batch
+          </em>
+          mean and variance (as they do during training).
+         </p>
+        </div>
+       </div>
+       <div class="divider">
+       </div>
+       <div class="ud-atom">
+        <h3>
+        </h3>
+        <div>
+         <figure class="figure">
+          <img alt="Batch normalization benefits" class="img img-fluid" src="img/screen-shot-2018-11-07-at-4.53.24-pm.png"/>
+          <figcaption class="figure-caption">
+           <p>
+            Batch normalization benefits
+           </p>
+          </figcaption>
+         </figure>
+        </div>
+       </div>
+       <div class="divider">
+       </div>
+       <div class="ud-atom">
+        <h3>
+        </h3>
+        <div>
+         <h3 id="the-takeaway">
+          The takeaway
+         </h3>
+         <p>
+          By using batch normalization to normalize the inputs at each layer of a network, we can make these inputs more consistent and thus reduce oscillations that may happen in gradient descent calculations. This helps us build deeper models that also converge faster!
+         </p>
+         <blockquote>
+          <p>
+           Take a look at the
+           <a href="https://pytorch.org/docs/stable/nn.html#batchnorm2d" rel="noopener noreferrer" target="_blank">
+            PyTorch BatchNorm2d documentation
+           </a>
+           to learn more about how to add batch normalization to a model, and how data is transformed during training (and evaluation).
+          </p>
+         </blockquote>
+        </div>
+       </div>
+       <div class="divider">
+       </div>
+       <div class="ud-atom">
+        <h3>
+        </h3>
+        <div>
+         <h1 id="benefits-of-batch-normalization">
+          Benefits of Batch Normalization
+         </h1>
+         <p>
+          Batch normalization optimizes network training. It has been shown to have several benefits:
+         </p>
+         <ol>
+          <li>
+           <strong>
+            Networks train faster
+           </strong>
+           – Each training
+           <em>
+            iteration
+           </em>
+           will actually be slower because of the extra calculations during the forward pass and the additional hyperparameters to train during back propagation. However, it should converge much more quickly, so training should be faster overall.
+          </li>
+          <li>
+           <strong>
+            Allows higher learning rates
+           </strong>
+           – Gradient descent usually requires small learning rates for the network to converge. And as networks get deeper, their gradients get smaller during back propagation so they require even more iterations. Using batch normalization allows us to use much higher learning rates, which further increases the speed at which networks train.
+          </li>
+          <li>
+           <strong>
+            Makes weights easier to initialize
+           </strong>
+           – Weight initialization can be difficult, and it's even more difficult when creating deeper networks. Batch normalization seems to allow us to be much less careful about choosing our initial starting weights.
+          </li>
+          <li>
+           <strong>
+            Makes more activation functions viable
+           </strong>
+           – Some activation functions do not work well in some situations. Sigmoids lose their gradient pretty quickly, which means they can't be used in deep networks. And ReLUs often die out during training, where they stop learning completely, so we need to be careful about the range of values fed into them. Because batch normalization regulates the values going into each activation function, non-linearlities that don't seem to work well in deep networks actually become viable again.
+          </li>
+          <li>
+           <strong>
+            Simplifies the creation of deeper networks
+           </strong>
+           – Because of the first 4 items listed above, it is easier to build and faster to train deeper neural networks when using batch normalization. And it's been shown that deeper networks generally produce better results, so that's great.
+          </li>
+          <li>
+           <strong>
+            Provides a bit of regularization
+           </strong>
+           – Batch normalization adds a little noise to your network. In some cases, such as in Inception modules, batch normalization has been shown to work as well as dropout. But in general, consider batch normalization as a bit of extra regularization, possibly allowing you to reduce some of the dropout you might add to a network.
+          </li>
+          <li>
+           <strong>
+            May give better results overall
+           </strong>
+           – Some tests seem to show batch normalization actually improves the training results. However, it's really an optimization to help train faster, so you shouldn't think of it as a way to make your network better. But since it lets you train networks faster, that means you can iterate over more designs more quickly. It also lets you build deeper networks, which are usually better. So when you factor in everything, you're probably going to end up with better results if you build your networks with batch normalization.
+          </li>
+         </ol>
+        </div>
+       </div>
+       <div class="divider">
+       </div>
+      </div>
+      <div class="col-12">
+       <p class="text-right">
+        <a class="btn btn-outline-primary mt-4" href="08. DCGAN Notebook &amp; Data.html" role="button">
+         Next Concept
+        </a>
+       </p>
+      </div>
+     </div>
+    </main>
+    <footer class="footer">
+     <div class="container">
+      <div class="row">
+       <div class="col-12">
+        <p class="text-center">
+         udacity2.0 If you need the newest courses Plase add me wechat: udacity6
+        </p>
+       </div>
+      </div>
+     </div>
+    </footer>
+   </div>
+  </div>
+  <script src="../assets/js/jquery-3.3.1.min.js">
+  </script>
+  <script src="../assets/js/plyr.polyfilled.min.js">
+  </script>
+  <script src="../assets/js/bootstrap.min.js">
+  </script>
+  <script src="../assets/js/jquery.mCustomScrollbar.concat.min.js">
+  </script>
+  <script src="../assets/js/katex.min.js">
+  </script>
+  <script>
+   // Initialize Plyr video players
+    const players = Array.from(document.querySelectorAll('video')).map(p => new Plyr(p));
+
+    // render math equations
+    let elMath = document.getElementsByClassName('mathquill');
+    for (let i = 0, len = elMath.length; i < len; i += 1) {
+      const el = elMath[i];
+
+      katex.render(el.textContent, el, {
+        throwOnError: false
+      });
+    }
+
+    // this hack will make sure Bootstrap tabs work when using Handlebars
+    if ($('#question-tabs').length && $('#user-answer-tabs').length) {
+      $("#question-tabs a.nav-link").on('click', function () {
+        $("#question-tab-contents .tab-pane").hide();
+        $($(this).attr("href")).show();
+      });
+      $("#user-answer-tabs a.nav-link").on('click', function () {
+        $("#user-answer-tab-contents .tab-pane").hide();
+        $($(this).attr("href")).show();
+      });
+    } else {
+      $("a.nav-link").on('click', function () {
+        $(".tab-pane").hide();
+        $($(this).attr("href")).show();
+      });
+    }
+
+    // side bar events
+    $(document).ready(function () {
+      $("#sidebar").mCustomScrollbar({
+        theme: "minimal"
+      });
+
+      $('#sidebarCollapse').on('click', function () {
+        $('#sidebar, #content').toggleClass('active');
+        $('.collapse.in').toggleClass('in');
+        $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+      });
+
+      // scroll to first video on page loading
+      if ($('video').length) {
+        $('html,body').animate({ scrollTop: $('div.plyr').prev().offset().top});
+      }
+
+      // auto play first video: this may not work with chrome/safari due to autoplay policy
+      if (players && players.length > 0) {
+        players[0].play();
+      }
+
+      // scroll sidebar to current concept
+      const currentInSideBar = $( "ul.sidebar-list.components li a:contains('07. Benefits of Batch Normalization')" )
+      currentInSideBar.css( "text-decoration", "underline" );
+      $("#sidebar").mCustomScrollbar('scrollTo', currentInSideBar);
+    });
+  </script>
+ </body>
+</html>

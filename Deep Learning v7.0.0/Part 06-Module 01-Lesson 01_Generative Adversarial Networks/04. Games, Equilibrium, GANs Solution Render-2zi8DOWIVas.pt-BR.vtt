@@ -1,0 +1,581 @@
+WEBVTT
+Kind: captions
+Language: pt-BR
+
+00:00:00.367 --> 00:00:04.805
+A palavra "adversária"
+em "Redes Geradoras Adversárias"
+
+00:00:04.838 --> 00:00:06.573
+significa que as duas redes,
+
+00:00:06.607 --> 00:00:08.742
+o gerador e o discriminador,
+
+00:00:08.775 --> 00:00:11.345
+competem entre si.
+
+00:00:11.612 --> 00:00:14.548
+Para entender matematicamente
+esta competição,
+
+00:00:14.581 --> 00:00:16.416
+contamos
+com a teoria dos jogos.
+
+00:00:16.450 --> 00:00:19.319
+A teoria dos jogos é um ramo
+da Matemática Aplicada
+
+00:00:19.353 --> 00:00:21.655
+fundado por John von Neumann
+
+00:00:21.688 --> 00:00:25.158
+e muito expandido
+por John Nash.
+
+00:00:25.192 --> 00:00:27.561
+A teoria dos jogos pode
+ser usada para emular
+
+00:00:27.594 --> 00:00:28.962
+cooperação e conflito
+
+00:00:28.996 --> 00:00:31.865
+entre agentes racionais
+em qualquer situação
+
+00:00:31.899 --> 00:00:34.868
+em que cada agente possa escolher
+entre determinadas ações,
+
+00:00:34.902 --> 00:00:39.206
+e a escolha das ações determine
+um desfecho para cada agente.
+
+00:00:39.239 --> 00:00:42.609
+Tomemos o jogo de pedra, papel
+e tesoura como exemplo.
+
+00:00:42.976 --> 00:00:46.914
+Cada jogador escolhe
+entre pedra, papel ou tesoura.
+
+00:00:47.238 --> 00:00:49.583
+Isso define um grupo
+de ações possíveis.
+
+00:00:49.616 --> 00:00:52.286
+Cada jogador
+também tem um desfecho.
+
+00:00:52.319 --> 00:00:55.155
+Digamos que o vencedor
+tenha o desfecho "1",
+
+00:00:55.189 --> 00:00:58.392
+e o perdedor tenha
+o desfecho "-1".
+
+00:00:58.425 --> 00:00:59.927
+A pedra quebra a tesoura,
+
+00:00:59.960 --> 00:01:03.063
+que corta o papel,
+que embala a pedra.
+
+00:01:03.096 --> 00:01:07.901
+Um empate também é possível
+se ambos escolherem a mesma coisa.
+
+00:01:07.935 --> 00:01:10.470
+Nesse caso, o desfecho
+para ambos é igual a "0".
+
+00:01:10.504 --> 00:01:13.073
+Imagine que o jogador 1
+escolha sempre tesoura,
+
+00:01:13.106 --> 00:01:15.542
+e o jogador 2, sempre pedra.
+
+00:01:15.576 --> 00:01:19.780
+O jogador 1 sempre perderá
+e receberá um desfecho de -1.
+
+00:01:19.814 --> 00:01:23.283
+O jogador 1 pode melhorar
+mudando de estratégia.
+
+00:01:23.317 --> 00:01:26.253
+Pode escolher papel mais vezes,
+por exemplo.
+
+00:01:26.287 --> 00:01:29.056
+O que acontece se adaptarmos
+a estratégia de cada um
+
+00:01:29.089 --> 00:01:31.225
+ao longo de vários jogos?
+
+00:01:31.259 --> 00:01:34.294
+Se os jogadores podem
+escolher aleatoriamente,
+
+00:01:34.328 --> 00:01:36.964
+eles vão acabar chegando
+a um equilíbrio,
+
+00:01:36.997 --> 00:01:41.101
+em que cada jogador escolhe
+uma ação uniformemente aleatória.
+
+00:01:41.533 --> 00:01:45.072
+O equilíbrio é uma situação
+importante na teoria dos jogos.
+
+00:01:45.105 --> 00:01:47.174
+Nenhum jogador
+pode melhorar o desfecho
+
+00:01:47.207 --> 00:01:49.042
+mudando de estratégia,
+
+00:01:49.076 --> 00:01:52.312
+se a estratégia do adversário
+permanecer igual.
+
+00:01:52.346 --> 00:01:54.915
+No exemplo de pedra,
+papel e tesoura,
+
+00:01:54.948 --> 00:01:56.950
+vamos ver as opções
+do jogador 1.
+
+00:01:56.984 --> 00:02:00.521
+Supondo que o jogador 2
+escolha pedra, papel ou tesoura
+
+00:02:00.554 --> 00:02:02.389
+de maneira
+uniformemente aleatória,
+
+00:02:02.422 --> 00:02:04.391
+vamos ver o que acontecerá
+se o jogador 1
+
+00:02:04.424 --> 00:02:07.027
+aumentar o número de escolhas
+de pedra.
+
+00:02:07.060 --> 00:02:08.929
+Em um terço das jogadas,
+
+00:02:08.962 --> 00:02:10.998
+o jogador 2
+também vai escolher pedra.
+
+00:02:11.031 --> 00:02:14.268
+O resultado será um empate,
+e ninguém ganhará pontos.
+
+00:02:14.301 --> 00:02:17.304
+Em outro terço das jogadas,
+o jogador 2 vai escolher papel.
+
+00:02:17.337 --> 00:02:20.741
+Então o aumento de escolhas
+de pedra do jogador 1
+
+00:02:20.774 --> 00:02:23.210
+vai resultar
+na derrota dele.
+
+00:02:23.243 --> 00:02:27.347
+Por fim, em um terço das jogadas,
+o jogador 2 vai escolher tesoura.
+
+00:02:27.381 --> 00:02:29.917
+Então as escolhas de pedra
+do jogador 1
+
+00:02:29.950 --> 00:02:31.485
+darão a ele algumas vitórias
+
+00:02:31.518 --> 00:02:34.121
+que vão anular
+as derrotas anteriores.
+
+00:02:34.755 --> 00:02:38.458
+Ou seja, o jogador 1 não conseguiu
+nada ao mudar de estratégia.
+
+00:02:38.492 --> 00:02:41.228
+Podemos usar o mesmo argumento
+para o jogador 2,
+
+00:02:41.261 --> 00:02:43.630
+pois os desfechos
+são simétricos.
+
+00:02:43.664 --> 00:02:45.799
+O equilíbrio
+em que ambos os jogadores
+
+00:02:45.833 --> 00:02:48.468
+escolhem ações
+uniformemente aleatórias
+
+00:02:48.502 --> 00:02:52.706
+é uma característica determinante
+do jogo de pedra, papel e tesoura.
+
+00:02:52.739 --> 00:02:55.008
+Podemos analisar o jogo
+e concluir
+
+00:02:55.042 --> 00:02:58.679
+que agentes racionais aprendem
+a jogar de modo aleatório.
+
+00:02:58.912 --> 00:03:00.581
+Para entender as GANs,
+
+00:03:00.614 --> 00:03:02.816
+precisamos pensar
+em como desfechos e equilíbrios
+
+00:03:02.850 --> 00:03:05.085
+funcionam
+no aprendizado de máquina.
+
+00:03:05.118 --> 00:03:07.988
+Se identificarmos
+um equilíbrio no jogo da GAN,
+
+00:03:08.021 --> 00:03:09.556
+poderemos usá-lo
+
+00:03:09.590 --> 00:03:12.726
+como característica determinante
+para entender o jogo.
+
+00:03:12.760 --> 00:03:15.395
+Os modelos de aprendizado
+de máquina que vimos
+
+00:03:15.429 --> 00:03:17.731
+se baseiam na otimização:
+
+00:03:17.764 --> 00:03:19.666
+anotamos alguns parâmetros,
+
+00:03:19.700 --> 00:03:22.269
+anotamos
+uma função de custo deles
+
+00:03:22.302 --> 00:03:24.304
+e minimizamos o custo.
+
+00:03:24.338 --> 00:03:26.340
+Neste gráfico,
+representamos os parâmetros
+
+00:03:26.373 --> 00:03:28.775
+com dois eixos horizontais.
+
+00:03:28.809 --> 00:03:31.845
+A função de custo é traçada
+pelo eixo vertical.
+
+00:03:31.879 --> 00:03:33.580
+O objetivo do algoritmo
+de aprendizado
+
+00:03:33.614 --> 00:03:36.483
+é encontrar um valor baixo
+da função de custo.
+
+00:03:36.517 --> 00:03:41.121
+Geralmente não encontramos
+um mínimo global ou mesmo local.
+
+00:03:41.154 --> 00:03:43.357
+Ficamos presos num lugar
+em que problemas numéricos
+
+00:03:43.390 --> 00:03:45.993
+dificultam
+uma descida constante.
+
+00:03:46.026 --> 00:03:47.861
+Mas o algoritmo
+de otimização
+
+00:03:47.895 --> 00:03:51.932
+faz um bom trabalho para encontrar
+um ponto com custo muito baixo.
+
+00:03:51.965 --> 00:03:55.269
+GANs são diferentes porque têm
+dois jogadores distintos,
+
+00:03:55.302 --> 00:03:57.938
+o gerador e o discriminador.
+
+00:03:57.971 --> 00:04:00.774
+Cada jogador tem
+o próprio custo.
+
+00:04:00.992 --> 00:04:04.344
+Numa versão das GANs
+de fácil visualização,
+
+00:04:04.378 --> 00:04:09.650
+o custo do discriminador
+é o negativo do custo do gerador.
+
+00:04:09.683 --> 00:04:11.318
+Neste caso simples,
+
+00:04:11.351 --> 00:04:14.688
+podemos descrever o jogo
+com uma função de valor.
+
+00:04:14.721 --> 00:04:17.491
+O gerador quer minimizar
+a função de valor,
+
+00:04:17.524 --> 00:04:21.028
+e o discriminador
+quer maximizá-la.
+
+00:04:21.295 --> 00:04:24.698
+Lembre-se de que antes dissemos
+que um equilíbrio ocorre
+
+00:04:24.731 --> 00:04:27.534
+quando nenhum jogador
+pode melhorar a própria situação
+
+00:04:27.568 --> 00:04:30.337
+sem mudar
+a estratégia do outro.
+
+00:04:30.370 --> 00:04:33.707
+Isso ocorre quando estamos
+no máximo para o discriminador
+
+00:04:33.740 --> 00:04:36.176
+e no mínimo para o gerador.
+
+00:04:36.210 --> 00:04:38.445
+Esse tipo de ponto
+é um ponto de sela.
+
+00:04:38.478 --> 00:04:42.816
+Veja que o jogo traçado aqui
+tem um equilíbrio no meio.
+
+00:04:42.850 --> 00:04:44.351
+Um dos eixos horizontais
+
+00:04:44.384 --> 00:04:47.087
+corresponde
+aos parâmetros do gerador.
+
+00:04:47.120 --> 00:04:49.456
+Se fizermos
+um corte transversal deste eixo,
+
+00:04:49.489 --> 00:04:52.059
+que corresponde
+aos parâmetros do gerador,
+
+00:04:52.092 --> 00:04:55.429
+o equilíbrio parece um mínimo
+da função de valor.
+
+00:04:55.729 --> 00:04:57.831
+O outro eixo horizontal,
+
+00:04:57.865 --> 00:04:59.900
+perpendicular ao primeiro,
+
+00:04:59.933 --> 00:05:02.903
+representa os parâmetros
+do discriminador.
+
+00:05:02.936 --> 00:05:05.606
+Se fizermos
+um corte transversal deste eixo,
+
+00:05:05.639 --> 00:05:09.343
+o equilíbrio parece um máximo
+da função de valor.
+
+00:05:09.376 --> 00:05:13.380
+Isso nos ajuda a entender os jogos
+realizados pelas redes profundas.
+
+00:05:13.413 --> 00:05:16.884
+Queremos achar um ponto no espaço
+dos parâmetros dos dois jogadores
+
+00:05:16.917 --> 00:05:19.019
+que seja simultaneamente
+um mínimo local
+
+00:05:19.052 --> 00:05:23.056
+para o custo de cada jogador
+em relação aos seus parâmetros.
+
+00:05:23.257 --> 00:05:25.626
+Se analisarmos o jogo
+para GANs,
+
+00:05:25.659 --> 00:05:28.128
+o máximo local
+do discriminador
+
+00:05:28.162 --> 00:05:31.798
+ocorre quando ele estima
+com precisão a probabilidade
+
+00:05:31.832 --> 00:05:35.269
+de que a entrada
+é real e não falsa.
+
+00:05:35.302 --> 00:05:37.471
+Essa probabilidade é dada
+pela proporção
+
+00:05:37.504 --> 00:05:40.007
+entre a densidade de dados
+na entrada
+
+00:05:40.040 --> 00:05:42.309
+e a soma de tanto
+a densidade de dados
+
+00:05:42.342 --> 00:05:46.280
+quanto da densidade de modelo
+induzida pelo gerador na entrada.
+
+00:05:46.313 --> 00:05:50.450
+Essa proporção mede quanta massa
+de probabilidade numa área
+
+00:05:50.484 --> 00:05:53.654
+vem dos dados,
+e não do gerador.
+
+00:05:53.687 --> 00:05:57.291
+Com as ferramentas matemáticas
+fornecidas pela teoria dos jogos,
+
+00:05:57.324 --> 00:06:00.394
+podemos demonstrar que, se ambas
+as redes são grandes o bastante,
+
+00:06:00.427 --> 00:06:03.630
+existe um equilíbrio
+em que a densidade do gerador
+
+00:06:03.664 --> 00:06:05.799
+é igual à densidade
+de dados reais,
+
+00:06:05.833 --> 00:06:08.936
+e o discriminador envia uma metade
+para todos os lugares.
+
+00:06:08.969 --> 00:06:12.339
+Infelizmente,
+apesar de o equilíbrio existir,
+
+00:06:12.372 --> 00:06:14.341
+pode ser
+que não o encontremos.
+
+00:06:14.374 --> 00:06:16.076
+Treinamos GANs executando
+
+00:06:16.109 --> 00:06:19.179
+dois algoritmos de otimização
+ao mesmo tempo,
+
+00:06:19.213 --> 00:06:21.415
+cada um minimizando
+o custo de um jogador
+
+00:06:21.448 --> 00:06:23.750
+em relação
+aos seus parâmetros.
+
+00:06:23.784 --> 00:06:27.154
+Infelizmente, esses algoritmos
+de otimização
+
+00:06:27.187 --> 00:06:30.424
+não necessariamente encontram
+o equilíbrio de um jogo.
+
+00:06:30.457 --> 00:06:32.826
+Uma falha comum em GANs
+
+00:06:32.860 --> 00:06:35.896
+é que, quando os dados
+contêm vários clusters,
+
+00:06:35.929 --> 00:06:38.732
+o gerador vai aprender
+a gerar um cluster,
+
+00:06:38.765 --> 00:06:43.770
+e o discriminador vai aprender
+a rejeitar o cluster como falso.
+
+00:06:43.804 --> 00:06:46.540
+Depois o gerador vai aprender
+a gerar um novo cluster,
+
+00:06:46.573 --> 00:06:47.975
+e por aí vai.
+
+00:06:48.008 --> 00:06:51.778
+Preferiríamos um algoritmo
+que encontrasse o equilíbrio,
+
+00:06:51.812 --> 00:06:55.549
+com o gerador pegando amostras
+de todos os clusters ao mesmo tempo.
+
+00:06:55.782 --> 00:06:58.785
+Esse é o maior problema
+de pesquisa em relação às GANs:
+
+00:06:58.819 --> 00:07:03.357
+criar um algoritmo de aprendizado
+para obter o equilíbrio de um jogo
+
+00:07:03.390 --> 00:07:04.992
+envolvendo funções de custo
+
+00:07:05.025 --> 00:07:08.428
+altamente dimensionais,
+contínuas e não convexas.
+
+00:07:08.462 --> 00:07:11.365
+Quem sabe você não tenha
+ideias para solucionar isso
+
+00:07:11.398 --> 00:07:13.333
+e para descobrir
+novas aplicações
+
+00:07:13.367 --> 00:07:15.836
+que exijam
+algoritmos de aprendizado.
+

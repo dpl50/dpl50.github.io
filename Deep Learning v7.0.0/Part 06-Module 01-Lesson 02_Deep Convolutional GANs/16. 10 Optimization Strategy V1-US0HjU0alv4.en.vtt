@@ -1,0 +1,319 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:01.575
+In the last few videos,
+
+00:00:01.575 --> 00:00:04.200
+I defined the discriminator and generator classes.
+
+00:00:04.200 --> 00:00:06.990
+The discriminator takes only one parameter as input,
+
+00:00:06.990 --> 00:00:11.714
+a conv-dim, and the generator only takes a z-size and a conv-dim.
+
+00:00:11.714 --> 00:00:15.958
+So, here I'm just defining this complete model by defining two parameters,
+
+00:00:15.958 --> 00:00:18.269
+a conv-dim which by default is 32,
+
+00:00:18.269 --> 00:00:20.699
+but I want to explicitly specify it here,
+
+00:00:20.699 --> 00:00:22.844
+and a z-size of 100.
+
+00:00:22.844 --> 00:00:26.759
+So, this defines the input to our generator a line vector size,
+
+00:00:26.760 --> 00:00:29.160
+and this confidence defines the depth of
+
+00:00:29.160 --> 00:00:31.440
+our convolutional layers in each of these models.
+
+00:00:31.440 --> 00:00:36.120
+So, in passing these in and printing out are instantiated discriminator D and
+
+00:00:36.119 --> 00:00:38.599
+generator G. Here's a good place for you
+
+00:00:38.600 --> 00:00:41.349
+to check that you're applying batch norm layers appropriately.
+
+00:00:41.348 --> 00:00:42.744
+So, for our discriminator,
+
+00:00:42.744 --> 00:00:46.579
+we're applying batch norm to our second third convolutional layers.
+
+00:00:46.579 --> 00:00:49.250
+We can also see that we're using a kernel size of four,
+
+00:00:49.250 --> 00:00:53.269
+a stride of two, and a padding of one to create a strided convolutions.
+
+00:00:53.270 --> 00:00:55.130
+You can also check that your linear layer
+
+00:00:55.130 --> 00:00:57.410
+is outputting the number of values that you want.
+
+00:00:57.409 --> 00:01:01.534
+In this case, a single value that indicates whether an image is real or fake.
+
+00:01:01.534 --> 00:01:04.299
+Then I can check the generator for the same thing,
+
+00:01:04.299 --> 00:01:06.134
+I can look at my linear layer,
+
+00:01:06.135 --> 00:01:09.460
+which takes in z-size and outputs a number of features,
+
+00:01:09.459 --> 00:01:11.659
+then I can see that I'm adding batch norm to
+
+00:01:11.659 --> 00:01:14.060
+the first two transpose convolutional layers,
+
+00:01:14.060 --> 00:01:18.510
+and our last transpose convolutional layer will produce an image with a depth of three.
+
+00:01:18.510 --> 00:01:20.135
+So, this is all looking good,
+
+00:01:20.135 --> 00:01:22.579
+and then I can prepare to train these models.
+
+00:01:22.579 --> 00:01:26.194
+The training will look really similar to what we did for our M-list gain,
+
+00:01:26.194 --> 00:01:28.429
+but since this is a more complex model,
+
+00:01:28.430 --> 00:01:31.960
+I'll actually want to train on GPU to speed up my training time.
+
+00:01:31.959 --> 00:01:35.029
+So, in this cell and checking if GPU is available,
+
+00:01:35.030 --> 00:01:38.915
+and if it is I'm moving my generator and discriminator to GPU,
+
+00:01:38.915 --> 00:01:42.040
+and printing out the statement GPU is available for training.
+
+00:01:42.040 --> 00:01:47.610
+Later, are also move any inputs are models and loss function C to GPU as well.
+
+00:01:47.609 --> 00:01:50.689
+Then moving on to defining our last functions.
+
+00:01:50.689 --> 00:01:54.109
+I know that I'll have to utilize a real and fake loss to check whether
+
+00:01:54.109 --> 00:01:58.760
+the discriminator outputs are close to the ground truth real labels or fake labels.
+
+00:01:58.760 --> 00:02:02.290
+I'll be using binary cross entropy with logits loss.
+
+00:02:02.290 --> 00:02:04.025
+Just like last time, this combines
+
+00:02:04.025 --> 00:02:08.300
+a sigmoid activation function and a binary cross entropy loss in one function.
+
+00:02:08.300 --> 00:02:12.055
+So, here I'm defining a real loss and fake loss function,
+
+00:02:12.055 --> 00:02:14.825
+and these are pretty much exactly the same as before.
+
+00:02:14.824 --> 00:02:16.419
+Here for the real loss function,
+
+00:02:16.419 --> 00:02:21.280
+am comparing the output of my discriminator to some ground truth labels that I defined.
+
+00:02:21.280 --> 00:02:25.250
+These are either going to be ones or smooth real labels 0.9.
+
+00:02:25.250 --> 00:02:28.819
+There's an extra couple of lines here to account for training on GPU.
+
+00:02:28.819 --> 00:02:30.439
+If we are training on GPU,
+
+00:02:30.439 --> 00:02:33.189
+will actually want to move these labels to GPU.
+
+00:02:33.189 --> 00:02:36.125
+They have the same behavior for our fake loss function.
+
+00:02:36.125 --> 00:02:40.789
+Comparing the output of the discriminator to labels that are set equal to zero,
+
+00:02:40.789 --> 00:02:44.164
+and am using BCE with logit loss to compare these two things,
+
+00:02:44.164 --> 00:02:46.729
+and then moving our labels to GPU if it's available.
+
+00:02:46.729 --> 00:02:48.379
+So, these two functions will return
+
+00:02:48.379 --> 00:02:51.159
+a different types of discriminator losses that we want.
+
+00:02:51.159 --> 00:02:54.405
+The next step is defining two Adam optimizers.
+
+00:02:54.405 --> 00:02:58.520
+One for the discriminator and one for the generator since they trained separately.
+
+00:02:58.520 --> 00:03:01.010
+I'll leave this as a task for you to complete.
+
+00:03:01.009 --> 00:03:04.599
+DC GANs can be quite sensitive to training hyperparameters.
+
+00:03:04.599 --> 00:03:07.310
+I suggest that you read the original paper to see
+
+00:03:07.310 --> 00:03:10.610
+what parameters they used for creating Adam optimizers.
+
+00:03:10.610 --> 00:03:12.530
+Put a link to that paper here.
+
+00:03:12.530 --> 00:03:14.000
+After you complete this task,
+
+00:03:14.000 --> 00:03:15.620
+you can proceed with training via
+
+00:03:15.620 --> 00:03:18.265
+a very similar training loop to what you've seen before.
+
+00:03:18.264 --> 00:03:22.189
+Our training loop will alternate between training the discriminator and generator.
+
+00:03:22.189 --> 00:03:26.194
+You can see that this trains are not training images for some number of epochs.
+
+00:03:26.194 --> 00:03:28.834
+Then for each batch of real training images,
+
+00:03:28.835 --> 00:03:31.355
+we train the discriminator than the generator.
+
+00:03:31.354 --> 00:03:35.299
+You'll notice that I'm moving are real images to GPU if available,
+
+00:03:35.300 --> 00:03:37.280
+but otherwise this code looks pretty much the same.
+
+00:03:37.280 --> 00:03:39.680
+The discriminator will alternate between training on
+
+00:03:39.680 --> 00:03:43.645
+real images and fake images that were generated by our generator.
+
+00:03:43.645 --> 00:03:46.415
+Here you'll notice that I'm actually not using labels smoothing
+
+00:03:46.414 --> 00:03:49.549
+because I found this to work a little better without smoothing actually.
+
+00:03:49.550 --> 00:03:51.215
+So, as we train the discriminator,
+
+00:03:51.215 --> 00:03:53.990
+it wants to classify real images as real with are
+
+00:03:53.990 --> 00:03:57.770
+real loss and fake images as fake with a fake loss,
+
+00:03:57.770 --> 00:04:02.120
+but I'm adding these losses up and performing backpropagation and optimization.
+
+00:04:02.120 --> 00:04:03.740
+Then when I train the generator,
+
+00:04:03.740 --> 00:04:06.770
+I'm training on fake images with flipped labels.
+
+00:04:06.770 --> 00:04:10.795
+So, I'm creating a leaner vector z of some back size and z- size,
+
+00:04:10.794 --> 00:04:13.094
+and then I'm moving that to GPU
+
+00:04:13.094 --> 00:04:16.129
+and passing that to my generator to create some fake images,
+
+00:04:16.129 --> 00:04:18.889
+and here I'm looking at the output of the discriminator and
+
+00:04:18.889 --> 00:04:21.849
+seeing if it's classifying these fake images as real.
+
+00:04:21.850 --> 00:04:26.105
+So, I have my discriminator loss and my opposing generator loss here.
+
+00:04:26.105 --> 00:04:30.680
+At the end, I have some last tracking and sample generation code as before.
+
+00:04:30.680 --> 00:04:35.509
+I should note that I should put the generator into evaluation mode for creating samples,
+
+00:04:35.509 --> 00:04:37.279
+which I may have forgotten to do before,
+
+00:04:37.279 --> 00:04:41.519
+but I'll always update the in-classroom code and GitHub repository with any small fixes.
+
+00:04:41.519 --> 00:04:44.185
+So, the code you work with is up-to-date and correct.
+
+00:04:44.185 --> 00:04:49.189
+Now, evaluation mode is really only important if you have batch norm or drop out layers,
+
+00:04:49.189 --> 00:04:52.810
+which are designed to have different behavior during training and testing.
+
+00:04:52.810 --> 00:04:55.355
+For example, dropout should not turn off
+
+00:04:55.355 --> 00:04:58.384
+any nodes when a model is being tested or evaluated.
+
+00:04:58.384 --> 00:05:00.843
+In batch norm we use the population statistics
+
+00:05:00.843 --> 00:05:03.589
+rather than the batch statistics as it does during training.
+
+00:05:03.589 --> 00:05:05.764
+So, I thought this was important to note.
+
+00:05:05.764 --> 00:05:09.669
+After I generate some samples I put our generator back to training mode.
+
+00:05:09.670 --> 00:05:12.410
+Okay. So, try completing the optimizers above,
+
+00:05:12.410 --> 00:05:15.485
+and training your model for at least ten epics.
+
+00:05:15.485 --> 00:05:18.840
+Next I'll show you how my model trained over some number of epics,
+
+00:05:18.839 --> 00:05:21.599
+and I'll show you what the samples look like after training.
+

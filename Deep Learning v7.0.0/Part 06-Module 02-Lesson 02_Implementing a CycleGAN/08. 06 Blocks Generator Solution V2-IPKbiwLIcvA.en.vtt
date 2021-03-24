@@ -1,0 +1,226 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:03.450
+Your first task was to complete the residual block class.
+
+00:00:03.450 --> 00:00:07.450
+We know that the residual block doesn't change the shape of any input that sees.
+
+00:00:07.450 --> 00:00:11.910
+It just creates a connection between the inputs and outputs using addition.
+
+00:00:11.910 --> 00:00:14.820
+So, in this class code am using my helper come
+
+00:00:14.820 --> 00:00:18.870
+function to define two convolutional layers plus batch normalization,
+
+00:00:18.870 --> 00:00:21.120
+I've explicitly defined a batch norm is true
+
+00:00:21.120 --> 00:00:23.880
+here to remind you that this includes normalization.
+
+00:00:23.879 --> 00:00:27.750
+The residual block takes in a number of inputs to process and
+
+00:00:27.750 --> 00:00:31.980
+the number of inputs and outputs for each of these convolutional layers is the same.
+
+00:00:31.980 --> 00:00:34.170
+Each of these layers also has a kernel size of
+
+00:00:34.170 --> 00:00:37.045
+three and a stride and padding equal to one.
+
+00:00:37.045 --> 00:00:40.730
+This ensures that the input and output of these layers is going to have
+
+00:00:40.729 --> 00:00:45.334
+the same size in the spatial dimensions x and y. Then,in my forward function,
+
+00:00:45.335 --> 00:00:48.920
+I am passing my input through these convolutional layers in sequence.
+
+00:00:48.920 --> 00:00:50.179
+First I'm passing it to
+
+00:00:50.179 --> 00:00:53.894
+my first convolutional layer and apply a relu activation function.
+
+00:00:53.895 --> 00:00:57.440
+This gives me my first output and then passing this output to
+
+00:00:57.439 --> 00:01:01.774
+the second convolutional layer and adding it to our original input x.
+
+00:01:01.774 --> 00:01:04.674
+This gives me the resonant block output that I want.
+
+00:01:04.674 --> 00:01:09.155
+Now I have a complete residual block class that I can use in my generator.
+
+00:01:09.155 --> 00:01:14.674
+Recall that we also have this helper decomp function and here's my cycle generator code.
+
+00:01:14.674 --> 00:01:16.879
+And I broke this up into three steps.
+
+00:01:16.879 --> 00:01:20.344
+First I defined the three layers of my encoder portion.
+
+00:01:20.344 --> 00:01:21.890
+This is just a series of
+
+00:01:21.890 --> 00:01:26.450
+three strided convolutional and batch room layers that are increasing in depth.
+
+00:01:26.450 --> 00:01:33.189
+So from an input RGB depth of three to 64 then 128 and finally 256.
+
+00:01:33.189 --> 00:01:37.924
+Each of these has a kernel size of four and my default parameters for my helper function.
+
+00:01:37.924 --> 00:01:40.310
+Next I'm defining the residual blocks.
+
+00:01:40.310 --> 00:01:42.829
+Here, I'm actually going to create a list of blocks
+
+00:01:42.829 --> 00:01:46.140
+based on my past and perimeter n_res_ blocks.
+
+00:01:46.140 --> 00:01:48.599
+So if that's equal to six, the default,
+
+00:01:48.599 --> 00:01:52.625
+then I'm going to add six residual blocks to my list of residual layers.
+
+00:01:52.625 --> 00:01:55.314
+Recall that our class only took in one input,
+
+00:01:55.314 --> 00:01:59.689
+the number of inputs the block see as input and incidentally create as output.
+
+00:01:59.689 --> 00:02:01.730
+This is just the number of outputs from
+
+00:02:01.730 --> 00:02:04.689
+the last convolutional layer, conv_dim times four.
+
+00:02:04.689 --> 00:02:07.325
+Then I'm wrapping my list of residual layers in
+
+00:02:07.325 --> 00:02:10.835
+a sequential wrapper and naming them self.res blocks.
+
+00:02:10.835 --> 00:02:15.740
+Great, then all I have left to define in it is the decoder portion of the generator.
+
+00:02:15.740 --> 00:02:18.770
+This is a series of three transpose convolutional layers
+
+00:02:18.770 --> 00:02:22.460
+and I'm using my helper deconv function here to create these.
+
+00:02:22.460 --> 00:02:24.784
+Just like our conv function, by default,
+
+00:02:24.784 --> 00:02:27.650
+these are batch normalization applied to them and I want
+
+00:02:27.650 --> 00:02:30.500
+that on all but the last transpose convolutional layer.
+
+00:02:30.500 --> 00:02:34.460
+You can also see that these layers are going from very deep to very shallow.
+
+00:02:34.460 --> 00:02:38.570
+Eventually a depth of three to get the shape of image that we want as output.
+
+00:02:38.569 --> 00:02:40.489
+Moving onto our forward function,
+
+00:02:40.490 --> 00:02:43.340
+I'm calling every one of the layers I've just defined in
+
+00:02:43.340 --> 00:02:46.564
+sequence and I'm applying a relu activation to
+
+00:02:46.564 --> 00:02:49.460
+each of these outputs except the resonant blocks and
+
+00:02:49.460 --> 00:02:53.030
+the last layer where I apply a tan h activation function.
+
+00:02:53.030 --> 00:02:55.515
+So this completes my generator class.
+
+00:02:55.514 --> 00:02:56.875
+In the cells below,
+
+00:02:56.875 --> 00:03:00.289
+I can actually define the generators and discriminators that I want.
+
+00:03:00.289 --> 00:03:03.798
+In this function "Create model" I'm instantiating two generators,
+
+00:03:03.799 --> 00:03:10.580
+G_X to y and G_Y to X with a given convolutional dimension n number of rest blocks.
+
+00:03:10.580 --> 00:03:13.475
+Then I'm doing the same thing for my two discriminators,
+
+00:03:13.474 --> 00:03:17.319
+D_X and D_Y with a given conv_dim of 64.
+
+00:03:17.319 --> 00:03:18.579
+In the next few lines,
+
+00:03:18.580 --> 00:03:22.460
+I'm moving all of these models to a GPU device if available.
+
+00:03:22.460 --> 00:03:25.700
+Finally I'm calling this function and getting my models in
+
+00:03:25.699 --> 00:03:28.189
+the correct order and it prints out models have
+
+00:03:28.189 --> 00:03:30.750
+been moved to GPU which I'm running on right now.
+
+00:03:30.750 --> 00:03:32.719
+To check that I've implemented these correctly,
+
+00:03:32.719 --> 00:03:35.180
+I'm going to actually print out the parameters of each of
+
+00:03:35.180 --> 00:03:37.939
+these models just to make sure they're as I expect.
+
+00:03:37.939 --> 00:03:42.349
+I have my cycle generators with a sequence of convolutional and batch norm layers as
+
+00:03:42.349 --> 00:03:46.780
+the encoder portion and a long sequence of residual blocks after that.
+
+00:03:46.780 --> 00:03:48.469
+Then this ends with the sequence of
+
+00:03:48.469 --> 00:03:51.185
+transpose convolutional layers and batch -known layers.
+
+00:03:51.185 --> 00:03:53.629
+So you should read over these parameters and check
+
+00:03:53.629 --> 00:03:56.245
+that you have your desired adversarial networks.
+
+00:03:56.245 --> 00:03:59.240
+You should have two discriminators and two generators.
+
+00:03:59.240 --> 00:04:02.400
+Next I'll go over how to prepare for training these models.
+

@@ -1,0 +1,136 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:05.639
+Hello and welcome to another lesson on Generative Adversarial Networks or GANs.
+
+00:00:05.639 --> 00:00:09.330
+I'm Cezanne Camacho, a Deep Learning and Computer Vision Content Developer.
+
+00:00:09.330 --> 00:00:13.169
+Today, we have a special guest joining us, Jun-Yan Zhu,
+
+00:00:13.169 --> 00:00:17.850
+who's a researcher at MIT's Computer Science and Artificial Intelligence Laboratory.
+
+00:00:17.850 --> 00:00:19.245
+Thanks for joining us, Jun-Yan.
+
+00:00:19.245 --> 00:00:23.130
+Yes, thanks. So I'm looking forward to teaching you more about GANs.
+
+00:00:23.129 --> 00:00:26.954
+Jun-Yan is one of the creators of something called a CycleGAN,
+
+00:00:26.954 --> 00:00:31.529
+which is a type of generative adversarial network that you'll learn about in this lesson.
+
+00:00:31.530 --> 00:00:33.550
+Could you tell us a bit about your background?
+
+00:00:33.549 --> 00:00:37.429
+So I have been studying Computer Vision and Machine Learning for a number of years.
+
+00:00:37.429 --> 00:00:39.229
+So before coming to MIT,
+
+00:00:39.229 --> 00:00:43.369
+I was pursuing my PhD first at CMU and then to UC Berkeley.
+
+00:00:43.369 --> 00:00:46.114
+So I have been able to focus on
+
+00:00:46.115 --> 00:00:51.225
+building machines capable of recreating and understanding our visual world.
+
+00:00:51.225 --> 00:00:55.085
+So how did you first become interested in recreating the visual world?
+
+00:00:55.085 --> 00:00:56.899
+Yes. So, while I was a little kid,
+
+00:00:56.899 --> 00:01:00.140
+I often avoided homework by some random dude [inaudible].
+
+00:01:00.140 --> 00:01:02.390
+So I have a piece of white paper,
+
+00:01:02.390 --> 00:01:07.189
+I sketched some comics and characters on a paper.
+
+00:01:07.189 --> 00:01:09.739
+I only have one piece of paper,
+
+00:01:09.739 --> 00:01:12.739
+I erased it and drew the next [inaudible].
+
+00:01:12.739 --> 00:01:15.739
+So I'm not trying to become like a professional artist
+
+00:01:15.739 --> 00:01:17.959
+but I just try to tell my own story,
+
+00:01:17.959 --> 00:01:20.119
+but on a tiny piece of paper.
+
+00:01:20.120 --> 00:01:22.625
+So one thing I would like to make sure is to
+
+00:01:22.625 --> 00:01:25.909
+delete the odd evidence before my mom entered the room.
+
+00:01:25.909 --> 00:01:28.340
+It turned out that there's a six-year-old kid,
+
+00:01:28.340 --> 00:01:30.560
+Tom, did a very similar thing.
+
+00:01:30.560 --> 00:01:33.064
+So fortunately, his father,
+
+00:01:33.064 --> 00:01:39.280
+a Photoshop artist, turned his son's wild imagination into realistic rendering.
+
+00:01:39.280 --> 00:01:41.719
+But not many of us are creators,
+
+00:01:41.719 --> 00:01:45.635
+not many of us have a father with Photoshop expertise.
+
+00:01:45.635 --> 00:01:47.450
+So in this lesson,
+
+00:01:47.450 --> 00:01:52.549
+so we aim to build a machine capable of creating and manipulating photos,
+
+00:01:52.549 --> 00:01:57.484
+then we can use these machines as a training tools for content.
+
+00:01:57.484 --> 00:02:03.295
+Visual Content Creation is not only for experts but for everyone in the world.
+
+00:02:03.295 --> 00:02:05.204
+So in this lesson,
+
+00:02:05.204 --> 00:02:09.829
+I will teach you all about CycleGAN and Pix2Pix formulations.
+
+00:02:09.830 --> 00:02:14.560
+These are both types of adversarial networks that can lead to transform
+
+00:02:14.560 --> 00:02:19.814
+images for a whole set of data into images that look like another set.
+
+00:02:19.814 --> 00:02:25.034
+For example, they can transform images of horses into images of zebras.
+
+00:02:25.034 --> 00:02:30.409
+Similarly, they can turn your drawings into realistic images of cats.
+
+00:02:30.409 --> 00:02:34.935
+The task they solve is called Image-to-image translation.
+
+00:02:34.935 --> 00:02:37.520
+So let's see how it works.
+

@@ -1,0 +1,229 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:03.209
+So, a GAN is made of two adversarial networks,
+
+00:00:03.209 --> 00:00:05.144
+a discriminator and a generator.
+
+00:00:05.144 --> 00:00:07.529
+We know that the generator is going to take in
+
+00:00:07.530 --> 00:00:10.800
+some latent vector Z and output some pixel values.
+
+00:00:10.800 --> 00:00:14.100
+A discriminator will alternate between training on the output
+
+00:00:14.099 --> 00:00:17.475
+of a generator and another sample from our MNIST training data.
+
+00:00:17.475 --> 00:00:20.370
+This is going to be a pretty typical linear classifier that
+
+00:00:20.370 --> 00:00:23.250
+aims to classify these images as either real or fake.
+
+00:00:23.250 --> 00:00:24.914
+So, in both cases,
+
+00:00:24.914 --> 00:00:27.344
+it should see some input pixel values.
+
+00:00:27.344 --> 00:00:29.699
+For a linear model, you need to make sure that these are
+
+00:00:29.699 --> 00:00:32.369
+flattened if need be into a vector shape.
+
+00:00:32.369 --> 00:00:36.924
+So, a 28-by-28 image should be a vector of length 784.
+
+00:00:36.924 --> 00:00:41.224
+Then it takes a flattened input and passes those through at least one hidden layer.
+
+00:00:41.225 --> 00:00:43.969
+I'd recommend using at least a couple of hidden layers.
+
+00:00:43.969 --> 00:00:46.744
+These hidden layers should have one key attribute.
+
+00:00:46.744 --> 00:00:50.349
+They have a leaky ReLU activation function applied to their outputs.
+
+00:00:50.350 --> 00:00:53.390
+A leaky ReLU is very similar to a normal ReLU,
+
+00:00:53.390 --> 00:00:57.634
+and that it takes in some value and will leave that value alone if it's a positive value.
+
+00:00:57.634 --> 00:00:59.479
+But if that value is negative,
+
+00:00:59.479 --> 00:01:02.064
+a normal ReLU would have set it to exactly zero,
+
+00:01:02.064 --> 00:01:04.189
+but a leaky ReLU will actually multiply
+
+00:01:04.189 --> 00:01:06.980
+this value by some small constant called the slope.
+
+00:01:06.980 --> 00:01:09.905
+In fact, let's click on this documentation to learn more.
+
+00:01:09.905 --> 00:01:12.784
+Here we can see that the leaky ReLU activation function
+
+00:01:12.784 --> 00:01:15.084
+takes in a parameter negative slope.
+
+00:01:15.084 --> 00:01:18.769
+This is the value that it will multiply any negative inputs by.
+
+00:01:18.769 --> 00:01:21.560
+The idea is that this allows for more nuance in
+
+00:01:21.560 --> 00:01:24.350
+recording gradient calculations during backpropagation.
+
+00:01:24.349 --> 00:01:26.390
+Instead of looking at a zero gradient,
+
+00:01:26.390 --> 00:01:29.019
+we have some variants for negative values.
+
+00:01:29.019 --> 00:01:32.575
+Okay. So, after a couple leaky ReLU activated hidden layers,
+
+00:01:32.575 --> 00:01:34.685
+there will be a final fully-connected layer.
+
+00:01:34.685 --> 00:01:38.060
+This layer will be responsible for generating one value,
+
+00:01:38.060 --> 00:01:41.350
+a class score between zero and one for fake or real.
+
+00:01:41.349 --> 00:01:43.234
+We can get this value by applying
+
+00:01:43.234 --> 00:01:46.250
+a sigmoid activation function to the final output layer.
+
+00:01:46.250 --> 00:01:49.790
+Alternatively, we could apply the sigmoid activation function later when we
+
+00:01:49.790 --> 00:01:53.660
+calculate the loss and leave this layer alone without an activation function,
+
+00:01:53.659 --> 00:01:55.854
+which is actually what I recommend in this case.
+
+00:01:55.855 --> 00:01:59.990
+You can read a little bit more about applying a sigmoid in the last function here.
+
+00:01:59.989 --> 00:02:03.244
+So, your first task will be to define this discriminator.
+
+00:02:03.245 --> 00:02:05.045
+Here's the starting class code.
+
+00:02:05.045 --> 00:02:07.310
+This should take in an input size which should be
+
+00:02:07.310 --> 00:02:10.194
+our number of flattened pixels in an input image.
+
+00:02:10.194 --> 00:02:15.064
+It takes an a hidden dimension which should be the output size of our final hidden layer.
+
+00:02:15.064 --> 00:02:19.599
+Finally, an output size which specifies how many outputs you want this model to produce.
+
+00:02:19.599 --> 00:02:21.739
+Now, if you have more than one hidden layer,
+
+00:02:21.740 --> 00:02:25.400
+you can use this hidden dimension and just multiply it by factors of two,
+
+00:02:25.400 --> 00:02:29.480
+scaling it until your final hidden layer has this number of hidden outputs.
+
+00:02:29.479 --> 00:02:32.104
+Your next task will be to define the generator.
+
+00:02:32.104 --> 00:02:35.185
+The generator network will be very similar to the discriminator,
+
+00:02:35.185 --> 00:02:37.300
+except for a few main differences.
+
+00:02:37.300 --> 00:02:42.380
+We want this to take in a latent vector Z which will be of some size that we specify.
+
+00:02:42.379 --> 00:02:46.189
+This vector should actually be upsampled as it goes through hidden layers until
+
+00:02:46.189 --> 00:02:50.104
+we get to the last layer that can be reshaped into a new fake image.
+
+00:02:50.104 --> 00:02:52.939
+The hidden layers should have leaky ReLU applied and
+
+00:02:52.939 --> 00:02:56.740
+the last layer will have a tanh activation applied to its outputs.
+
+00:02:56.740 --> 00:02:59.115
+This is just due to the existing literature.
+
+00:02:59.115 --> 00:03:03.605
+The generator has been found to perform the best with a tanh activated output layer.
+
+00:03:03.604 --> 00:03:08.929
+Now, the tanh activation function scales any value to be between one and negative one,
+
+00:03:08.930 --> 00:03:11.210
+as opposed to zero and one like a sigmoid.
+
+00:03:11.210 --> 00:03:13.400
+You can see that in this function here.
+
+00:03:13.400 --> 00:03:17.990
+Recall that we also want these outputs to be comparable to the real input pixel values,
+
+00:03:17.990 --> 00:03:21.055
+which are read in as normalized values between zero and one.
+
+00:03:21.055 --> 00:03:23.159
+So, later when we train the discriminator,
+
+00:03:23.158 --> 00:03:25.414
+we'll also have to scale our real training images
+
+00:03:25.414 --> 00:03:27.889
+to have pixel values between negative and one.
+
+00:03:27.889 --> 00:03:30.829
+I'll do this in the training loop a bit further down in the notebook.
+
+00:03:30.830 --> 00:03:34.625
+Now, try to complete the discriminator and generator classes on your own.
+
+00:03:34.625 --> 00:03:36.770
+If you're confident in your model definitions,
+
+00:03:36.770 --> 00:03:39.650
+I encourage you to continue in this exercise notebook and
+
+00:03:39.650 --> 00:03:42.740
+instantiate the networks with some specified hyperparameters.
+
+00:03:42.740 --> 00:03:45.185
+As usual, if you're stuck or want to check your work,
+
+00:03:45.185 --> 00:03:47.469
+next I'll go over one solution.
+

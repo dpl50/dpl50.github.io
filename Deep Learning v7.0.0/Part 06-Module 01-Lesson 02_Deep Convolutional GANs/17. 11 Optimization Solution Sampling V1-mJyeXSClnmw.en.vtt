@@ -1,0 +1,181 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:03.044
+Here's my solution for defining Adam optimizers.
+
+00:00:03.044 --> 00:00:07.004
+Actually, I chose these optimization parameters based on the original paper.
+
+00:00:07.004 --> 00:00:08.384
+If we look at this paper,
+
+00:00:08.384 --> 00:00:11.934
+we can basically learn from what these researchers have already spent time on.
+
+00:00:11.935 --> 00:00:14.940
+In this section, details of adversarial training,
+
+00:00:14.939 --> 00:00:16.349
+they go over their approach.
+
+00:00:16.350 --> 00:00:21.150
+We can see some details about weight initialization and application of a LeakyReLU,
+
+00:00:21.149 --> 00:00:23.924
+and here's the section about Adam optimizers.
+
+00:00:23.925 --> 00:00:28.170
+It says they found that suggested learning rate of 0.001 to be too
+
+00:00:28.170 --> 00:00:33.075
+high and used a smaller learning rate 0.0002 instead.
+
+00:00:33.075 --> 00:00:36.720
+Then, it says they also changed the momentum term beta-1.
+
+00:00:36.719 --> 00:00:40.199
+They found that the suggested value of 0.9 resulted in
+
+00:00:40.200 --> 00:00:44.450
+instability and they reduced it to 0.5 to help stabilize training.
+
+00:00:44.450 --> 00:00:45.679
+So, back to this notebook,
+
+00:00:45.679 --> 00:00:47.600
+those numbers are what I'm using here.
+
+00:00:47.600 --> 00:00:53.445
+A small learning rate 0.0002 and the beta1 equal to 0.5.
+
+00:00:53.445 --> 00:00:56.270
+I'm setting beta2 to its default value and then
+
+00:00:56.270 --> 00:00:59.325
+passing all of these into our Adam optimizers here.
+
+00:00:59.325 --> 00:01:01.700
+Using parameters from a paper like this,
+
+00:01:01.700 --> 00:01:05.260
+may not be perfect, but it's almost always a good place to start.
+
+00:01:05.260 --> 00:01:06.760
+Okay. Then, to my training loop,
+
+00:01:06.760 --> 00:01:11.405
+I actually trained for 50 epics because it took some time to get good generated samples.
+
+00:01:11.405 --> 00:01:14.075
+As I trained, I printed out the loss over time.
+
+00:01:14.075 --> 00:01:15.784
+For ease of visualization,
+
+00:01:15.784 --> 00:01:19.899
+I also plotted the loss of the discriminator and generator at the end of training.
+
+00:01:19.900 --> 00:01:23.180
+So, I recorded the loss twice for each of our 50 epics,
+
+00:01:23.180 --> 00:01:25.280
+and I can see that the discriminator is sort of
+
+00:01:25.280 --> 00:01:28.549
+steadily decreasing but gets a little spiky at the end,
+
+00:01:28.549 --> 00:01:30.575
+and the generator looks like it's increasing,
+
+00:01:30.575 --> 00:01:32.965
+but also sort of spiky at the end.
+
+00:01:32.965 --> 00:01:36.305
+This spike in our generator loss looks a bit unstable,
+
+00:01:36.305 --> 00:01:37.865
+but I can see that it goes down again.
+
+00:01:37.864 --> 00:01:39.909
+So, I'm not too worried about this behavior.
+
+00:01:39.909 --> 00:01:41.909
+Now, these are okay final values,
+
+00:01:41.909 --> 00:01:44.689
+but I will say that it looks like I probably could have trained for a bit of
+
+00:01:44.689 --> 00:01:46.789
+a longer time and hopefully you saw these both
+
+00:01:46.790 --> 00:01:49.359
+decreased to a somewhat smaller value here.
+
+00:01:49.359 --> 00:01:52.280
+Next, I'm going to use a helper function to visualize
+
+00:01:52.280 --> 00:01:55.849
+the samples that the generator learn to create after the last epic.
+
+00:01:55.849 --> 00:01:57.679
+So, this code should look familiar.
+
+00:01:57.680 --> 00:02:00.220
+One thing to note is that since I trained on GPU,
+
+00:02:00.219 --> 00:02:05.090
+and moving the images to CPU and converting them to numpy images for visualization.
+
+00:02:05.090 --> 00:02:09.110
+Here are the generated samples after the last epic of training,
+
+00:02:09.110 --> 00:02:10.430
+and some of these look pretty good.
+
+00:02:10.430 --> 00:02:13.594
+We can clearly see a white eight on a blue background,
+
+00:02:13.594 --> 00:02:16.400
+and something like a three here, a six and three.
+
+00:02:16.400 --> 00:02:19.810
+So, it's learning to generate even multiple numbers in one image.
+
+00:02:19.810 --> 00:02:22.594
+But there is still some color variance and blurriness
+
+00:02:22.594 --> 00:02:25.534
+and so I do think I could've stood to train for a little longer.
+
+00:02:25.534 --> 00:02:28.944
+But this is pretty good for a kind of complex data set.
+
+00:02:28.944 --> 00:02:32.739
+Now, you could imagine applying this kind of model to any image set,
+
+00:02:32.740 --> 00:02:36.520
+to create new kinds of flowers or new types of faces based on a given set.
+
+00:02:36.520 --> 00:02:40.870
+Generative models really allow you to imagine within a learned feature space,
+
+00:02:40.870 --> 00:02:45.605
+and the applications range from generating digits to generating art and music.
+
+00:02:45.604 --> 00:02:50.030
+I'll also say that these kinds of adversarial models have been really useful for
+
+00:02:50.030 --> 00:02:54.439
+finding weaknesses in existing models or biases when it comes to certain factors,
+
+00:02:54.439 --> 00:02:56.819
+and I've linked to some of this research below.
+
+00:02:56.819 --> 00:02:59.030
+For now, I hope you're thinking about how you might apply
+
+00:02:59.030 --> 00:03:02.069
+these models to generate something that is interesting to you.
+

@@ -1,0 +1,184 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:06.900
+So a typical GAN aims to generate a realistic looking image from a latent vector z.
+
+00:00:06.900 --> 00:00:10.530
+But, in image to image translation tasks,
+
+00:00:10.529 --> 00:00:17.114
+we want a generator to locate an input image and produce the desired output.
+
+00:00:17.114 --> 00:00:20.519
+The example of dataset might look like this,
+
+00:00:20.519 --> 00:00:23.070
+paired data x and y.
+
+00:00:23.070 --> 00:00:26.039
+With sketches or edge as input images,
+
+00:00:26.039 --> 00:00:29.640
+x, and complete target images, y.
+
+00:00:29.640 --> 00:00:33.990
+So for an input image x and the desired output y,
+
+00:00:33.990 --> 00:00:39.435
+we want a generator to learn a mapping G between x and y.
+
+00:00:39.435 --> 00:00:44.700
+The notation work for mapping like this is G from x to y.
+
+00:00:44.700 --> 00:00:50.359
+The mapping is just a mathematical transformation from one image into another.
+
+00:00:50.359 --> 00:00:55.539
+In this case, the mapping function G is a neural network,
+
+00:00:55.539 --> 00:00:59.210
+and we want G of x to generate an output that
+
+00:00:59.210 --> 00:01:03.245
+is indistinguishable from a true desired output image y.
+
+00:01:03.244 --> 00:01:05.420
+Originally proposed by Isola,
+
+00:01:05.420 --> 00:01:07.284
+myself, Josh, and Efros,
+
+00:01:07.284 --> 00:01:12.500
+pix2pix architecture uses a conditional generative adversarial network,
+
+00:01:12.500 --> 00:01:19.319
+seekend, to learn a mapping from the input image to an output image.
+
+00:01:19.319 --> 00:01:24.389
+This architecture includes a generator and the discriminator,
+
+00:01:24.390 --> 00:01:26.415
+just like a typical GAN,
+
+00:01:26.415 --> 00:01:29.400
+but with a couple of differences.
+
+00:01:29.400 --> 00:01:31.250
+So with your typical GAN,
+
+00:01:31.250 --> 00:01:36.204
+we saw that a generator would turn a vector z into a generate image.
+
+00:01:36.204 --> 00:01:38.125
+So how can we change it?
+
+00:01:38.125 --> 00:01:44.284
+So that he is taking an image x and produce a new image, G of x.
+
+00:01:44.284 --> 00:01:49.944
+One way to approach this task is to add some initial layers to the generator.
+
+00:01:49.944 --> 00:01:55.474
+Had 10 input sketch into a vector representations of that image.
+
+00:01:55.474 --> 00:02:01.734
+Then, we can proceed as usual with a serious layers that absent polar vector,
+
+00:02:01.734 --> 00:02:05.159
+to produce a new, realistic and looking output image.
+
+00:02:05.159 --> 00:02:08.314
+So what has changed from a typical DC GAN?
+
+00:02:08.314 --> 00:02:11.479
+It's the additioning of layers, hatching
+
+00:02:11.479 --> 00:02:16.054
+an input sketch into a smaller future level representations.
+
+00:02:16.055 --> 00:02:20.840
+This posturing of the generator is often called the encoder.
+
+00:02:20.840 --> 00:02:23.420
+The encoder is a series of
+
+00:02:23.419 --> 00:02:28.204
+convolutional and batch norm layers with some activation functions.
+
+00:02:28.205 --> 00:02:32.315
+The idea is that by compressing the input image,
+
+00:02:32.314 --> 00:02:36.859
+the encoder worlin to distill some information about the content of
+
+00:02:36.860 --> 00:02:42.820
+the input image and encode it into a smaller feature level representation.
+
+00:02:42.819 --> 00:02:44.489
+Then, the decoder portion of
+
+00:02:44.490 --> 00:02:48.155
+each generator just looks like the same as a typical generator.
+
+00:02:48.155 --> 00:02:51.455
+A series of D convolutional layers,
+
+00:02:51.455 --> 00:02:58.655
+and activation functions sat cleverly reverse the actions of the encoder layers.
+
+00:02:58.655 --> 00:03:02.110
+The decoder will look at the feature level or partitioning of
+
+00:03:02.110 --> 00:03:08.515
+a sketch image and use that to generate a realistic looking output image.
+
+00:03:08.514 --> 00:03:12.669
+So in sum, the generator is responsible for applying
+
+00:03:12.669 --> 00:03:17.694
+a transformation to the input image x to generate output image.
+
+00:03:17.694 --> 00:03:19.870
+Once a generated [inaudible] ,
+
+00:03:19.870 --> 00:03:22.450
+this transformation will be the mapping we'll
+
+00:03:22.449 --> 00:03:26.679
+use to generate new images from new sketches.
+
+00:03:26.680 --> 00:03:29.170
+So once we have this generator,
+
+00:03:29.169 --> 00:03:32.589
+we can then link its output to the discriminator,
+
+00:03:32.590 --> 00:03:37.960
+which will try to characterized the image as real or fake as usual.
+
+00:03:37.960 --> 00:03:41.379
+So, I'm going to call this input sketch x,
+
+00:03:41.379 --> 00:03:46.069
+and G of x will be a very thick looking generate image.
+
+00:03:46.069 --> 00:03:49.099
+So now, we are left with only one issue.
+
+00:03:49.099 --> 00:03:54.995
+So the discriminator should identify this generate image G of x as a real image.
+
+00:03:54.995 --> 00:03:59.754
+But now, it will also identify this purse as a real image,
+
+00:03:59.754 --> 00:04:03.349
+even though it has nothing to do with the input sketch.
+
+00:04:03.349 --> 00:04:05.210
+In the next video,
+
+00:04:05.210 --> 00:04:10.599
+we will find a way to link the input sketch to the output image.
+

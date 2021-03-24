@@ -1,0 +1,540 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.389 --> 00:00:01.929
+So far,
+we have mostly seen
+
+00:00:01.929 --> 00:00:04.580
+how to use GANs for
+generating images.
+
+00:00:04.580 --> 00:00:06.939
+While generating
+images is fun, and it
+
+00:00:06.939 --> 00:00:09.099
+is connected to several
+important AI research
+
+00:00:09.099 --> 00:00:12.309
+directions, it's immediately
+useful in only a few niche
+
+00:00:12.310 --> 00:00:15.339
+domains, like making image
+editing software where
+
+00:00:15.339 --> 00:00:17.589
+the goal is actually
+to produce a nice image
+
+00:00:17.589 --> 00:00:18.839
+at the end of the day.
+
+00:00:18.839 --> 00:00:22.210
+A much more generally
+useful application of GANs
+
+00:00:22.210 --> 00:00:25.179
+is semi-supervised
+learning, where we actually
+
+00:00:25.179 --> 00:00:28.929
+improve the performance of
+a classifier using a GAN.
+
+00:00:28.929 --> 00:00:32.530
+Many more current products and
+services use classification
+
+00:00:32.530 --> 00:00:33.759
+than generation.
+
+00:00:33.759 --> 00:00:35.229
+So I imagine a lot
+of you would be
+
+00:00:35.229 --> 00:00:36.820
+much more excited
+to learn about how
+
+00:00:36.820 --> 00:00:39.399
+to build a better
+classifier than about how
+
+00:00:39.399 --> 00:00:41.199
+to generate images.
+
+00:00:41.200 --> 00:00:43.750
+Object recognition models
+based on deep learning
+
+00:00:43.750 --> 00:00:46.210
+often achieve
+superhuman accuracy
+
+00:00:46.210 --> 00:00:48.219
+after they have been trained.
+
+00:00:48.219 --> 00:00:51.189
+Modern deep learning
+algorithms are not yet anywhere
+
+00:00:51.189 --> 00:00:54.219
+near human efficiency
+during learning.
+
+00:00:54.219 --> 00:00:55.839
+Consider the Street
+View House Numbers
+
+00:00:55.840 --> 00:00:59.859
+dataset used to train address
+number transcription models.
+
+00:00:59.859 --> 00:01:02.049
+This dataset contains
+hundreds of thousands
+
+00:01:02.049 --> 00:01:04.759
+of labeled photos
+of address numbers.
+
+00:01:04.760 --> 00:01:06.550
+Recall when you learned to read.
+
+00:01:06.549 --> 00:01:08.799
+Your teacher didn't need
+to take you on a road trip
+
+00:01:08.799 --> 00:01:11.349
+to see a whole city's
+worth of address numbers
+
+00:01:11.349 --> 00:01:13.359
+and tell you what
+each of them said.
+
+00:01:13.359 --> 00:01:15.010
+From this point of
+view, deep learning
+
+00:01:15.010 --> 00:01:18.400
+seems to require a lot
+more data than people do.
+
+00:01:18.400 --> 00:01:20.080
+From another point
+of view, we could
+
+00:01:20.079 --> 00:01:23.289
+argue that deep learning
+isn't getting a fair chance,
+
+00:01:23.290 --> 00:01:25.660
+because the entire life
+experience of a deep learning
+
+00:01:25.659 --> 00:01:29.409
+model is only a group
+of labeled images.
+
+00:01:29.409 --> 00:01:32.259
+People are able to learn from
+very few examples provided
+
+00:01:32.260 --> 00:01:33.250
+by a teacher.
+
+00:01:33.250 --> 00:01:35.469
+But that's probably
+because people also
+
+00:01:35.469 --> 00:01:38.049
+have all kinds of
+sensory experience
+
+00:01:38.049 --> 00:01:40.149
+that doesn't come with labels.
+
+00:01:40.150 --> 00:01:42.190
+As we move around the
+world, we see objects
+
+00:01:42.189 --> 00:01:43.959
+in several different
+lighting conditions,
+
+00:01:43.959 --> 00:01:46.759
+from several different
+angles, and so on.
+
+00:01:46.760 --> 00:01:49.780
+We don't receive labels for
+most of our experiences.
+
+00:01:49.780 --> 00:01:53.079
+And we have a lot of experiences
+that don't resemble anything
+
+00:01:53.079 --> 00:01:55.000
+that a modern deep
+learning algorithm gets
+
+00:01:55.000 --> 00:01:57.040
+to see in its training set.
+
+00:01:57.040 --> 00:01:58.750
+One path to improving
+the learning
+
+00:01:58.750 --> 00:02:01.150
+efficiency of deep
+learning models
+
+00:02:01.150 --> 00:02:03.609
+is semi-supervised learning.
+
+00:02:03.609 --> 00:02:05.890
+In semi-supervised
+learning, the model
+
+00:02:05.890 --> 00:02:08.710
+can learn from the labeled
+examples like usual.
+
+00:02:08.710 --> 00:02:11.000
+But it can also get
+better at classification
+
+00:02:11.000 --> 00:02:14.349
+by studying unlabelled examples,
+even though those examples
+
+00:02:14.349 --> 00:02:16.629
+have no class label.
+
+00:02:16.629 --> 00:02:19.090
+Usually, it is much
+easier and cheaper
+
+00:02:19.090 --> 00:02:22.819
+to obtain unlabeled data
+than to obtain labeled data.
+
+00:02:22.819 --> 00:02:24.819
+For example, the
+internet is essentially
+
+00:02:24.819 --> 00:02:26.979
+a free source of virtually
+unlimited amounts
+
+00:02:26.979 --> 00:02:30.759
+of unlabeled text,
+images, and videos.
+
+00:02:30.759 --> 00:02:33.929
+To do semi-supervised
+classification with GANs,
+
+00:02:33.930 --> 00:02:36.830
+we'll need to set up the
+GAN to work as a classifier.
+
+00:02:36.830 --> 00:02:39.040
+GANs contain two
+models, the generator
+
+00:02:39.039 --> 00:02:40.810
+and the discriminator.
+
+00:02:40.810 --> 00:02:43.900
+Usually we train both, and then
+throw the discriminator away
+
+00:02:43.900 --> 00:02:45.219
+at the end of training.
+
+00:02:45.219 --> 00:02:47.740
+We usually only care
+about using the generator
+
+00:02:47.740 --> 00:02:49.810
+to create samples.
+
+00:02:49.810 --> 00:02:52.689
+The discriminator is usually
+of secondary importance,
+
+00:02:52.689 --> 00:02:55.030
+and only used to
+train the generator.
+
+00:02:55.030 --> 00:02:57.520
+For semi-supervised
+learning, we will actually
+
+00:02:57.520 --> 00:03:00.880
+focus on the discriminator
+rather than the generator.
+
+00:03:00.879 --> 00:03:03.849
+We'll extend the discriminator
+to be our classifier,
+
+00:03:03.849 --> 00:03:07.539
+and use it to classify new data
+after we're done training it.
+
+00:03:07.539 --> 00:03:10.509
+We can actually throw away
+the generator, unless we also
+
+00:03:10.509 --> 00:03:12.429
+want to generate images.
+
+00:03:12.430 --> 00:03:14.530
+For semi-supervised
+classification,
+
+00:03:14.530 --> 00:03:17.469
+the generator is of secondary
+importance, used only
+
+00:03:17.469 --> 00:03:19.629
+to train the discriminator
+
+00:03:19.629 --> 00:03:22.060
+So far, we have used
+a discriminator net
+
+00:03:22.060 --> 00:03:24.420
+with one sigmoid output.
+
+00:03:24.419 --> 00:03:26.949
+That sigmoid output
+gives us the probability
+
+00:03:26.949 --> 00:03:30.009
+that the output is
+real rather than fake.
+
+00:03:30.009 --> 00:03:32.889
+We can turn this into a
+softmax with two outputs,
+
+00:03:32.889 --> 00:03:34.989
+one corresponding
+to the real class
+
+00:03:34.990 --> 00:03:37.390
+and one corresponding
+to the fake class.
+
+00:03:37.389 --> 00:03:40.899
+If we hard code the logits
+for the fake class to zero,
+
+00:03:40.900 --> 00:03:44.020
+then the softmax computes
+exactly the same probabilities
+
+00:03:44.020 --> 00:03:45.689
+as the sigmoid used to.
+
+00:03:45.689 --> 00:03:49.000
+To turn the discriminator
+into a useful classifier,
+
+00:03:49.000 --> 00:03:52.060
+we can split the real class into
+all of the different classes
+
+00:03:52.060 --> 00:03:53.800
+we want to recognize.
+
+00:03:53.800 --> 00:03:56.980
+For example, to classify
+10 different SVHN digits,
+
+00:03:56.979 --> 00:03:59.379
+0 through 9, we can
+make a discriminator
+
+00:03:59.379 --> 00:04:02.560
+that has 11 different
+classes in total, real zeros,
+
+00:04:02.560 --> 00:04:05.530
+real ones, and so
+on up to real nines;
+
+00:04:05.530 --> 00:04:09.400
+and then one extra class,
+the class of all fake images.
+
+00:04:09.400 --> 00:04:12.460
+Now we can train the model
+using the sum of two costs.
+
+00:04:12.460 --> 00:04:14.230
+For the examples
+that have labels,
+
+00:04:14.229 --> 00:04:17.500
+we can use the regular
+supervised cross entropy cost.
+
+00:04:17.500 --> 00:04:19.689
+For all of the other
+examples and also
+
+00:04:19.689 --> 00:04:21.790
+for fake samples
+from the generator,
+
+00:04:21.790 --> 00:04:23.950
+we can add the GAN cost.
+
+00:04:23.949 --> 00:04:26.043
+To get the probability
+that the input is real,
+
+00:04:26.043 --> 00:04:27.459
+we just sum over
+the probabilities
+
+00:04:27.459 --> 00:04:29.289
+for all the real classes.
+
+00:04:29.290 --> 00:04:32.890
+Normal classifiers can learn
+only on labeled images.
+
+00:04:32.889 --> 00:04:35.409
+This new setup can
+learn on labeled images,
+
+00:04:35.410 --> 00:04:39.580
+real unlabeled images, and even
+fake images from the generator.
+
+00:04:39.579 --> 00:04:42.109
+Altogether this results in
+very low error on the test
+
+00:04:42.110 --> 00:04:44.379
+set, because there are
+so many different sources
+
+00:04:44.379 --> 00:04:48.100
+of information even without
+using many labeled examples.
+
+00:04:48.100 --> 00:04:49.689
+To get this to work
+really well, we
+
+00:04:49.689 --> 00:04:52.420
+need one more trick
+called feature matching.
+
+00:04:52.420 --> 00:04:54.939
+The idea of feature
+matching is to add a term
+
+00:04:54.939 --> 00:04:57.069
+to the cost function
+for the generator,
+
+00:04:57.069 --> 00:05:00.040
+penalizing the mean absolute
+error between the average value
+
+00:05:00.040 --> 00:05:02.105
+of some set of features
+on the training data,
+
+00:05:02.105 --> 00:05:03.980
+and the average value
+of that set of features
+
+00:05:03.980 --> 00:05:05.774
+on the generated samples.
+
+00:05:05.774 --> 00:05:07.939
+The set of features can be
+any group of hidden units
+
+00:05:07.939 --> 00:05:09.469
+from the discriminator.
+
+00:05:09.470 --> 00:05:12.660
+In a paper called, "Improved
+Techniques for Training GANs,"
+
+00:05:12.660 --> 00:05:16.240
+Open AI was able to achieve
+an error rate of less than 6%
+
+00:05:16.240 --> 00:05:20.509
+on SVHN, using only
+1,000 labeled examples.
+
+00:05:20.509 --> 00:05:23.180
+For comparison, the best
+previous semi-supervised
+
+00:05:23.180 --> 00:05:28.840
+learning algorithm had over 16%
+error, nearly 3 times higher.
+
+00:05:28.839 --> 00:05:31.119
+Of course, fully-supervised
+algorithms,
+
+00:05:31.120 --> 00:05:33.730
+using hundreds of thousands
+of labeled examples,
+
+00:05:33.730 --> 00:05:36.290
+are able to achieve
+less than 2% error.
+
+00:05:36.290 --> 00:05:37.689
+So semi-supervised
+learning still
+
+00:05:37.689 --> 00:05:40.240
+has some catching up to do
+compared to the brute force
+
+00:05:40.240 --> 00:05:43.720
+approach of just gathering
+tons and tons of labeled data.
+
+00:05:43.720 --> 00:05:45.760
+Usually, labeled data
+is the bottleneck
+
+00:05:45.759 --> 00:05:48.730
+that determines which tasks
+we are or aren't able to solve
+
+00:05:48.730 --> 00:05:50.140
+with machine learning.
+
+00:05:50.139 --> 00:05:52.769
+Hopefully using
+semi-supervised GANs,
+
+00:05:52.769 --> 00:05:54.519
+you'll be able to
+tackle a lot of problems
+
+00:05:54.519 --> 00:05:56.939
+that weren't possible before.
+

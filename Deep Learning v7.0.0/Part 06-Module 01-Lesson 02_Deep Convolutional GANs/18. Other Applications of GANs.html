@@ -1,0 +1,447 @@
+<!-- udacimak v1.4.4 -->
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="ie=edge" http-equiv="X-UA-Compatible"/>
+  <title>
+   Other Applications of GANs
+  </title>
+  <link href="../assets/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="../assets/css/plyr.css" rel="stylesheet"/>
+  <link href="../assets/css/katex.min.css" rel="stylesheet"/>
+  <link href="../assets/css/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
+  <link href="../assets/css/styles.css" rel="stylesheet"/>
+  <link href="../assets/img/udacimak.png" rel="shortcut icon" type="image/png">
+  </link>
+ </head>
+ <body>
+  <div class="wrapper">
+   <nav id="sidebar">
+    <div class="sidebar-header">
+     <h3>
+      Deep Convolutional GANs
+     </h3>
+    </div>
+    <ul class="sidebar-list list-unstyled CTAs">
+     <li>
+      <a class="article" href="../index.html">
+       Back to Home
+      </a>
+     </li>
+    </ul>
+    <ul class="sidebar-list list-unstyled components">
+     <li class="">
+      <a href="01. Deep Convolutional GANs.html">
+       01. Deep Convolutional GANs
+      </a>
+     </li>
+     <li class="">
+      <a href="02. DCGAN, Discriminator.html">
+       02. DCGAN, Discriminator
+      </a>
+     </li>
+     <li class="">
+      <a href="03. DCGAN Generator.html">
+       03. DCGAN Generator
+      </a>
+     </li>
+     <li class="">
+      <a href="04. What is Batch Normalization.html">
+       04. What is Batch Normalization?
+      </a>
+     </li>
+     <li class="">
+      <a href="05. Pre-Notebook Batch Norm.html">
+       05. Pre-Notebook: Batch Norm
+      </a>
+     </li>
+     <li class="">
+      <a href="06. Notebook Batch Norm.html">
+       06. Notebook: Batch Norm
+      </a>
+     </li>
+     <li class="">
+      <a href="07. Benefits of Batch Normalization.html">
+       07. Benefits of Batch Normalization
+      </a>
+     </li>
+     <li class="">
+      <a href="08. DCGAN Notebook &amp; Data.html">
+       08. DCGAN Notebook &amp; Data
+      </a>
+     </li>
+     <li class="">
+      <a href="09. Pre-Notebook DCGAN, SVHN.html">
+       09. Pre-Notebook: DCGAN, SVHN
+      </a>
+     </li>
+     <li class="">
+      <a href="10. Notebook DCGAN, SVHN.html">
+       10. Notebook: DCGAN, SVHN
+      </a>
+     </li>
+     <li class="">
+      <a href="11. Scaling, Solution.html">
+       11. Scaling, Solution
+      </a>
+     </li>
+     <li class="">
+      <a href="12. Discriminator.html">
+       12. Discriminator
+      </a>
+     </li>
+     <li class="">
+      <a href="13. Discriminator, Solution.html">
+       13. Discriminator, Solution
+      </a>
+     </li>
+     <li class="">
+      <a href="14. Generator.html">
+       14. Generator
+      </a>
+     </li>
+     <li class="">
+      <a href="15. Generator, Solution.html">
+       15. Generator, Solution
+      </a>
+     </li>
+     <li class="">
+      <a href="16. Optimization Strategy.html">
+       16. Optimization Strategy
+      </a>
+     </li>
+     <li class="">
+      <a href="17. Optimization Solution &amp; Samples.html">
+       17. Optimization Solution &amp; Samples
+      </a>
+     </li>
+     <li class="">
+      <a href="18. Other Applications of GANs.html">
+       18. Other Applications of GANs
+      </a>
+     </li>
+    </ul>
+    <ul class="sidebar-list list-unstyled CTAs">
+     <li>
+      <a class="article" href="../index.html">
+       Back to Home
+      </a>
+     </li>
+    </ul>
+   </nav>
+   <div id="content">
+    <header class="container-fluild header">
+     <div class="container">
+      <div class="row">
+       <div class="col-12">
+        <div class="align-items-middle">
+         <button class="btn btn-toggle-sidebar" id="sidebarCollapse" type="button">
+          <div>
+          </div>
+          <div>
+          </div>
+          <div>
+          </div>
+         </button>
+         <h1 style="display: inline-block">
+          18. Other Applications of GANs
+         </h1>
+        </div>
+       </div>
+      </div>
+     </div>
+    </header>
+    <main class="container">
+     <div class="row">
+      <div class="col-12">
+       <div class="ud-atom">
+        <h3>
+        </h3>
+        <div>
+         <h2 id="other-interesting-applications-of-gans">
+          Other Interesting Applications of GANs
+         </h2>
+         <p>
+          So far, you've seen a lot of examples of how GANs might be used for image generation and transformation. GANs are a relatively new formulation and so there are some really exciting research directions that include GANs. I didn't have time to cover them all in video, so I wanted to highlight a few of my favorite examples, here, and link to some resources that I've found helpful!
+          <strong>
+           This page is for those who are interested in learning more about GANs and curious to learn about semi-supervised learning.
+          </strong>
+         </p>
+        </div>
+       </div>
+       <div class="divider">
+       </div>
+       <div class="ud-atom">
+        <h3>
+        </h3>
+        <div>
+         <h3 id="1-semi-supervised-learning">
+          1. Semi-Supervised Learning
+         </h3>
+         <p>
+          Semi-supervised models are used when you only have a
+          <em>
+           few
+          </em>
+          labeled data points. The motivation for this kind of model is that, we increasingly have a lot of raw data, and the task of labelling data is tedious, time-consuming, and often, sensitive to human error. Semi-supervised models give us a way to learn from a large set of data with only a few labels, and they perform surprisingly well even though the amount of labeled data you have is relatively tiny. Ian Goodfellow has put together a video on this top, which you can see, below.
+         </p>
+        </div>
+       </div>
+       <div class="divider">
+       </div>
+       <div class="ud-atom">
+        <h3>
+         <p>
+          Semi-Supervised Learning
+         </p>
+        </h3>
+        <video controls="">
+         <source src="18. Semi-Supervised Learning-_LRpHPxZaX0.mp4" type="video/mp4"/>
+         <track default="false" kind="subtitles" label="zh-CN" src="18. Semi-Supervised Learning-_LRpHPxZaX0.zh-CN.vtt" srclang="zh-CN"/>
+         <track default="false" kind="subtitles" label="pt-BR" src="18. Semi-Supervised Learning-_LRpHPxZaX0.pt-BR.vtt" srclang="pt-BR"/>
+         <track default="true" kind="subtitles" label="en" src="18. Semi-Supervised Learning-_LRpHPxZaX0.en.vtt" srclang="en"/>
+        </video>
+       </div>
+       <div class="divider">
+       </div>
+       <div class="ud-atom">
+        <h3>
+        </h3>
+        <div>
+         <h3 id="semi-supervised-learning-in-pytorch">
+          Semi-Supervised Learning in PyTorch
+         </h3>
+         <p>
+          There is a readable implementation of a semi-supervised GAN in
+          <a href="https://github.com/Sleepychord/ImprovedGAN-pytorch" rel="noopener noreferrer" target="_blank">
+           this Github repository
+          </a>
+          . If you'd like to implement this in code, I suggest reading through that code!
+         </p>
+        </div>
+       </div>
+       <div class="divider">
+       </div>
+       <div class="ud-atom">
+        <h3>
+        </h3>
+        <div>
+         <h3 id="2-domain-invariance">
+          2. Domain Invariance
+         </h3>
+         <p>
+          Consider
+          <a href="https://arxiv.org/abs/1709.02480" rel="noopener noreferrer" target="_blank">
+           this car classification example
+          </a>
+          . From the abstract, researchers (Timnit Gebru, et. al) wanted to:
+         </p>
+         <blockquote>
+          <p>
+           develop a computer vision pipeline to predict income, per capita carbon emission, crime rates and other city attributes from a single source of publicly available visual data. We first detect cars in 50 million images across 200 of the largest US cities and train a model to predict demographic attributes using the detected cars. To facilitate our work, we have collected the largest and most challenging fine-grained dataset reported to date consisting of over 2600 classes of cars comprised of images from Google Street View and other web sources, classified by car experts to account for even the most subtle of visual differences.
+          </p>
+         </blockquote>
+         <p>
+          One interesting thing to note is that these researchers obtained some manually-labeled Streetview data
+          <em>
+           and
+          </em>
+          data from other sources. I'll call these image sources, domains. So Streetview is a domain and another source, say cars.com is separate domain.
+         </p>
+        </div>
+       </div>
+       <div class="divider">
+       </div>
+       <div class="ud-atom">
+        <h3>
+        </h3>
+        <div>
+         <figure class="figure">
+          <img alt="Different image sources for the paper, 
+[Fine-Grained Car Detection for Visual Census Estimation](https://arxiv.org/abs/1709.02480)" class="img img-fluid" src="img/screen-shot-2018-11-13-at-3.06.36-pm.png"/>
+          <figcaption class="figure-caption">
+           <p>
+            Different image sources for the paper,
+            <br/>
+            <a href="https://arxiv.org/abs/1709.02480" rel="noopener noreferrer" target="_blank">
+             Fine-Grained Car Detection for Visual Census Estimation
+            </a>
+           </p>
+          </figcaption>
+         </figure>
+        </div>
+       </div>
+       <div class="divider">
+       </div>
+       <div class="ud-atom">
+        <h3>
+        </h3>
+        <div>
+         <p>
+          The researchers then had to find a way to combine what they learned from these multiple sources! They did this with the use of multiple classifiers; adversarial networks that do
+          <em>
+           not
+          </em>
+          include a Generator, just two classifiers.
+         </p>
+         <blockquote>
+          <ul>
+           <li>
+            One classifier is learning to recognize car types
+           </li>
+           <li>
+            And another is learning to classify whether a car image came from Google Streetview
+            <em>
+             or
+            </em>
+            cars.com, given the extracted features from that image
+           </li>
+          </ul>
+         </blockquote>
+         <p>
+          So, the first classier’s job is to classify the car image correctly
+          <em>
+           and
+          </em>
+          to
+          <strong>
+           trick the second classifier
+          </strong>
+          so that the second classifier cannot tell whether the extracted image features indicate an image from the Streetview or cars.com domain!
+         </p>
+         <p>
+          The idea is: if the second classifier cannot tell which domain the features are from, then this indicates that these features are shared among the two domains, and you’ve found features that are
+          <strong>
+           domain-invariant
+          </strong>
+          .
+         </p>
+         <p>
+          Domain-invariance can be applied to a number of applications in which you want to find features that are invariant between two different domains. These can be image domains or domains based on different population demographics and so on. This is also sometimes referred to as
+          <a href="https://arxiv.org/pdf/1705.11122.pdf" rel="noopener noreferrer" target="_blank">
+           adversarial feature learning
+          </a>
+          .
+         </p>
+        </div>
+       </div>
+       <div class="divider">
+       </div>
+       <div class="ud-atom">
+        <h3>
+        </h3>
+        <div>
+         <h3 id="3-ethical-and-artistic-applications-further-reading">
+          3. Ethical and Artistic Applications: Further Reading
+         </h3>
+         <ul>
+          <li>
+           <a href="https://www.newyorker.com/magazine/2018/11/12/in-the-age-of-ai-is-seeing-still-believing" rel="noopener noreferrer" target="_blank">
+            Ethical implications of GANs
+           </a>
+           and when "fake" images can give us information about reality.
+          </li>
+          <li>
+           <a href="https://www.ssense.com/en-us/editorial/fashion/do-androids-dream-of-balenciaga-ss29" rel="noopener noreferrer" target="_blank">
+            Do Androids Dream in Balenciaga?
+           </a>
+           note that the author briefly talks about generative models having artistic potential rather than ethical implications, but the two go hand in hand. The generator, in this case, will recreate what it sees on the fashion runway; typically thin, white bodies that do not represent the diversity of people in the world (or even the diversity of people who buy Balenciaga).
+          </li>
+         </ul>
+        </div>
+       </div>
+       <div class="divider">
+       </div>
+      </div>
+      <div class="col-12">
+       <p class="text-right">
+       </p>
+      </div>
+     </div>
+    </main>
+    <footer class="footer">
+     <div class="container">
+      <div class="row">
+       <div class="col-12">
+        <p class="text-center">
+         udacity2.0 If you need the newest courses Plase add me wechat: udacity6
+        </p>
+       </div>
+      </div>
+     </div>
+    </footer>
+   </div>
+  </div>
+  <script src="../assets/js/jquery-3.3.1.min.js">
+  </script>
+  <script src="../assets/js/plyr.polyfilled.min.js">
+  </script>
+  <script src="../assets/js/bootstrap.min.js">
+  </script>
+  <script src="../assets/js/jquery.mCustomScrollbar.concat.min.js">
+  </script>
+  <script src="../assets/js/katex.min.js">
+  </script>
+  <script>
+   // Initialize Plyr video players
+    const players = Array.from(document.querySelectorAll('video')).map(p => new Plyr(p));
+
+    // render math equations
+    let elMath = document.getElementsByClassName('mathquill');
+    for (let i = 0, len = elMath.length; i < len; i += 1) {
+      const el = elMath[i];
+
+      katex.render(el.textContent, el, {
+        throwOnError: false
+      });
+    }
+
+    // this hack will make sure Bootstrap tabs work when using Handlebars
+    if ($('#question-tabs').length && $('#user-answer-tabs').length) {
+      $("#question-tabs a.nav-link").on('click', function () {
+        $("#question-tab-contents .tab-pane").hide();
+        $($(this).attr("href")).show();
+      });
+      $("#user-answer-tabs a.nav-link").on('click', function () {
+        $("#user-answer-tab-contents .tab-pane").hide();
+        $($(this).attr("href")).show();
+      });
+    } else {
+      $("a.nav-link").on('click', function () {
+        $(".tab-pane").hide();
+        $($(this).attr("href")).show();
+      });
+    }
+
+    // side bar events
+    $(document).ready(function () {
+      $("#sidebar").mCustomScrollbar({
+        theme: "minimal"
+      });
+
+      $('#sidebarCollapse').on('click', function () {
+        $('#sidebar, #content').toggleClass('active');
+        $('.collapse.in').toggleClass('in');
+        $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+      });
+
+      // scroll to first video on page loading
+      if ($('video').length) {
+        $('html,body').animate({ scrollTop: $('div.plyr').prev().offset().top});
+      }
+
+      // auto play first video: this may not work with chrome/safari due to autoplay policy
+      if (players && players.length > 0) {
+        players[0].play();
+      }
+
+      // scroll sidebar to current concept
+      const currentInSideBar = $( "ul.sidebar-list.components li a:contains('18. Other Applications of GANs')" )
+      currentInSideBar.css( "text-decoration", "underline" );
+      $("#sidebar").mCustomScrollbar('scrollTo', currentInSideBar);
+    });
+  </script>
+ </body>
+</html>

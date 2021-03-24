@@ -1,0 +1,229 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:01.965
+The first step I took in defining
+
+00:00:01.965 --> 00:00:05.125
+a complete generator was to complete this deconv function.
+
+00:00:05.125 --> 00:00:07.679
+So, here's my complete function and I'm approaching this
+
+00:00:07.679 --> 00:00:10.469
+in the same way that I did the conv helper function.
+
+00:00:10.470 --> 00:00:12.900
+Basically, creating a shortlist of layers using
+
+00:00:12.900 --> 00:00:16.379
+patriotic sequential wrapper to return these as a complete module.
+
+00:00:16.379 --> 00:00:18.855
+So, I start with an empty list of layers,
+
+00:00:18.855 --> 00:00:23.410
+then I'm defining a transpose convolutional layer using the past and parameters.
+
+00:00:23.410 --> 00:00:28.414
+So, some input and output channels and I again plan to use a kernel size of four,
+
+00:00:28.414 --> 00:00:31.669
+a stride of two and a pattern of one to effectively
+
+00:00:31.670 --> 00:00:35.590
+upsample any input by a factor of two in the x and y dimensions.
+
+00:00:35.590 --> 00:00:39.425
+Then I append this transpose convolutional layer to my list of layers.
+
+00:00:39.424 --> 00:00:41.614
+In here I address the batch norm case.
+
+00:00:41.615 --> 00:00:44.450
+If the batch norm parameter is true which is the default,
+
+00:00:44.450 --> 00:00:46.790
+that I'm creating a batch norm layer which will be applied
+
+00:00:46.789 --> 00:00:49.405
+to the outputs of my transpose convolutional layer.
+
+00:00:49.405 --> 00:00:51.414
+If the batch norm parameter is false,
+
+00:00:51.414 --> 00:00:53.810
+I'm not going to add anything more to our list of layers.
+
+00:00:53.810 --> 00:00:57.200
+Finally, I'm using the sequential wrapper to group my layers together and
+
+00:00:57.200 --> 00:01:01.219
+return them as a module that I can use in my generator class definition below.
+
+00:01:01.219 --> 00:01:03.804
+Next, I'll move on to defining the generator class.
+
+00:01:03.804 --> 00:01:07.599
+So, I know that this generator will see a latent vector z as input.
+
+00:01:07.599 --> 00:01:10.699
+Then the first step will be to put this through a fully connected layer that
+
+00:01:10.700 --> 00:01:14.394
+gives us enough outputs to reshape into a deep and small layer.
+
+00:01:14.394 --> 00:01:15.859
+So, in this case,
+
+00:01:15.859 --> 00:01:20.704
+I want to actually create a four by four by 128 layer from these linear outputs,
+
+00:01:20.704 --> 00:01:23.885
+and I'm choosing 128 just because I want to shrink this in half
+
+00:01:23.885 --> 00:01:27.160
+with two more layers to 64 then 32 eventually.
+
+00:01:27.159 --> 00:01:28.694
+So, with this goal in mind,
+
+00:01:28.694 --> 00:01:32.764
+I want the linear layer to produce four by four by 128 outputs.
+
+00:01:32.765 --> 00:01:34.609
+Now let's look at this class.
+
+00:01:34.609 --> 00:01:36.834
+I have my first fully connected layer.
+
+00:01:36.834 --> 00:01:42.229
+This takes in a latent vector z inputs and produces a desired number of outputs.
+
+00:01:42.230 --> 00:01:44.870
+This number was just defined by me with a goal of
+
+00:01:44.870 --> 00:01:47.930
+reshaping these into a four by four by 128 layer.
+
+00:01:47.930 --> 00:01:54.240
+So, I have four by four and then a conv_dim which is 32 by four which is 128 here.
+
+00:01:54.239 --> 00:01:57.829
+Then I'm defining three transpose convolutional layers.
+
+00:01:57.829 --> 00:02:00.379
+I know I need three because I need to get from a size of
+
+00:02:00.379 --> 00:02:04.564
+four-by-four to my desired output image size of 32 by 32.
+
+00:02:04.564 --> 00:02:08.090
+So, let's imagine what happens to our input as it moves through these layers.
+
+00:02:08.090 --> 00:02:10.310
+It starts as a four-by-four shape,
+
+00:02:10.310 --> 00:02:11.360
+then after the first layer,
+
+00:02:11.360 --> 00:02:12.830
+it will become eight by eight,
+
+00:02:12.830 --> 00:02:16.575
+then 16 by 16 and finally 32 by 32.
+
+00:02:16.574 --> 00:02:20.659
+You'll also notice that as I used my helper function I'm going from deep layers
+
+00:02:20.659 --> 00:02:24.865
+and decreasing the depth as I create more and more transpose convolutional layers.
+
+00:02:24.865 --> 00:02:29.550
+So, I'm going from a depth of conv-dim times four to conv-dim times two,
+
+00:02:29.550 --> 00:02:32.265
+to finally conv-dim and finally three.
+
+00:02:32.264 --> 00:02:35.989
+Am using a kernel size of four for each of these and allowing
+
+00:02:35.990 --> 00:02:40.265
+a batch norm layer to be applied to all but the last transpose convolutional layer.
+
+00:02:40.264 --> 00:02:41.719
+For my final layer,
+
+00:02:41.719 --> 00:02:45.740
+I know I'll have my desired spatial size of 32 by 32 and I also
+
+00:02:45.740 --> 00:02:49.909
+want my desired depth which is going to be an output of three for an RGB image.
+
+00:02:49.909 --> 00:02:52.129
+So, all these layers together complete
+
+00:02:52.129 --> 00:02:55.025
+my init function and I can move on to the forward function.
+
+00:02:55.025 --> 00:02:59.020
+This should look pretty familiar with a couple of special and important steps.
+
+00:02:59.020 --> 00:03:01.700
+First, I'm passing my input x which will actually
+
+00:03:01.699 --> 00:03:04.564
+be a vector z through my first linear layer.
+
+00:03:04.564 --> 00:03:07.294
+This is going to produce a desired number of outputs
+
+00:03:07.294 --> 00:03:10.234
+that I'm then reshaping into the shape I want.
+
+00:03:10.235 --> 00:03:12.475
+So, let's look at each of these dimensions.
+
+00:03:12.474 --> 00:03:16.189
+This negative one is going to be a place holder for a batch size.
+
+00:03:16.189 --> 00:03:19.729
+Then they have some depth that's defined by my convolutional dimension,
+
+00:03:19.729 --> 00:03:22.250
+in this case, this will be the value 128.
+
+00:03:22.250 --> 00:03:25.960
+Finally, I have my width and height which are just going to be four by four.
+
+00:03:25.960 --> 00:03:28.790
+Then I can proceed with passing this v-shaped output
+
+00:03:28.789 --> 00:03:31.789
+to my transpose convolutional layers and passing
+
+00:03:31.789 --> 00:03:33.889
+it in sequence to my first second transpose
+
+00:03:33.889 --> 00:03:37.629
+convolutional layers and applying a normal relu activation function.
+
+00:03:37.629 --> 00:03:41.259
+Finally, I'm passing this output to my third transpose convolutional layer,
+
+00:03:41.259 --> 00:03:44.750
+and applying a tan h activation on this last output.
+
+00:03:44.750 --> 00:03:48.800
+So, this returned output should be a generated image that's 32 by
+
+00:03:48.800 --> 00:03:53.660
+32 by three in shape and with pixel values in a range from negative one to one.
+
+00:03:53.659 --> 00:03:57.199
+The next steps will be to instantiate a discriminator and generator
+
+00:03:57.199 --> 00:04:00.799
+and set up our optimization strategy for training these networks.
+

@@ -1,0 +1,382 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:06.525
+The word adversarial in generative adversarial networks means that the two networks,
+
+00:00:06.525 --> 00:00:08.804
+the generator and the discriminator,
+
+00:00:08.804 --> 00:00:11.390
+are in a competition with each other.
+
+00:00:11.390 --> 00:00:14.515
+To understand this kind of competition mathematically,
+
+00:00:14.515 --> 00:00:16.570
+we rely on game theory.
+
+00:00:16.570 --> 00:00:20.320
+Game theory is a branch of applied math that was founded by
+
+00:00:20.320 --> 00:00:25.239
+John Von Neumann and later significantly extended by John Nash.
+
+00:00:25.239 --> 00:00:28.000
+Game theory can be used to model cooperation and
+
+00:00:28.000 --> 00:00:31.690
+conflict between rational agents in any situation,
+
+00:00:31.690 --> 00:00:34.990
+where each agent can choose from some set of actions,
+
+00:00:34.990 --> 00:00:39.210
+and the choice of actions determines a well-defined payoff for each player.
+
+00:00:39.210 --> 00:00:40.689
+Let's take the game of rock,
+
+00:00:40.689 --> 00:00:43.145
+paper, scissors, as an example.
+
+00:00:43.145 --> 00:00:47.189
+Each player can choose whether to play rock, paper or scissors.
+
+00:00:47.189 --> 00:00:50.020
+That defines a set of possible actions.
+
+00:00:50.020 --> 00:00:52.450
+Each player also has a payoff.
+
+00:00:52.450 --> 00:00:54.549
+Let's say that the winning player receives a payoff of
+
+00:00:54.549 --> 00:00:58.164
+one and the losing player receives a payoff of negative one.
+
+00:00:58.164 --> 00:01:03.250
+Rock smashes scissors, scissors cut paper, paper covers rock.
+
+00:01:03.250 --> 00:01:07.780
+It's also possible for the two players to tie if they both play the same move,
+
+00:01:07.780 --> 00:01:10.375
+then both receive a payoff of zero.
+
+00:01:10.375 --> 00:01:15.356
+Suppose that player one always plays scissors and player two always plays rock.
+
+00:01:15.356 --> 00:01:19.341
+Then player one always loses and receives a payoff of negative one.
+
+00:01:19.341 --> 00:01:23.229
+This means player one could improve by changing their strategy,
+
+00:01:23.229 --> 00:01:26.515
+for example, to play paper more often.
+
+00:01:26.515 --> 00:01:31.594
+What happens if we adapt each player's strategy over the course of several games?
+
+00:01:31.594 --> 00:01:34.125
+If the players are allowed to randomize their moves,
+
+00:01:34.125 --> 00:01:37.200
+they will eventually reach an equilibrium where
+
+00:01:37.200 --> 00:01:41.085
+each player chooses their actions uniformly at random.
+
+00:01:41.085 --> 00:01:44.010
+An equilibrium is an important situation in
+
+00:01:44.010 --> 00:01:49.004
+game theory where neither player can improve their payoff by changing their own strategy,
+
+00:01:49.004 --> 00:01:51.780
+assuming the other player's strategy stays the same.
+
+00:01:51.780 --> 00:01:53.549
+In the rock, paper,
+
+00:01:53.549 --> 00:01:56.879
+scissors example let's look at player one's options.
+
+00:01:56.879 --> 00:01:59.040
+Assuming that player two chooses rock,
+
+00:01:59.040 --> 00:02:02.385
+paper or scissors uniformly at random.
+
+00:02:02.385 --> 00:02:07.439
+Let's consider what happens if player one increases the amount of times they play rock.
+
+00:02:07.439 --> 00:02:11.099
+One third of the time player two will play rock as well.
+
+00:02:11.099 --> 00:02:14.389
+That results in a tie where neither player gets any points.
+
+00:02:14.389 --> 00:02:17.400
+One third of the time, player two will play paper.
+
+00:02:17.400 --> 00:02:19.824
+So the increased amount of times that player one
+
+00:02:19.824 --> 00:02:23.370
+plays rock will result in player one losing.
+
+00:02:23.370 --> 00:02:27.449
+Finally, one third of the time player two will play scissors.
+
+00:02:27.449 --> 00:02:30.629
+So the extra times that player one plays rock will give player
+
+00:02:30.629 --> 00:02:34.775
+one some wins that exactly cancel out their losses from earlier.
+
+00:02:34.775 --> 00:02:38.604
+Overall, player one got nothing from changing their strategy.
+
+00:02:38.604 --> 00:02:40.650
+We can make the same argument if we think about player
+
+00:02:40.650 --> 00:02:43.719
+two since the payoffs are symmetrical.
+
+00:02:43.719 --> 00:02:47.550
+This equilibrium where both players choose their actions uniformly at
+
+00:02:47.550 --> 00:02:52.759
+random is an important defining characteristic of the rock, paper, scissors game.
+
+00:02:52.759 --> 00:02:55.319
+We can analyze the game and conclude that
+
+00:02:55.319 --> 00:02:58.680
+rational agents will learn to play completely at random.
+
+00:02:58.680 --> 00:03:01.379
+To understand GANs, we need to think about
+
+00:03:01.379 --> 00:03:05.039
+how payoffs and equilibria work in the context of machine learning.
+
+00:03:05.039 --> 00:03:07.860
+If we can identify an equilibrium in the GAN game,
+
+00:03:07.860 --> 00:03:12.919
+we can use that equilibrium as a defining characteristic to understand that game.
+
+00:03:12.919 --> 00:03:17.754
+Most machine learning models we have seen so far are based on optimization.
+
+00:03:17.754 --> 00:03:19.530
+We write down some model parameters,
+
+00:03:19.530 --> 00:03:22.139
+we write down a cost function of those parameters,
+
+00:03:22.139 --> 00:03:24.365
+and we minimize the cost.
+
+00:03:24.365 --> 00:03:28.849
+In this graph we represent the parameters with the two horizontal axes.
+
+00:03:28.849 --> 00:03:31.979
+The cost function is plodded along in the vertical axis.
+
+00:03:31.979 --> 00:03:36.590
+The goal of the learning algorithm is to find a very low value of the cost function.
+
+00:03:36.590 --> 00:03:41.210
+Usually we don't actually find a global minimum or even a local minimum.
+
+00:03:41.210 --> 00:03:43.439
+We get stuck in a place where numerical problems
+
+00:03:43.439 --> 00:03:45.920
+make it difficult to keep going downhill.
+
+00:03:45.920 --> 00:03:47.789
+But the optimization algorithm,
+
+00:03:47.789 --> 00:03:51.629
+more or less, does a good job of finding a point with very low cost.
+
+00:03:51.629 --> 00:03:55.271
+GANs are different because now there are two different players,
+
+00:03:55.271 --> 00:03:57.900
+the generator and the discriminator.
+
+00:03:57.900 --> 00:04:00.180
+Each player has its own cost.
+
+00:04:00.180 --> 00:04:04.202
+In one easy to visualise version of GANs,
+
+00:04:04.202 --> 00:04:09.710
+the cost for the discriminator is just the negative of the cost for the generator.
+
+00:04:09.710 --> 00:04:14.569
+In this simple case we can describe the whole game using a value function.
+
+00:04:14.569 --> 00:04:16.160
+The generator wants to minimize
+
+00:04:16.160 --> 00:04:21.379
+the value function and the discriminator wants to maximize the value function.
+
+00:04:21.379 --> 00:04:24.949
+Recall that earlier we said an equilibrium occurs when
+
+00:04:24.949 --> 00:04:30.435
+neither player can improve their situation without changing the other player's strategy.
+
+00:04:30.435 --> 00:04:32.569
+That happens when we are at a maximum for
+
+00:04:32.569 --> 00:04:35.240
+the discriminator and a minimum for the generator.
+
+00:04:35.240 --> 00:04:38.430
+This kind of point is a saddle point.
+
+00:04:38.430 --> 00:04:42.389
+You can see here that the game plotted here has an equilibrium in the middle.
+
+00:04:42.389 --> 00:04:46.985
+One of the horizontal axes corresponds to the parameters of the generator.
+
+00:04:46.985 --> 00:04:48.579
+If we take a cross-section along
+
+00:04:48.579 --> 00:04:51.879
+this axis corresponding to the parameters of the generator,
+
+00:04:51.879 --> 00:04:55.400
+the equilibrium looks like a minimum of the value function.
+
+00:04:55.400 --> 00:04:57.675
+The other horizontal axis,
+
+00:04:57.675 --> 00:04:59.670
+perpendicular to the first,
+
+00:04:59.670 --> 00:05:02.785
+represents the parameters of the discriminator.
+
+00:05:02.785 --> 00:05:05.444
+If we take a cross-section along this axis,
+
+00:05:05.444 --> 00:05:09.689
+the equilibrium looks like a maximum of the value function.
+
+00:05:09.689 --> 00:05:13.415
+This gives us a good way to understand games played by deep nets.
+
+00:05:13.415 --> 00:05:17.170
+We want to find a point in the space of both players parameters that is
+
+00:05:17.170 --> 00:05:19.120
+simultaneously a local minimum for
+
+00:05:19.120 --> 00:05:23.129
+each player's cost with respect to that player's parameters.
+
+00:05:23.129 --> 00:05:25.569
+If we analyze the game for GANs,
+
+00:05:25.569 --> 00:05:29.829
+the local maximum for the discriminator occurs when the discriminator
+
+00:05:29.829 --> 00:05:35.329
+accurately estimates the probability that the input is real rather than fake.
+
+00:05:35.329 --> 00:05:40.209
+This probability is given by the ratio between the data density at the input and
+
+00:05:40.209 --> 00:05:42.610
+the sum of both the data density and
+
+00:05:42.610 --> 00:05:46.360
+the model density induced by the generator at the input.
+
+00:05:46.360 --> 00:05:49.629
+We can think of this ratio as measuring how much probability mass in
+
+00:05:49.629 --> 00:05:53.694
+an area comes from the data rather than from the generator.
+
+00:05:53.694 --> 00:05:57.129
+If we use the mathematical tools provided by game theory,
+
+00:05:57.129 --> 00:06:00.235
+we can show that if both networks are big enough,
+
+00:06:00.235 --> 00:06:02.019
+then there is an equilibrium where
+
+00:06:02.019 --> 00:06:05.605
+the generator density is equal to the true data density,
+
+00:06:05.605 --> 00:06:08.579
+and the discriminator outputs one half everywhere.
+
+00:06:08.579 --> 00:06:12.310
+Unfortunately, even though the equilibrium exists,
+
+00:06:12.310 --> 00:06:14.464
+we may not be able to find it.
+
+00:06:14.464 --> 00:06:18.879
+We usually train GANs by running two optimization algorithms simultaneously,
+
+00:06:18.879 --> 00:06:23.829
+each minimizing one player's cost with respect to that player's parameters.
+
+00:06:23.829 --> 00:06:27.055
+Unfortunately, these optimization algorithms
+
+00:06:27.055 --> 00:06:30.235
+do not necessarily find the equilibrium of a game.
+
+00:06:30.235 --> 00:06:35.709
+A common failure case for GANs is that when the data contains multiple clusters,
+
+00:06:35.709 --> 00:06:38.750
+the generator will learn to generate one cluster,
+
+00:06:38.750 --> 00:06:43.740
+then the discriminator will learn to reject that cluster as being fake,
+
+00:06:43.740 --> 00:06:47.319
+then the generator will learn to generate a different cluster, and so on.
+
+00:06:47.319 --> 00:06:50.600
+We would prefer to have an algorithm that reliably finds
+
+00:06:50.600 --> 00:06:56.050
+the equilibrium where the generator samples from all the clusters simultaneously.
+
+00:06:56.050 --> 00:06:58.518
+That is the key research problem concerning GANs,
+
+00:06:58.518 --> 00:07:00.790
+designing a learning algorithm for finding
+
+00:07:00.790 --> 00:07:04.884
+the equilibrium of a game involving high dimensional,
+
+00:07:04.884 --> 00:07:07.990
+continuous, non-convex cost functions.
+
+00:07:07.990 --> 00:07:11.569
+Hopefully some of you will have ideas for how to solve it and
+
+00:07:11.569 --> 00:07:16.000
+unlock new applications that require very reliable learning algorithms.
+

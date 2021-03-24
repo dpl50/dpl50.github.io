@@ -1,0 +1,175 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.350 --> 00:00:05.099
+The generator is, I think the most interesting part of a GAN because
+
+00:00:05.099 --> 00:00:09.434
+its job is to really learn something about the underlying structure of training data.
+
+00:00:09.435 --> 00:00:11.070
+In the case of our house numbers,
+
+00:00:11.070 --> 00:00:13.890
+the generator should learn what shape and color features make up
+
+00:00:13.890 --> 00:00:17.375
+these images and then it will learn to imagine in that space,
+
+00:00:17.375 --> 00:00:21.649
+combining these features in new ways to create realistic generated images.
+
+00:00:21.649 --> 00:00:25.279
+As before, the input to the generator is a random vector Z,
+
+00:00:25.280 --> 00:00:27.890
+usually with something around a 100 values.
+
+00:00:27.890 --> 00:00:29.330
+The output of the generator,
+
+00:00:29.329 --> 00:00:32.304
+it needs to be an image that can be sent to the discriminator.
+
+00:00:32.304 --> 00:00:35.420
+That means, we need to up-sample the vector Z until we get
+
+00:00:35.420 --> 00:00:38.450
+to an image that is 32 by 32 by three,
+
+00:00:38.450 --> 00:00:40.580
+the same shape as our training images.
+
+00:00:40.579 --> 00:00:43.295
+This may remind you of the autoencoder lesson,
+
+00:00:43.295 --> 00:00:45.859
+in which we up-sampled a compressed input using
+
+00:00:45.859 --> 00:00:49.615
+nearest neighbor interpolation or transpose convolutional layers.
+
+00:00:49.615 --> 00:00:52.579
+For this generator, we're going to use what was found successful in
+
+00:00:52.579 --> 00:00:55.939
+the original DCGAN model, transposed convolutions.
+
+00:00:55.939 --> 00:00:58.460
+To review, transposed convolutional layers are
+
+00:00:58.460 --> 00:01:00.829
+similar to the convolutions you know and love,
+
+00:01:00.829 --> 00:01:02.274
+but with the opposite effect.
+
+00:01:02.274 --> 00:01:04.459
+With convolutional layers, you typically go from
+
+00:01:04.459 --> 00:01:07.864
+shallow and wide inputs to deep and narrow outputs,
+
+00:01:07.864 --> 00:01:09.949
+but with transposed convolutional layers,
+
+00:01:09.950 --> 00:01:14.930
+you go from narrow and deep inputs like vectors to wide and flat outputs like images.
+
+00:01:14.930 --> 00:01:18.060
+This is a diagram of the DCGAN generator
+
+00:01:18.060 --> 00:01:22.265
+showing the transposed convolutions progressively up-sampling the layers.
+
+00:01:22.265 --> 00:01:24.905
+Consider using a layer with a stride of two.
+
+00:01:24.905 --> 00:01:26.810
+When you move the convolutional kernel,
+
+00:01:26.810 --> 00:01:28.435
+one pixel in the input layer,
+
+00:01:28.435 --> 00:01:31.019
+the kernel will move two pixels in the output layer.
+
+00:01:31.019 --> 00:01:34.259
+So, it's moving two pixels in the output layer for every one in
+
+00:01:34.260 --> 00:01:38.320
+the input layer and the output layer size depends on the stride.
+
+00:01:38.319 --> 00:01:41.404
+With a stride of two, the transposed convolutional layer output
+
+00:01:41.405 --> 00:01:44.120
+will be twice the width and height of the input layer.
+
+00:01:44.120 --> 00:01:46.910
+Now, the first step in the generator is to
+
+00:01:46.909 --> 00:01:50.379
+connect the input vector Z to a fully connected layer.
+
+00:01:50.379 --> 00:01:52.879
+Then, we'll reshape that fully-connected layer to
+
+00:01:52.879 --> 00:01:56.884
+a four-by-four XY shape with some depth that we specify.
+
+00:01:56.885 --> 00:02:01.955
+Then, we build a stack of larger layers by up-sampling with transposed convolution.
+
+00:02:01.954 --> 00:02:05.674
+Each layer is doubled in XY size using strides of two.
+
+00:02:05.674 --> 00:02:09.365
+So, from four to eight to 16 and then 32.
+
+00:02:09.365 --> 00:02:13.825
+Simultaneously, the depth is reduced as we move forward through these layers.
+
+00:02:13.824 --> 00:02:19.039
+The final layer, the output of the generator is a 32 by 32 by three convolutional layer,
+
+00:02:19.039 --> 00:02:22.745
+which is exactly what we want as the size of our generated images.
+
+00:02:22.745 --> 00:02:26.210
+For the generator, the authors of this original GAN paper use
+
+00:02:26.210 --> 00:02:29.945
+real activations and batch normalization on all hidden layers.
+
+00:02:29.944 --> 00:02:33.805
+The last layer is the only one that should not have batch normalization.
+
+00:02:33.805 --> 00:02:35.504
+Instead, we'll just be applying
+
+00:02:35.504 --> 00:02:39.104
+a tanh activation function to the outputs of the final layer.
+
+00:02:39.104 --> 00:02:43.954
+This will give us a desired output pixel values in a range from negative one to one.
+
+00:02:43.955 --> 00:02:46.480
+So, this completes our GAN architecture.
+
+00:02:46.479 --> 00:02:49.159
+We'll have two adversarial networks and the training and
+
+00:02:49.159 --> 00:02:52.294
+optimization strategies will be the same as what you've seen before.
+
+00:02:52.294 --> 00:02:55.159
+Next up, you'll learn more about batch normalization.
+
+00:02:55.159 --> 00:02:57.560
+With batch normalization, you'll be able to create
+
+00:02:57.560 --> 00:03:00.640
+deeper networks for the GAN and get better results.
+

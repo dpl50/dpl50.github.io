@@ -1,0 +1,202 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:02.595
+So, here's how I define the Discriminator.
+
+00:00:02.595 --> 00:00:06.089
+This is just one of many possible solutions to this task.
+
+00:00:06.089 --> 00:00:08.609
+The first thing I'm doing, is saving my past in
+
+00:00:08.609 --> 00:00:11.849
+confident parameter because I know I'll need to reference this later,
+
+00:00:11.849 --> 00:00:14.429
+then I'm defining three strided convolutional layers
+
+00:00:14.429 --> 00:00:16.800
+using my conv helper function from above.
+
+00:00:16.800 --> 00:00:18.539
+Recall, that this function takes in
+
+00:00:18.539 --> 00:00:20.849
+our usual convolutional layer parameters with
+
+00:00:20.850 --> 00:00:24.050
+a default stride equal to two and padding equal to one.
+
+00:00:24.050 --> 00:00:28.260
+It also has a batch norm parameter that defaults to true and this defines
+
+00:00:28.260 --> 00:00:32.789
+whether or not we add a batch norm layer to the outputs of our strided convolution layer.
+
+00:00:32.789 --> 00:00:37.545
+So, here, my first started convolutional layer is seeing an image as input and
+
+00:00:37.545 --> 00:00:40.160
+each image from the SVA Gen dataset and
+
+00:00:40.159 --> 00:00:43.229
+each generated image should have a depth of three,
+
+00:00:43.229 --> 00:00:44.445
+one for each color channel,
+
+00:00:44.445 --> 00:00:49.049
+RGB and this is producing conv_dim m number of filtered output images,
+
+00:00:49.049 --> 00:00:50.384
+in this case, 32.
+
+00:00:50.384 --> 00:00:54.664
+You'll also note that I'm using a kernel size of four and in the case of the first layer,
+
+00:00:54.664 --> 00:00:58.700
+there was no batch norm layer applied to the outputs of the strided convolutional layer.
+
+00:00:58.700 --> 00:01:01.655
+So, I set the parameter batch norm to false.
+
+00:01:01.655 --> 00:01:04.775
+As I create my second convolutional layer, conv2,
+
+00:01:04.775 --> 00:01:07.340
+I'm using my helper function again just increasing
+
+00:01:07.340 --> 00:01:10.700
+the depth of these layers from conv_dim to conv_dim times two.
+
+00:01:10.700 --> 00:01:14.659
+I'm sending a kernel size to four again and without any additional parameters,
+
+00:01:14.659 --> 00:01:19.189
+I'm leaving the batch norm parameter to its default value which is true and I'm doing
+
+00:01:19.189 --> 00:01:21.259
+the same thing for my third convolutional layer
+
+00:01:21.260 --> 00:01:24.155
+only increasing the depth by a factor of two once more.
+
+00:01:24.155 --> 00:01:25.849
+Let's talk a bit about the shape of
+
+00:01:25.849 --> 00:01:28.819
+the input image as it goes through these convolutional layers.
+
+00:01:28.819 --> 00:01:31.819
+It starts out as a 32 by 32 image and
+
+00:01:31.819 --> 00:01:34.608
+after it goes through each of these strided convolutional layers,
+
+00:01:34.608 --> 00:01:37.324
+it will reduce in spatial size by a factor of two.
+
+00:01:37.325 --> 00:01:41.225
+So, it goes from 32 by 32 to 16 by 16,
+
+00:01:41.224 --> 00:01:45.204
+eight-by-eight and after the third convolutional layer, four-by-four.
+
+00:01:45.204 --> 00:01:46.724
+Now, if I look at my diagram,
+
+00:01:46.724 --> 00:01:49.744
+this is going to look like a four-by-four convolutional layer with
+
+00:01:49.745 --> 00:01:53.109
+a depth of conv_dim times four, which is 128.
+
+00:01:53.109 --> 00:01:55.040
+At the end of these convolutional layers,
+
+00:01:55.040 --> 00:01:57.680
+I know I also need to smash these outputs and feed them to
+
+00:01:57.680 --> 00:01:59.960
+a final fully connected layer that will output
+
+00:01:59.959 --> 00:02:03.679
+just one value that indicates whether an input image is real or fake.
+
+00:02:03.680 --> 00:02:06.970
+So, here, I'm creating a final fully connected layer fc
+
+00:02:06.969 --> 00:02:10.705
+that sees every single output value from the last convolutional layer.
+
+00:02:10.705 --> 00:02:12.580
+As I mentioned, at the end we have
+
+00:02:12.580 --> 00:02:16.080
+a four-by-four image and a depth of conv_dim times four.
+
+00:02:16.080 --> 00:02:20.690
+So, this is how many inputs this layer should see and it produces one value as output.
+
+00:02:20.689 --> 00:02:23.650
+So, all these layers complete my init function,
+
+00:02:23.650 --> 00:02:25.344
+then to my forward function.
+
+00:02:25.344 --> 00:02:28.270
+I'll actually parse an input x through all these layers.
+
+00:02:28.270 --> 00:02:31.715
+So, in parsing x through my convolutional layers one at a time.
+
+00:02:31.715 --> 00:02:35.395
+You'll also see that I'm applying a leaky_relu activation function to
+
+00:02:35.395 --> 00:02:39.100
+each of these outputs with a negative slope value of 0.2.
+
+00:02:39.099 --> 00:02:40.585
+After going through these layers,
+
+00:02:40.585 --> 00:02:43.990
+I then have to flatten the output from the final convolutional layer,
+
+00:02:43.990 --> 00:02:46.550
+which I am doing using outdoor view negative
+
+00:02:46.550 --> 00:02:49.594
+one and then the number of flattened inputs I expect.
+
+00:02:49.594 --> 00:02:53.389
+Again, this is our four-by-four image times the depth of that last layer.
+
+00:02:53.389 --> 00:02:55.849
+Then, I can feed this flattened output into
+
+00:02:55.849 --> 00:02:58.789
+my last fully connected layer and return that output.
+
+00:02:58.789 --> 00:03:03.394
+There is no activation function here and so this should give me my discriminator logits.
+
+00:03:03.395 --> 00:03:07.250
+I'll apply a sigmoid activation function later on when I calculate the loss
+
+00:03:07.250 --> 00:03:11.185
+between these logits and some target real or fake labels. Okay, great.
+
+00:03:11.185 --> 00:03:13.474
+So, as long as you have a few convolutional layers
+
+00:03:13.474 --> 00:03:15.699
+and you're careful with how you've applied batch norm,
+
+00:03:15.699 --> 00:03:19.774
+this should be a complete classifier made of strided convolutional layers.
+
+00:03:19.775 --> 00:03:22.530
+Next, we can move on to defining the generator.
+

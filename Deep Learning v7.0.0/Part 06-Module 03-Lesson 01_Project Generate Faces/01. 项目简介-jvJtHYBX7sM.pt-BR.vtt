@@ -1,0 +1,60 @@
+WEBVTT
+Kind: captions
+Language: pt-BR
+
+00:00:00.114 --> 00:00:02.279
+Imagine que você trabalha
+em uma produtora
+
+00:00:02.279 --> 00:00:06.150
+e sua função é desenhar
+os personagens de um filme.
+
+00:00:06.150 --> 00:00:08.849
+Normalmente, você desenharia
+vários conceitos diferentes
+
+00:00:08.849 --> 00:00:11.459
+antes de chegar
+à arte final.
+
+00:00:11.460 --> 00:00:15.119
+Mas, e se houvesse uma rede neural
+que fizesse isso por você?
+
+00:00:15.119 --> 00:00:18.339
+Talvez, o personagem principal
+precise ser corajoso.
+
+00:00:18.339 --> 00:00:22.190
+Não! Talvez,
+acima de todas as leis!
+
+00:00:22.190 --> 00:00:23.579
+Melhor ainda:
+
+00:00:23.579 --> 00:00:26.759
+e se ele for acima
+de todas as leis da ficção científica?
+
+00:00:26.760 --> 00:00:29.000
+Ah, aí sim!
+
+00:00:29.000 --> 00:00:31.199
+Você criou uma
+rede geradora adversária,
+
+00:00:31.199 --> 00:00:32.909
+não muito tempo atrás.
+
+00:00:32.909 --> 00:00:35.219
+Neste projeto,
+você construirá uma GAN
+
+00:00:35.219 --> 00:00:39.259
+que gera rostos,
+usando imagens de celebridades.
+
+00:00:39.259 --> 00:00:40.939
+Divirta-se!
+

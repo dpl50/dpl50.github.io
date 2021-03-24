@@ -1,0 +1,196 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:05.190
+Before we dive into the details of generative adversarial networks and how they work,
+
+00:00:05.190 --> 00:00:07.995
+let's check out some of what you can do with GANs.
+
+00:00:07.995 --> 00:00:11.144
+GANs are used for generating realistic data.
+
+00:00:11.144 --> 00:00:15.179
+Most of the applications of GANs so far have been for images.
+
+00:00:15.179 --> 00:00:20.160
+For example, the StackGAN model is really great at taking a textual description of
+
+00:00:20.160 --> 00:00:25.289
+a bird than generating a high resolution photo of a bird matching that description.
+
+00:00:25.289 --> 00:00:29.624
+These photos have never been seen before and are totally imaginary.
+
+00:00:29.623 --> 00:00:32.384
+It's not just running image search on a database.
+
+00:00:32.384 --> 00:00:35.159
+In fact, the GAN is drawing a sample from
+
+00:00:35.159 --> 00:00:40.504
+the probability distribution over all hypothetical images matching that description,
+
+00:00:40.505 --> 00:00:43.940
+so you can keep running the GAN to get more images.
+
+00:00:43.939 --> 00:00:47.629
+A tool called iGAN developed in collaboration
+
+00:00:47.630 --> 00:00:51.625
+between Berkeley and Adobe uses GANs to help artists.
+
+00:00:51.625 --> 00:00:55.159
+As the user draws very crude sketches using the mouse,
+
+00:00:55.159 --> 00:00:58.654
+iGAN searches for the nearest possible realistic image.
+
+00:00:58.655 --> 00:01:03.620
+We see here that a scribble of green paint is turned into a lush grassland,
+
+00:01:03.619 --> 00:01:07.189
+and a black triangle is turned into a detailed mountain.
+
+00:01:07.189 --> 00:01:10.894
+GANs can also be used for image to image translation
+
+00:01:10.894 --> 00:01:14.979
+where images in one domain can be turned into images in another domain.
+
+00:01:14.980 --> 00:01:19.115
+Blueprints for buildings can be turned into photos of finished buildings,
+
+00:01:19.114 --> 00:01:23.405
+or drawings of cats can be turned into realistic photos of cats.
+
+00:01:23.405 --> 00:01:28.670
+You may have seen the #edges2cats hashtag go viral a few months ago.
+
+00:01:28.670 --> 00:01:31.010
+What's even more exciting is that
+
+00:01:31.010 --> 00:01:36.020
+image-to-image translation models can be trained in an unsupervised way.
+
+00:01:36.019 --> 00:01:39.289
+Facebook AI researchers showed how to train a model that
+
+00:01:39.290 --> 00:01:43.030
+can turn a photo of a face into a cartoon of a face.
+
+00:01:43.030 --> 00:01:45.935
+The model was trained on photos and and on cartoons,
+
+00:01:45.935 --> 00:01:52.204
+but it did not need pairs of images showing which photo corresponds to which cartoon.
+
+00:01:52.204 --> 00:01:56.789
+Researchers from Nvidia showed how to use a similar GAN technique.
+
+00:01:56.790 --> 00:02:01.340
+For example, to turn photos of day scenes into photos of night scenes.
+
+00:02:01.340 --> 00:02:04.730
+At Berkeley, a model called CycleGAN is
+
+00:02:04.730 --> 00:02:08.125
+especially good at unsupervised image-to-image translation.
+
+00:02:08.125 --> 00:02:12.694
+Here, it transforms this video of a horse to a video of a zebra.
+
+00:02:12.694 --> 00:02:15.650
+Because the training is totally unsupervised,
+
+00:02:15.650 --> 00:02:19.039
+we can see that it changes a few things besides the horse.
+
+00:02:19.039 --> 00:02:22.125
+Because horses and zebras live in different environments,
+
+00:02:22.125 --> 00:02:24.485
+the model has learned to change the background,
+
+00:02:24.485 --> 00:02:26.900
+as well as the image of the horse itself.
+
+00:02:26.900 --> 00:02:30.610
+The background comes out looking more like an African grassland.
+
+00:02:30.610 --> 00:02:35.045
+GANs can also be used to create realistic simulated training sets
+
+00:02:35.044 --> 00:02:39.844
+or environments to train other machine learning models or reinforcement learning agents.
+
+00:02:39.844 --> 00:02:43.819
+Apple's first AI research paper was about using GANs to take
+
+00:02:43.819 --> 00:02:48.108
+3D rendered images of eyes and change them to appear more realistic.
+
+00:02:48.109 --> 00:02:50.510
+These realistic images are useful for training
+
+00:02:50.509 --> 00:02:52.939
+computer vision models that can take an image of
+
+00:02:52.939 --> 00:02:55.925
+the user's eyes and estimate where the user is looking.
+
+00:02:55.925 --> 00:02:58.765
+GANs can also be used for imitation learning.
+
+00:02:58.764 --> 00:03:02.750
+We can think of the actions taken by a reinforcement learning agent as being a kind of
+
+00:03:02.750 --> 00:03:05.330
+data just as GANs can learn to imitate
+
+00:03:05.330 --> 00:03:08.360
+data like the images in a training set of several photos,
+
+00:03:08.360 --> 00:03:11.960
+GANs can learn to imitate the actions taken by a human expert.
+
+00:03:11.960 --> 00:03:14.900
+Of course, we've mostly shown you applications of
+
+00:03:14.900 --> 00:03:17.585
+GANs that come with flashy pictures or videos.
+
+00:03:17.585 --> 00:03:20.465
+You can also use GANs for less visual applications.
+
+00:03:20.465 --> 00:03:22.930
+GANs aren't limited to the visual domain.
+
+00:03:22.930 --> 00:03:25.340
+For example, GANs have been used to predict
+
+00:03:25.340 --> 00:03:28.250
+the outcome of high-energy particle physics experiments.
+
+00:03:28.250 --> 00:03:33.650
+Instead of using explicit Monte Carlo Simulation of the real physics of every step,
+
+00:03:33.650 --> 00:03:38.635
+the GAN learns by example what outcome is likely to occur in each situation.
+
+00:03:38.634 --> 00:03:41.719
+The GAN reduces the computational cost of simulating
+
+00:03:41.719 --> 00:03:46.849
+these physics experiments enough to save millions of dollars worth of supercomputer time.
+
+00:03:46.849 --> 00:03:51.424
+GAN-like models can also be used to generate adversarial examples,
+
+00:03:51.425 --> 00:03:54.650
+inputs that look perfectly normal to a human observer but that
+
+00:03:54.650 --> 00:03:58.770
+had been cleverly designed to fool machine learning classifiers.
+

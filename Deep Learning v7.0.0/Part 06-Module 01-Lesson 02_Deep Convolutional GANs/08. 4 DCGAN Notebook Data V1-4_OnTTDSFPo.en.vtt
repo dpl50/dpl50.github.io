@@ -1,0 +1,190 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:05.160
+In this notebook, you'll build a DCGAN and train it to generate new kinds of images.
+
+00:00:05.160 --> 00:00:08.099
+Specifically, we'll be building off of what we already know from
+
+00:00:08.099 --> 00:00:12.015
+generating MNIST images and address a more complex task.
+
+00:00:12.015 --> 00:00:17.385
+We'll be training a DCGAN on the Street View House Numbers or SVHN dataset.
+
+00:00:17.385 --> 00:00:21.210
+These are color images of house numbers collected from Google Street View.
+
+00:00:21.210 --> 00:00:26.100
+SVHN images are in color and much more variable than MNIST images.
+
+00:00:26.100 --> 00:00:29.730
+Our goal here will be to create a DCGAN that can generate new,
+
+00:00:29.730 --> 00:00:32.219
+realistic looking images of house numbers.
+
+00:00:32.219 --> 00:00:34.350
+We'll go through a series of steps to do this.
+
+00:00:34.350 --> 00:00:37.335
+First, we will load in and preprocess the dataset.
+
+00:00:37.335 --> 00:00:42.049
+Then, your big task will be to define and train discriminator and generator networks.
+
+00:00:42.049 --> 00:00:44.164
+After training for some number of epochs,
+
+00:00:44.164 --> 00:00:45.350
+we'll look at some stats,
+
+00:00:45.350 --> 00:00:46.759
+visualize the loss over time,
+
+00:00:46.759 --> 00:00:48.984
+and look at some sample generated images.
+
+00:00:48.984 --> 00:00:52.384
+Now, since this dataset is more complex than our MNIST data,
+
+00:00:52.384 --> 00:00:54.799
+we'll need a deeper network to actually identify
+
+00:00:54.799 --> 00:00:57.939
+patterns in these images and be able to generate new ones.
+
+00:00:57.939 --> 00:00:59.839
+Specifically, we'll use a series of
+
+00:00:59.840 --> 00:01:04.250
+convolutional or transpose convolutional layers in the discriminator and generator.
+
+00:01:04.250 --> 00:01:05.719
+It's also necessary to use
+
+00:01:05.719 --> 00:01:08.914
+batch normalization to get these convolutional networks to train.
+
+00:01:08.915 --> 00:01:11.330
+Besides these changes in network structure,
+
+00:01:11.329 --> 00:01:15.010
+training the discriminator and generator networks should be the same as before.
+
+00:01:15.010 --> 00:01:19.660
+That is, the discriminator will alternate training on real and fake generated images,
+
+00:01:19.659 --> 00:01:22.819
+and the generator will aim to trick the discriminator into thinking that it's
+
+00:01:22.819 --> 00:01:26.619
+generated images are as real or as realistic as possible.
+
+00:01:26.620 --> 00:01:31.745
+So, let's start by loading in our usual resources and then loading in the data.
+
+00:01:31.745 --> 00:01:36.875
+The SVHN training data is a dataset that's built into the PyTorch datasets library.
+
+00:01:36.875 --> 00:01:40.150
+Here I'm loading the N and applying a Tensor transformation.
+
+00:01:40.150 --> 00:01:43.505
+So, all the images are loaded in as Tensor image types.
+
+00:01:43.504 --> 00:01:47.914
+Then I'm using a data loader to batch this data into a batch size I specify,
+
+00:01:47.915 --> 00:01:49.385
+in this case, 128.
+
+00:01:49.385 --> 00:01:53.204
+This is the number of images we'll iterate over in a batch during training.
+
+00:01:53.204 --> 00:01:57.304
+You can also see that I've set shuffle to true and this creates a final train loader.
+
+00:01:57.305 --> 00:02:00.230
+All right, so after I've loaded in my data, in this cell,
+
+00:02:00.230 --> 00:02:03.505
+I'm actually going to visualize that data just to make sure it's as I expect.
+
+00:02:03.504 --> 00:02:06.949
+So, here I'm plotting 20 of these images and each of these is
+
+00:02:06.950 --> 00:02:10.775
+a 32 by 32 image with three color channels RGB.
+
+00:02:10.775 --> 00:02:14.375
+These are the real training images that will pass to the discriminator.
+
+00:02:14.375 --> 00:02:18.405
+Notice that each image has only one associated numerical label.
+
+00:02:18.405 --> 00:02:21.349
+This is true even if the image contains multiple numbers.
+
+00:02:21.349 --> 00:02:25.044
+The labels look at the number that is clearest and in the center of the image.
+
+00:02:25.044 --> 00:02:28.644
+Now, your first task will be to do a little bit of preprocessing.
+
+00:02:28.645 --> 00:02:31.550
+We know that the output of a tanh activated
+
+00:02:31.550 --> 00:02:35.660
+generator will contain pixel values in a range from negative one to one.
+
+00:02:35.659 --> 00:02:39.500
+So, we need to re-scale our training images to the same range,
+
+00:02:39.500 --> 00:02:40.985
+from negative one to one.
+
+00:02:40.985 --> 00:02:44.090
+Right now, they're in a range from zero to one and I'm going to
+
+00:02:44.090 --> 00:02:47.300
+print out the low and high pixel values for an example image here.
+
+00:02:47.300 --> 00:02:49.670
+You can see that the minimum value is about
+
+00:02:49.669 --> 00:02:53.199
+zero and the maximum is 0.7 for an example image.
+
+00:02:53.199 --> 00:02:58.204
+Next, I want you to complete this scale function such that it takes in a training image X
+
+00:02:58.205 --> 00:03:00.650
+and a feature range negative one to one and that
+
+00:03:00.650 --> 00:03:03.770
+scales X so that its pixel values are in that range.
+
+00:03:03.770 --> 00:03:06.055
+So, it should return a scaled X.
+
+00:03:06.055 --> 00:03:08.510
+Then, I provided some testing code for you here
+
+00:03:08.509 --> 00:03:11.389
+that applies our scale function to our test image.
+
+00:03:11.389 --> 00:03:13.129
+If you've implemented this correctly,
+
+00:03:13.129 --> 00:03:16.174
+you should see that the minimum pixel value is a negative value.
+
+00:03:16.175 --> 00:03:18.545
+As usual, if you get stuck or want to check your work,
+
+00:03:18.544 --> 00:03:20.729
+you can look at my solution next.
+

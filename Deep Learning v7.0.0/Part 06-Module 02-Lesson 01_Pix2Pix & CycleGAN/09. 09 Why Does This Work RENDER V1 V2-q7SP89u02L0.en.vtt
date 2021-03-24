@@ -1,0 +1,142 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:05.474
+So, we've talked a lot about the image to image architectures, and how they train?
+
+00:00:05.474 --> 00:00:12.059
+But I want to take a step back and talk about why CycleGAN work in the first place.
+
+00:00:12.060 --> 00:00:19.155
+How is it possible to learn the mapping between a set of images x and another set y.
+
+00:00:19.155 --> 00:00:23.880
+So, that you can translate from one domain to another.
+
+00:00:23.879 --> 00:00:26.730
+We're operating on the assumption
+
+00:00:26.730 --> 00:00:31.304
+such the style and the content of an image can be separated.
+
+00:00:31.304 --> 00:00:38.295
+This is exactly what the convolutional layers in our generators are learning to do.
+
+00:00:38.295 --> 00:00:41.600
+So, the encoder half of a generator is
+
+00:00:41.600 --> 00:00:46.640
+a convolutional neural network whose job is to extract features from
+
+00:00:46.640 --> 00:00:50.329
+an image has distill information about the content of
+
+00:00:50.329 --> 00:00:55.539
+that image and discard and extraneous information.
+
+00:00:55.759 --> 00:01:00.018
+As we go deeper into the layers of this encoder,
+
+00:01:00.018 --> 00:01:03.829
+the input image has transformed into feature maps.
+
+00:01:03.829 --> 00:01:07.670
+Has increasing care about the content of the image
+
+00:01:07.670 --> 00:01:12.004
+rather than a detail about the texture and the color of pixels,
+
+00:01:12.004 --> 00:01:14.854
+which was something close to tau.
+
+00:01:14.855 --> 00:01:20.045
+The generators have to lunch preserve the content of an image.
+
+00:01:20.045 --> 00:01:26.305
+Thus he can taking an image x and produce a different cheese tau image.
+
+00:01:26.305 --> 00:01:31.580
+Then take a style image and produce a good reconstruction version of x.
+
+00:01:31.579 --> 00:01:36.859
+In fact, the Cycle Consistency Loss such tricks on
+
+00:01:36.859 --> 00:01:42.254
+how to generate hurts map an image from x to y and back again.
+
+00:01:42.254 --> 00:01:45.724
+Is what end up preserving the content of an image.
+
+00:01:45.724 --> 00:01:51.709
+Their [inaudible] loss from discriminators in the CycleGAN are responsible
+
+00:01:51.709 --> 00:01:58.699
+for training a network to produce images in a realistic x or y style.
+
+00:01:58.700 --> 00:02:05.645
+So, a complete CycleGAN is trim to separate a continent style of a set of input images.
+
+00:02:05.644 --> 00:02:08.125
+For any new image sees,
+
+00:02:08.125 --> 00:02:12.560
+it who would be able to keep the content of the image and transfer
+
+00:02:12.560 --> 00:02:17.180
+the style of a whole collection x or y to it.
+
+00:02:17.180 --> 00:02:19.599
+The separation of style and content,
+
+00:02:19.599 --> 00:02:23.745
+make CycleGAN useful for a number of applications.
+
+00:02:23.745 --> 00:02:27.655
+Caching style transfer as you have seen,
+
+00:02:27.655 --> 00:02:32.750
+where we want to transform any input image in a general style for artist.
+
+00:02:32.750 --> 00:02:40.000
+You can use it to do some interesting photo transformations like altering images.
+
+00:02:40.000 --> 00:02:44.990
+So, that's the look like they are taken during the summer or during winter,
+
+00:02:44.990 --> 00:02:49.439
+or changing images of apples to oranges,
+
+00:02:49.439 --> 00:02:52.844
+or darks into cats and vice versa.
+
+00:02:52.844 --> 00:02:58.585
+As has been used to try to transform one person's face into another.
+
+00:02:58.585 --> 00:03:02.060
+In addition to photo transformation and enhancement,
+
+00:03:02.060 --> 00:03:08.500
+CycleGAN has been used via effectively adapt a semantic segmentation model across
+
+00:03:08.500 --> 00:03:11.534
+domains such as phone GT5 to
+
+00:03:11.534 --> 00:03:16.819
+German Street View and transformations from Google Maps to satellite images.
+
+00:03:16.819 --> 00:03:19.098
+CycleGAN not only works on images,
+
+00:03:19.098 --> 00:03:25.669
+but also on other data like moshing or auditory data such as speech recordings.
+
+00:03:25.669 --> 00:03:29.929
+Imagine that you want to transform my voice into your voice,
+
+00:03:29.930 --> 00:03:32.719
+you heard do so with the modified CycleGAN.
+
+00:03:32.719 --> 00:03:36.759
+The applications of such a model are very far-reaching.
+

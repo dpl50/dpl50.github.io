@@ -1,0 +1,202 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:02.759
+After you define your residual block class,
+
+00:00:02.759 --> 00:00:05.205
+you've been given another helper function below.
+
+00:00:05.205 --> 00:00:07.125
+This function deconv creates
+
+00:00:07.125 --> 00:00:10.589
+a transpose convolutional layer and an optional batchnorm layer.
+
+00:00:10.589 --> 00:00:12.585
+Now, with this helper function,
+
+00:00:12.585 --> 00:00:16.289
+deconv helper function from before and the ResidualBlock class,
+
+00:00:16.289 --> 00:00:19.204
+you are ready to define a complete generator class.
+
+00:00:19.204 --> 00:00:21.004
+Let's look back at our diagram.
+
+00:00:21.004 --> 00:00:24.704
+Before, I mentioned that these generators have an encoder portion,
+
+00:00:24.704 --> 00:00:27.699
+a series of resonant blocks and a decoder portion,
+
+00:00:27.699 --> 00:00:29.609
+and this is the general architecture.
+
+00:00:29.609 --> 00:00:31.859
+This network, much like our discriminator,
+
+00:00:31.859 --> 00:00:35.394
+we'll see a 128 by 128 by 3 image as input.
+
+00:00:35.395 --> 00:00:39.080
+This image is going to be compressed into a smaller representation as it
+
+00:00:39.079 --> 00:00:43.119
+goes through a three convolutional layers and reaches a series of residual blocks.
+
+00:00:43.119 --> 00:00:46.429
+It goes through typically six or more of these residual blocks,
+
+00:00:46.429 --> 00:00:50.390
+and then it goes through a three transpose convolutional layers on the other side.
+
+00:00:50.390 --> 00:00:54.369
+These are responsible for up-sampling the output of the resonant blocks.
+
+00:00:54.369 --> 00:00:58.789
+This is sort of undoing the downsampling that happens in the encoder portion,
+
+00:00:58.789 --> 00:01:01.744
+and the final transpose convolutional layer should output
+
+00:01:01.744 --> 00:01:07.450
+a new generated image of the same size as the input,128 by 128 by 3,
+
+00:01:07.450 --> 00:01:09.620
+and three is just the suggested number of
+
+00:01:09.620 --> 00:01:12.260
+convolutional and transpose convolutional layers here.
+
+00:01:12.260 --> 00:01:13.550
+It's what I'll be using,
+
+00:01:13.549 --> 00:01:16.159
+we can actually change the number of layers if you want to.
+
+00:01:16.159 --> 00:01:17.299
+Note that most of the
+
+00:01:17.299 --> 00:01:20.060
+convolutional and transpose convolutional layers have
+
+00:01:20.060 --> 00:01:23.120
+batch norm and ReLU functions applied to their outputs.
+
+00:01:23.120 --> 00:01:25.520
+This is based on the architecture outlined in
+
+00:01:25.519 --> 00:01:28.189
+the CycleGAN paper and it's true for all but
+
+00:01:28.189 --> 00:01:30.620
+the final transpose convolutional layer which has
+
+00:01:30.620 --> 00:01:33.290
+a tanh activation function applied to the output.
+
+00:01:33.290 --> 00:01:35.225
+Also, just to complete this description,
+
+00:01:35.224 --> 00:01:37.009
+we know that the residual blocks are made of
+
+00:01:37.010 --> 00:01:39.575
+convolutional and batch normalization layers
+
+00:01:39.575 --> 00:01:42.140
+with a ReLU in-between these convolutional layers.
+
+00:01:42.140 --> 00:01:45.305
+So, that's where there is no additional activation functions here.
+
+00:01:45.305 --> 00:01:47.810
+Okay. So, learning about residual blocks and
+
+00:01:47.810 --> 00:01:50.409
+the complete architecture of a CycleGAN generator,
+
+00:01:50.409 --> 00:01:55.379
+your tasks are to complete the ResidualBlock class and then complete the generator class.
+
+00:01:55.379 --> 00:02:01.189
+The CycleGenerator class takes in two arguments: conv_dim and n_res_blocks.
+
+00:02:01.189 --> 00:02:03.948
+The conv_dim is set to a default of 64
+
+00:02:03.948 --> 00:02:07.069
+for the depth of the first convolutional layer in the generator.
+
+00:02:07.069 --> 00:02:10.405
+This depth should increase in the encoder portion of the network.
+
+00:02:10.405 --> 00:02:15.515
+Then, it takes in a number of resonant blocks which is set to a default of six.
+
+00:02:15.514 --> 00:02:17.750
+This should be the number of resonant blocks in
+
+00:02:17.750 --> 00:02:20.780
+between the encoder and decoder portion of the generator.
+
+00:02:20.780 --> 00:02:23.539
+These resonant blocks really allow the generator to learn
+
+00:02:23.539 --> 00:02:26.629
+a transformation from one image domain to another,
+
+00:02:26.629 --> 00:02:28.219
+so I wouldn't skip this step.
+
+00:02:28.219 --> 00:02:30.259
+I'd also suggest that you take advantage of
+
+00:02:30.259 --> 00:02:35.239
+PyTorch's sequential wrapper to create a series of six or however many blocks you want.
+
+00:02:35.240 --> 00:02:37.129
+I've also left some comments here,
+
+00:02:37.129 --> 00:02:41.359
+I suggest you break up the model definition into three main parts: the encoder,
+
+00:02:41.360 --> 00:02:43.740
+the resonant box, and the decoder portion.
+
+00:02:43.740 --> 00:02:46.145
+So, define all the layers you need in init
+
+00:02:46.145 --> 00:02:48.689
+and then define the feed-forward behavior as well.
+
+00:02:48.689 --> 00:02:51.229
+As before, I'd say consult the diagram or
+
+00:02:51.229 --> 00:02:54.649
+the original paper if you're confused as to how many layers to make,
+
+00:02:54.650 --> 00:02:56.409
+which layers need normalization,
+
+00:02:56.409 --> 00:02:58.009
+or what kind of depth to use.
+
+00:02:58.009 --> 00:02:59.769
+If you're comfortable with this code,
+
+00:02:59.770 --> 00:03:02.630
+I'd suggest you move on to the next couple of cells and
+
+00:03:02.629 --> 00:03:05.838
+instantiate the necessary discriminators end generators.
+
+00:03:05.838 --> 00:03:08.180
+If you get stuck or want to consult this solution,
+
+00:03:08.180 --> 00:03:10.000
+you can check out the next video.
+

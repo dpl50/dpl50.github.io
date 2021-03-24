@@ -1,0 +1,115 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:02.609
+Here's how I defined the loss functions.
+
+00:00:02.609 --> 00:00:04.394
+You can see that these are pretty simple.
+
+00:00:04.394 --> 00:00:07.019
+That is, there's just one line of code really that we need to
+
+00:00:07.019 --> 00:00:10.289
+calculate for the real and fake adversarial losses.
+
+00:00:10.289 --> 00:00:13.919
+For my real MSE loss or a mean squared error loss,
+
+00:00:13.919 --> 00:00:18.495
+I'm comparing the discriminator logits D out with the real label one,
+
+00:00:18.495 --> 00:00:21.780
+I'm squaring the difference here and then calculating the mean of that
+
+00:00:21.780 --> 00:00:25.830
+squared difference and I'm making sure to just return that value.
+
+00:00:25.829 --> 00:00:30.000
+I'm doing almost the exact same thing for the fake MSE loss function,
+
+00:00:30.000 --> 00:00:33.390
+only this time I'm comparing the logits to the value zero,
+
+00:00:33.390 --> 00:00:36.030
+and D out minus zero is just D out.
+
+00:00:36.030 --> 00:00:39.285
+So, I'm actually just squaring these logits and calculating the mean.
+
+00:00:39.284 --> 00:00:42.064
+Then, I get to the cycle consistency loss.
+
+00:00:42.064 --> 00:00:43.579
+This takes in a real image,
+
+00:00:43.579 --> 00:00:45.949
+a reconstructed image, and a Lambda weight term.
+
+00:00:45.950 --> 00:00:47.690
+So, first, I'm calculating
+
+00:00:47.689 --> 00:00:51.174
+the absolute difference between the real and reconstructed image.
+
+00:00:51.174 --> 00:00:53.570
+This is a pixel-wise difference and I just want
+
+00:00:53.570 --> 00:00:56.149
+one value that indicates the reconstruction loss.
+
+00:00:56.149 --> 00:01:00.140
+So, I'll also calculate the mean of these reconstructed errors.
+
+00:01:00.140 --> 00:01:02.320
+This gives me my reconstruction loss.
+
+00:01:02.320 --> 00:01:05.030
+Finally, I'll multiply this reconstruction loss by
+
+00:01:05.030 --> 00:01:08.195
+the past and Lambda weight value and return that.
+
+00:01:08.194 --> 00:01:09.875
+When we actually get to training,
+
+00:01:09.875 --> 00:01:14.689
+you should look at the original CycleGAN paper to see what value of Lambda they used.
+
+00:01:14.689 --> 00:01:17.959
+In general, this will be an interesting value to play around with.
+
+00:01:17.959 --> 00:01:21.259
+I'd suggest starting at the value they use in the paper and just try
+
+00:01:21.260 --> 00:01:24.965
+and out lower and higher values to see what happens during training.
+
+00:01:24.965 --> 00:01:27.665
+Then, to complete my optimization strategy,
+
+00:01:27.665 --> 00:01:29.765
+I've defined three optimizers,
+
+00:01:29.765 --> 00:01:33.620
+one each attached to the parameters of my discriminators D x and D
+
+00:01:33.620 --> 00:01:38.103
+y and one more attached to my concatenated generator parameters,
+
+00:01:38.103 --> 00:01:42.564
+and I'm just using the same hyper parameters as I did in the DCGAN case.
+
+00:01:42.564 --> 00:01:46.245
+A low learning rate and a Beta one equal to 0.5.
+
+00:01:46.245 --> 00:01:49.010
+Finally, we can move on to the training loop.
+
+00:01:49.010 --> 00:01:50.870
+I want you to complete this training loop and so I'll
+
+00:01:50.870 --> 00:01:53.530
+present this exercise in the next video.
+

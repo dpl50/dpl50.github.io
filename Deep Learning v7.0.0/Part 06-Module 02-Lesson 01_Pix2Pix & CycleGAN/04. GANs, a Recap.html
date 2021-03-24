@@ -1,0 +1,258 @@
+<!-- udacimak v1.4.4 -->
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="ie=edge" http-equiv="X-UA-Compatible"/>
+  <title>
+   GANs, a Recap
+  </title>
+  <link href="../assets/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="../assets/css/plyr.css" rel="stylesheet"/>
+  <link href="../assets/css/katex.min.css" rel="stylesheet"/>
+  <link href="../assets/css/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
+  <link href="../assets/css/styles.css" rel="stylesheet"/>
+  <link href="../assets/img/udacimak.png" rel="shortcut icon" type="image/png">
+  </link>
+ </head>
+ <body>
+  <div class="wrapper">
+   <nav id="sidebar">
+    <div class="sidebar-header">
+     <h3>
+      Pix2Pix &amp; CycleGAN
+     </h3>
+    </div>
+    <ul class="sidebar-list list-unstyled CTAs">
+     <li>
+      <a class="article" href="../index.html">
+       Back to Home
+      </a>
+     </li>
+    </ul>
+    <ul class="sidebar-list list-unstyled components">
+     <li class="">
+      <a href="01. Introducing Jun-Yan Zhu.html">
+       01. Introducing Jun-Yan Zhu
+      </a>
+     </li>
+     <li class="">
+      <a href="02. Image to Image Translation.html">
+       02. Image to Image Translation
+      </a>
+     </li>
+     <li class="">
+      <a href="03. Designing Loss Functions.html">
+       03. Designing Loss Functions
+      </a>
+     </li>
+     <li class="">
+      <a href="04. GANs, a Recap.html">
+       04. GANs, a Recap
+      </a>
+     </li>
+     <li class="">
+      <a href="05. Pix2Pix Generator.html">
+       05. Pix2Pix Generator
+      </a>
+     </li>
+     <li class="">
+      <a href="06. Pix2Pix Discriminator.html">
+       06. Pix2Pix Discriminator
+      </a>
+     </li>
+     <li class="">
+      <a href="07. CycleGANs &amp; Unpaired Data.html">
+       07. CycleGANs &amp; Unpaired Data
+      </a>
+     </li>
+     <li class="">
+      <a href="08. Cycle Consistency Loss.html">
+       08. Cycle Consistency Loss
+      </a>
+     </li>
+     <li class="">
+      <a href="09. Why Does This Work.html">
+       09. Why Does This Work?
+      </a>
+     </li>
+     <li class="">
+      <a href="10. Beyond CycleGANs.html">
+       10. Beyond CycleGANs
+      </a>
+     </li>
+    </ul>
+    <ul class="sidebar-list list-unstyled CTAs">
+     <li>
+      <a class="article" href="../index.html">
+       Back to Home
+      </a>
+     </li>
+    </ul>
+   </nav>
+   <div id="content">
+    <header class="container-fluild header">
+     <div class="container">
+      <div class="row">
+       <div class="col-12">
+        <div class="align-items-middle">
+         <button class="btn btn-toggle-sidebar" id="sidebarCollapse" type="button">
+          <div>
+          </div>
+          <div>
+          </div>
+          <div>
+          </div>
+         </button>
+         <h1 style="display: inline-block">
+          04. GANs, a Recap
+         </h1>
+        </div>
+       </div>
+      </div>
+     </div>
+    </header>
+    <main class="container">
+     <div class="row">
+      <div class="col-12">
+       <div class="ud-atom">
+        <h3>
+         <p>
+          04 GANs A Recap RENDER V1 V3
+         </p>
+        </h3>
+        <video controls="">
+         <source src="04. 04 GANs A Recap RENDER V1 V3-MEKTiR1Xkjg.mp4" type="video/mp4"/>
+         <track default="true" kind="subtitles" label="en" src="04. 04 GANs A Recap RENDER V1 V3-MEKTiR1Xkjg.en.vtt" srclang="en"/>
+        </video>
+       </div>
+       <div class="divider">
+       </div>
+       <div class="ud-atom">
+        <h3>
+        </h3>
+        <div>
+         <h3 id="latent-space">
+          Latent Space
+         </h3>
+         <p>
+          Latent means "hidden" or "concealed". In the context of neural networks, a latent space often means a feature space, and
+          <strong>
+           a latent vector is just a compressed, feature-level representation of an image
+          </strong>
+          !
+         </p>
+         <p>
+          For example, when you created a simple autoencoder, the outputs that connected the encoder and decoder portion of a network made up a compressed representation that could also be referred to as a latent vector.
+         </p>
+         <p>
+          You can read more about latent space in [this blog post] as well as an interesting property of this space: recall that we can mathematically operate on vectors in vector space and with latent vectors, we can perform a kind of feature-level transformation on an image!
+         </p>
+         <blockquote>
+          <p>
+           This manipulation of latent space has even been used to create an
+           <a href="https://github.com/junyanz/iGAN/blob/master/README.md" rel="noopener noreferrer" target="_blank">
+            interactive GAN, iGAN
+           </a>
+           for interactive image generation! I recommend reading the paper, linked in the Github readme.
+          </p>
+         </blockquote>
+        </div>
+       </div>
+       <div class="divider">
+       </div>
+      </div>
+      <div class="col-12">
+       <p class="text-right">
+        <a class="btn btn-outline-primary mt-4" href="05. Pix2Pix Generator.html" role="button">
+         Next Concept
+        </a>
+       </p>
+      </div>
+     </div>
+    </main>
+    <footer class="footer">
+     <div class="container">
+      <div class="row">
+       <div class="col-12">
+        <p class="text-center">
+         udacity2.0 If you need the newest courses Plase add me wechat: udacity6
+        </p>
+       </div>
+      </div>
+     </div>
+    </footer>
+   </div>
+  </div>
+  <script src="../assets/js/jquery-3.3.1.min.js">
+  </script>
+  <script src="../assets/js/plyr.polyfilled.min.js">
+  </script>
+  <script src="../assets/js/bootstrap.min.js">
+  </script>
+  <script src="../assets/js/jquery.mCustomScrollbar.concat.min.js">
+  </script>
+  <script src="../assets/js/katex.min.js">
+  </script>
+  <script>
+   // Initialize Plyr video players
+    const players = Array.from(document.querySelectorAll('video')).map(p => new Plyr(p));
+
+    // render math equations
+    let elMath = document.getElementsByClassName('mathquill');
+    for (let i = 0, len = elMath.length; i < len; i += 1) {
+      const el = elMath[i];
+
+      katex.render(el.textContent, el, {
+        throwOnError: false
+      });
+    }
+
+    // this hack will make sure Bootstrap tabs work when using Handlebars
+    if ($('#question-tabs').length && $('#user-answer-tabs').length) {
+      $("#question-tabs a.nav-link").on('click', function () {
+        $("#question-tab-contents .tab-pane").hide();
+        $($(this).attr("href")).show();
+      });
+      $("#user-answer-tabs a.nav-link").on('click', function () {
+        $("#user-answer-tab-contents .tab-pane").hide();
+        $($(this).attr("href")).show();
+      });
+    } else {
+      $("a.nav-link").on('click', function () {
+        $(".tab-pane").hide();
+        $($(this).attr("href")).show();
+      });
+    }
+
+    // side bar events
+    $(document).ready(function () {
+      $("#sidebar").mCustomScrollbar({
+        theme: "minimal"
+      });
+
+      $('#sidebarCollapse').on('click', function () {
+        $('#sidebar, #content').toggleClass('active');
+        $('.collapse.in').toggleClass('in');
+        $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+      });
+
+      // scroll to first video on page loading
+      if ($('video').length) {
+        $('html,body').animate({ scrollTop: $('div.plyr').prev().offset().top});
+      }
+
+      // auto play first video: this may not work with chrome/safari due to autoplay policy
+      if (players && players.length > 0) {
+        players[0].play();
+      }
+
+      // scroll sidebar to current concept
+      const currentInSideBar = $( "ul.sidebar-list.components li a:contains('04. GANs, a Recap')" )
+      currentInSideBar.css( "text-decoration", "underline" );
+      $("#sidebar").mCustomScrollbar('scrollTo', currentInSideBar);
+    });
+  </script>
+ </body>
+</html>

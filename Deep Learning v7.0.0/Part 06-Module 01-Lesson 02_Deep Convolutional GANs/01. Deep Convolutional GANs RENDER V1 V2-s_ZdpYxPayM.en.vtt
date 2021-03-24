@@ -1,0 +1,85 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:02.430
+In this lesson, we'll be training again to
+
+00:00:02.430 --> 00:00:05.519
+recognize numbers and photos of house addresses.
+
+00:00:05.519 --> 00:00:09.855
+This is the Street View House Numbers Dataset or SVHN.
+
+00:00:09.855 --> 00:00:12.915
+This includes data that's a bit more complex than MNIST.
+
+00:00:12.914 --> 00:00:16.724
+For example, the numbers are of different colors and in different settings.
+
+00:00:16.725 --> 00:00:19.410
+So, generating new realistic-looking house numbers
+
+00:00:19.410 --> 00:00:21.219
+will make for an interesting challenge.
+
+00:00:21.219 --> 00:00:23.809
+To get the best performance out of our model,
+
+00:00:23.809 --> 00:00:27.894
+we're going to use convolutional layers to make a deep convolutional GAN,
+
+00:00:27.894 --> 00:00:29.925
+usually called a DCGAN.
+
+00:00:29.925 --> 00:00:33.575
+A DCGAN will still have a generator and discriminator networks,
+
+00:00:33.575 --> 00:00:35.810
+only this time these networks we made of
+
+00:00:35.810 --> 00:00:39.085
+convolutional layers that are designed to work with spatial data.
+
+00:00:39.085 --> 00:00:43.745
+The discriminator will be a kind of convolutional neural network that aims to classify
+
+00:00:43.744 --> 00:00:49.129
+any image it sees as either real training image or a fake generated image,
+
+00:00:49.130 --> 00:00:52.625
+and the generator will be a transpose convolutional network that aims to
+
+00:00:52.625 --> 00:00:57.710
+upsample a latent vector z and generate realistic images that can fool the discriminator.
+
+00:00:57.710 --> 00:01:00.560
+These networks have opposing goals and they're pulling
+
+00:01:00.560 --> 00:01:03.380
+the error rate of the discriminator in different directions.
+
+00:01:03.380 --> 00:01:06.605
+As they train, they work against each other and both improve.
+
+00:01:06.605 --> 00:01:09.630
+Sort of like having an adversary in a basketball game,
+
+00:01:09.629 --> 00:01:14.159
+someone who challenges you and ideally pushes you to improve your game.
+
+00:01:14.159 --> 00:01:15.539
+So, in this lesson,
+
+00:01:15.540 --> 00:01:18.770
+I'll discuss the general structure of a DCGAN and
+
+00:01:18.769 --> 00:01:21.979
+some new strategies for improving the performance of a model,
+
+00:01:21.980 --> 00:01:24.890
+then I'll show you how to implement such a model in code,
+
+00:01:24.890 --> 00:01:27.959
+giving you exercises and instruction along the way.
+

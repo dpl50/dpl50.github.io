@@ -1,0 +1,271 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:04.605
+Generative adversarial networks are a kind of generative model.
+
+00:00:04.605 --> 00:00:06.300
+Earlier in this Nanodegree,
+
+00:00:06.300 --> 00:00:10.365
+you've seen how recurrent networks can be trained as generative models of text.
+
+00:00:10.365 --> 00:00:14.595
+Recurrent text models generate assignats one word at a time.
+
+00:00:14.595 --> 00:00:17.785
+It's also possible to make one word at a time,
+
+00:00:17.785 --> 00:00:19.554
+style models per images,
+
+00:00:19.554 --> 00:00:23.059
+where the model generates the image one pixel at a time.
+
+00:00:23.059 --> 00:00:24.929
+In general, this strategy is called,
+
+00:00:24.929 --> 00:00:30.254
+'fully visible belief networks' going back to the '90s or auto regressive models,
+
+00:00:30.254 --> 00:00:33.609
+as these models were renamed when they were rediscovered later.
+
+00:00:33.609 --> 00:00:34.859
+But, what if we would like to generate
+
+00:00:34.859 --> 00:00:39.435
+an entire output value such as an entire image in one shot?
+
+00:00:39.435 --> 00:00:44.429
+GANs are a kind of generative model that let's us generate a whole image in parallel.
+
+00:00:44.429 --> 00:00:47.367
+Along with several other kinds of generative models,
+
+00:00:47.367 --> 00:00:49.814
+GANs use a differentiable function
+
+00:00:49.814 --> 00:00:53.700
+represented by a neural network as a generator network.
+
+00:00:53.700 --> 00:00:56.835
+The generator network takes random noise as input,
+
+00:00:56.835 --> 00:01:00.479
+then runs that noise through a differentiable function to
+
+00:01:00.479 --> 00:01:04.409
+transform the noise and reshape it to have recognizable structure.
+
+00:01:04.409 --> 00:01:08.180
+The output of the generator network is a realistic image.
+
+00:01:08.180 --> 00:01:10.079
+The choice of the random input noise
+
+00:01:10.079 --> 00:01:12.810
+determines which image will come out of the generator network.
+
+00:01:12.810 --> 00:01:15.030
+Running the generator network with
+
+00:01:15.030 --> 00:01:20.155
+many different input noise values produces many different realistic output images.
+
+00:01:20.155 --> 00:01:24.599
+The goal is for these images to be fair samples from the distribution over real data.
+
+00:01:24.599 --> 00:01:28.680
+Of course, the generator net doesn't start out producing realistic images.
+
+00:01:28.680 --> 00:01:30.280
+It has to be trained.
+
+00:01:30.280 --> 00:01:32.879
+The training process for a generative model is very
+
+00:01:32.879 --> 00:01:35.984
+different from the training process for a supervised learning model.
+
+00:01:35.984 --> 00:01:38.207
+For a supervised learning model,
+
+00:01:38.207 --> 00:01:41.594
+we show the model an image of a traffic light and we tell it,
+
+00:01:41.594 --> 00:01:42.840
+this is a traffic light.
+
+00:01:42.840 --> 00:01:44.623
+For a generative model,
+
+00:01:44.623 --> 00:01:47.474
+there's no output to associate with each image.
+
+00:01:47.474 --> 00:01:50.340
+We just show the model a lot of images and ask it to
+
+00:01:50.340 --> 00:01:53.575
+make more images that come from the same probability distribution.
+
+00:01:53.575 --> 00:01:56.114
+But how do we actually get the model to do that?
+
+00:01:56.114 --> 00:01:59.969
+Most generative models are trained by adjusting the parameters to
+
+00:01:59.969 --> 00:02:04.180
+maximize the probability that the generator net will generate the training data set.
+
+00:02:04.180 --> 00:02:07.064
+Unfortunately for a lot of interesting models,
+
+00:02:07.064 --> 00:02:10.384
+it can be very difficult to compute this probability.
+
+00:02:10.384 --> 00:02:13.944
+Most generative models get around that with some kind of approximation.
+
+00:02:13.944 --> 00:02:16.650
+GANs use an approximation where a second network,
+
+00:02:16.650 --> 00:02:19.530
+called the discriminator, learns to guide the generator.
+
+00:02:19.530 --> 00:02:23.520
+The discriminator is just a regular neural net classifier,
+
+00:02:23.520 --> 00:02:26.129
+like you have all seen several times by now.
+
+00:02:26.129 --> 00:02:27.979
+During the training process,
+
+00:02:27.979 --> 00:02:30.839
+the discriminator is shown real images from the training data half
+
+00:02:30.839 --> 00:02:34.680
+the time and fake images from the generator the other half of the time.
+
+00:02:34.680 --> 00:02:39.685
+The discriminator is trained to output the probability that the input is real.
+
+00:02:39.685 --> 00:02:43.080
+So it tries to assign a probability near 1 to real images,
+
+00:02:43.080 --> 00:02:46.254
+and a probability near zero to fake images.
+
+00:02:46.254 --> 00:02:49.580
+Meanwhile the generator tries to do the opposite.
+
+00:02:49.580 --> 00:02:52.425
+It is trained to try to output images that the discriminator
+
+00:02:52.425 --> 00:02:55.805
+will assign probability near one of being real.
+
+00:02:55.805 --> 00:02:58.460
+Over time, the generator is forced to produce
+
+00:02:58.460 --> 00:03:02.104
+more realistic outputs in order to fool the discriminator.
+
+00:03:02.104 --> 00:03:06.784
+The generator takes random noise values Z and maps them to put values X.
+
+00:03:06.784 --> 00:03:09.739
+Wherever the generator maps more values of Z,
+
+00:03:09.739 --> 00:03:11.696
+the probability distribution over X,
+
+00:03:11.696 --> 00:03:14.479
+represented by the model, becomes denser.
+
+00:03:14.479 --> 00:03:17.840
+The discriminator outputs high values wherever
+
+00:03:17.840 --> 00:03:22.099
+the density of real data is greater than the density of generated data.
+
+00:03:22.099 --> 00:03:25.289
+The generator changes the samples it produces to
+
+00:03:25.289 --> 00:03:28.830
+move uphill along the function learned by the discriminator.
+
+00:03:28.830 --> 00:03:31.860
+In other words, the generator moves its samples into
+
+00:03:31.860 --> 00:03:35.895
+areas where the model distribution is not yet dense enough.
+
+00:03:35.895 --> 00:03:40.514
+Eventually the generator's distribution matches the real distribution,
+
+00:03:40.514 --> 00:03:45.569
+and the discriminator has to output a probability of one half everywhere because
+
+00:03:45.569 --> 00:03:48.120
+every point is equally likely to be generated by
+
+00:03:48.120 --> 00:03:51.324
+the real data set as to be generated by the model.
+
+00:03:51.324 --> 00:03:53.840
+The two densities are equal.
+
+00:03:53.840 --> 00:03:56.370
+We can think of this process as being like
+
+00:03:56.370 --> 00:04:00.060
+a competition between counterfeiters and police.
+
+00:04:00.060 --> 00:04:02.280
+The generator net is like a group of
+
+00:04:02.280 --> 00:04:06.870
+counterfeiters trying to produce fake money and pass it off as real.
+
+00:04:06.870 --> 00:04:09.000
+The police try to catch counterfeiters using
+
+00:04:09.000 --> 00:04:12.960
+fake money but still want to let everyone else spend their real money.
+
+00:04:12.960 --> 00:04:15.449
+Over time the police get better at detecting
+
+00:04:15.449 --> 00:04:19.329
+counterfeit money and the counterfeiters get better at faking it.
+
+00:04:19.329 --> 00:04:24.800
+Eventually the counterfeiters are forced to make perfect replicas of real money.
+
+00:04:24.800 --> 00:04:27.500
+When we train a simple GAN on the CIFAR-10 data set,
+
+00:04:27.500 --> 00:04:31.379
+we can watch it begin by generating random images,
+
+00:04:31.379 --> 00:04:34.064
+then gradually learn to generate horses,
+
+00:04:34.064 --> 00:04:37.194
+airplanes, trucks and so on.
+
+00:04:37.194 --> 00:04:39.375
+That's the basic idea of how GANs work.
+
+00:04:39.375 --> 00:04:40.769
+In the next few lessons,
+
+00:04:40.769 --> 00:04:42.449
+we'll explain more of the theory of
+
+00:04:42.449 --> 00:04:45.480
+GANs and some of the tips and tricks for making them work well.
+

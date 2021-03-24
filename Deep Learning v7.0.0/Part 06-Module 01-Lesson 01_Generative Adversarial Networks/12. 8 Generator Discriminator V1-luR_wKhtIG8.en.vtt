@@ -1,0 +1,259 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:02.879
+I want my generator and discriminator to take in
+
+00:00:02.879 --> 00:00:07.019
+some input that's going through some hidden layers and finally a fully-connected layer.
+
+00:00:07.019 --> 00:00:08.480
+So here's my solution,
+
+00:00:08.480 --> 00:00:10.185
+starting with my discriminator.
+
+00:00:10.185 --> 00:00:13.019
+Here, I've defined the three different hidden layers.
+
+00:00:13.019 --> 00:00:15.089
+The first takes in an input vector of
+
+00:00:15.089 --> 00:00:19.274
+a specified size and the outputs hidden_dim times four outputs.
+
+00:00:19.274 --> 00:00:22.829
+This then moves to the next layer which reduces that by a factor of two,
+
+00:00:22.829 --> 00:00:25.409
+to get hidden_dim times two number of outputs.
+
+00:00:25.410 --> 00:00:30.000
+Then to the next hidden layer which produces our desired hidden_dim number of outputs.
+
+00:00:30.000 --> 00:00:32.429
+Then I defined my final linear layer,
+
+00:00:32.429 --> 00:00:36.780
+which takes in these hidden outputs and produces an output of some specified size.
+
+00:00:36.780 --> 00:00:39.210
+In this case, this would just be a single value that
+
+00:00:39.210 --> 00:00:42.049
+indicates whether an input image is likely fake or real.
+
+00:00:42.049 --> 00:00:44.959
+Lastly, I've also defined a dropout layer here because it's
+
+00:00:44.960 --> 00:00:47.799
+generally good practice to place these in-between linear layers.
+
+00:00:47.799 --> 00:00:50.570
+All right, so all my layers are defined in the unit function.
+
+00:00:50.570 --> 00:00:52.174
+Now, to my forward function.
+
+00:00:52.174 --> 00:00:55.640
+This will take in an input vector image x and
+
+00:00:55.640 --> 00:00:59.015
+my first step will be to make sure that this is flattened into a vector shape.
+
+00:00:59.015 --> 00:01:02.899
+So no matter if this discriminator sees an image array or a vector,
+
+00:01:02.899 --> 00:01:09.170
+this view step ensures that it shaped into a vector of length 28 by 28 or 784 pixels.
+
+00:01:09.170 --> 00:01:12.950
+Then I'm passing my flattened x to each of my hidden layers
+
+00:01:12.950 --> 00:01:17.100
+and I'm applying a Leaky ReLU to the outputs of each of these hidden layers.
+
+00:01:17.099 --> 00:01:21.924
+You can also choose to define a Leaky ReLU layer in the init function and apply it here.
+
+00:01:21.924 --> 00:01:23.494
+Both are valid solutions.
+
+00:01:23.495 --> 00:01:26.480
+This line should look kind of similar to a CNN,
+
+00:01:26.480 --> 00:01:31.085
+in which we applied convolutional layers and ReLU activation functions in sequence.
+
+00:01:31.084 --> 00:01:33.769
+This Leaky ReLU is just a way of reducing the size of
+
+00:01:33.769 --> 00:01:37.269
+any negative outputs by multiplying them by some negative slope.
+
+00:01:37.269 --> 00:01:39.659
+In this case, informed by the literature,
+
+00:01:39.659 --> 00:01:41.819
+I want that slope to be 0.2.
+
+00:01:41.819 --> 00:01:44.239
+Then I'm doing the same thing with my next hidden layer,
+
+00:01:44.239 --> 00:01:46.939
+applying a dropout layer in-between each of my linear near
+
+00:01:46.939 --> 00:01:51.064
+layers just to ensure that my network is likely to train each node evenly.
+
+00:01:51.064 --> 00:01:54.079
+Then I get to my final linear layer, fc4.
+
+00:01:54.079 --> 00:01:56.944
+I'm not applying any activation function here.
+
+00:01:56.944 --> 00:02:00.654
+This is just going to give me the size of the output that I want, one value.
+
+00:02:00.655 --> 00:02:03.245
+Later, when I calculate the loss during training,
+
+00:02:03.245 --> 00:02:06.829
+I'll actually use bce with [inaudible] laws which applies
+
+00:02:06.829 --> 00:02:11.375
+the sigmoid activation function to this output and converts this value to fake or real,
+
+00:02:11.375 --> 00:02:13.145
+a value between zero and one.
+
+00:02:13.145 --> 00:02:16.070
+I'm making sure to return this final processed value.
+
+00:02:16.069 --> 00:02:18.049
+So this completes my discriminator.
+
+00:02:18.050 --> 00:02:23.080
+On to the generator. Earlier, I mentioned that these models will look really similar.
+
+00:02:23.080 --> 00:02:25.400
+In here, you can see that I'm still defining
+
+00:02:25.400 --> 00:02:29.210
+three hidden layers of final fully-connected layer and a dropout layer.
+
+00:02:29.210 --> 00:02:32.465
+Each of these layers is defined by either the input size,
+
+00:02:32.465 --> 00:02:34.479
+hidden dim, or output size.
+
+00:02:34.479 --> 00:02:36.814
+The main difference here is that the output of
+
+00:02:36.814 --> 00:02:39.984
+each successive layer is getting larger rather than smaller.
+
+00:02:39.985 --> 00:02:44.000
+So instead of going from an input image to a single classification value,
+
+00:02:44.000 --> 00:02:47.074
+I'm actually going to be going from an input vector of some size,
+
+00:02:47.074 --> 00:02:52.129
+our vector z, to an output vector that can actually be reshaped into a new image.
+
+00:02:52.129 --> 00:02:53.990
+So this output size is going to be
+
+00:02:53.990 --> 00:02:58.534
+784 values and my hidden layers are going from a small number of outputs,
+
+00:02:58.534 --> 00:03:00.560
+hidden dim, to a larger number,
+
+00:03:00.560 --> 00:03:01.939
+hidden dim times four.
+
+00:03:01.939 --> 00:03:03.710
+So this looks very similar to
+
+00:03:03.710 --> 00:03:07.310
+our discriminator model but with the layer behavior kind of reversed.
+
+00:03:07.310 --> 00:03:09.439
+Instead of taking in an image as input,
+
+00:03:09.439 --> 00:03:14.724
+we want our generator to take in a latent vector z and produce an image as output.
+
+00:03:14.724 --> 00:03:16.275
+Then to my forward function,
+
+00:03:16.275 --> 00:03:17.730
+I'm passing an input x,
+
+00:03:17.729 --> 00:03:21.394
+which I expect to be a latent vector so I don't need to perform a flattening step.
+
+00:03:21.395 --> 00:03:24.500
+Then I'm just passing this through my hidden layers in succession,
+
+00:03:24.500 --> 00:03:26.300
+applying a Leaky ReLU activation in
+
+00:03:26.300 --> 00:03:28.825
+the same way I did before to each of these hidden layers.
+
+00:03:28.824 --> 00:03:30.060
+In between these layers,
+
+00:03:30.060 --> 00:03:31.349
+I also have my dropout layer.
+
+00:03:31.349 --> 00:03:34.924
+Finally, I get to my final fully-connected layer, fc4.
+
+00:03:34.925 --> 00:03:38.630
+To this, I'm applying a tanh activation function which will
+
+00:03:38.629 --> 00:03:42.939
+scale the outputs of this last layer to be values between negative one and one,
+
+00:03:42.939 --> 00:03:45.000
+and I'm returning that final output.
+
+00:03:45.000 --> 00:03:47.465
+This should complete my generator model.
+
+00:03:47.465 --> 00:03:49.879
+Back to this reference image for a moment,
+
+00:03:49.879 --> 00:03:53.060
+I just want to check that I've defined a discriminator that's prepared to
+
+00:03:53.060 --> 00:03:57.145
+see either an MNIST training image or a generated image as input.
+
+00:03:57.145 --> 00:04:01.340
+I want it to produce one value indicating whether an image is real or fake.
+
+00:04:01.340 --> 00:04:06.170
+I defined a generator that can take in a vector z of some specified size and will
+
+00:04:06.169 --> 00:04:08.539
+produce some output pixel values in a range from
+
+00:04:08.539 --> 00:04:11.344
+negative one to one that can be shaped into a new image.
+
+00:04:11.344 --> 00:04:13.310
+Perfect. Now, the next step is to
+
+00:04:13.310 --> 00:04:15.905
+instantiate these two models with the correct parameters,
+
+00:04:15.905 --> 00:04:17.329
+which I'll go over next.
+

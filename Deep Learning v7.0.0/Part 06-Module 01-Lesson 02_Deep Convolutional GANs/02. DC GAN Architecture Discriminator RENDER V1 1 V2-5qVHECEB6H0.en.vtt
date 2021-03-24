@@ -1,0 +1,121 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:02.549
+A DCGAN is made of two networks,
+
+00:00:02.549 --> 00:00:04.484
+a generator and a discriminator.
+
+00:00:04.485 --> 00:00:08.804
+We'll be defining both of these according to the original paper on DCGANs.
+
+00:00:08.804 --> 00:00:10.605
+Let's start with the discriminator.
+
+00:00:10.605 --> 00:00:13.275
+The discriminator is a convolutional neural network
+
+00:00:13.275 --> 00:00:15.400
+with one fully connected layer at the end.
+
+00:00:15.400 --> 00:00:18.870
+They should take in an image is input and output of value that
+
+00:00:18.870 --> 00:00:22.935
+indicates whether that image is real and from our training data or fake.
+
+00:00:22.934 --> 00:00:26.204
+Notice that, unlike most convolutional networks that you've seen,
+
+00:00:26.204 --> 00:00:28.859
+there are no maxpooling layers in this network.
+
+00:00:28.859 --> 00:00:31.530
+Instead, the down-sampling is done entirely with
+
+00:00:31.530 --> 00:00:34.530
+convolutional layers that have a stride equal to two.
+
+00:00:34.530 --> 00:00:38.929
+For example, let's say this model sees one of our house number images as input.
+
+00:00:38.929 --> 00:00:41.749
+These are 32 by 32 in the x and y dimensions,
+
+00:00:41.749 --> 00:00:43.085
+and three in depth.
+
+00:00:43.085 --> 00:00:45.620
+We can slide our convolutional kernel over this to
+
+00:00:45.619 --> 00:00:48.684
+create an output filtered image in the convolutional layer.
+
+00:00:48.685 --> 00:00:51.920
+If the kernel moves over the image with a stride of two,
+
+00:00:51.920 --> 00:00:54.679
+then for every two pixels it sees in the input image,
+
+00:00:54.679 --> 00:00:57.515
+it will create one pixel in the output filtered image.
+
+00:00:57.515 --> 00:01:00.320
+Effectively, down-sampling the image by a factor of two.
+
+00:01:00.320 --> 00:01:06.379
+So, the output will be a 16 by 16 stack of filtered images of some depth that we specify.
+
+00:01:06.379 --> 00:01:08.959
+This time, all the hidden layers have something called
+
+00:01:08.959 --> 00:01:13.554
+batch normalization and leaky ReLu activations applied to their outputs.
+
+00:01:13.555 --> 00:01:16.490
+A Leaky ReLu function will reduce any negative values it
+
+00:01:16.489 --> 00:01:19.609
+sees by multiplying those values by some smart coefficient,
+
+00:01:19.609 --> 00:01:21.530
+often called the negative slope.
+
+00:01:21.530 --> 00:01:23.359
+The batch normalization, scales
+
+00:01:23.359 --> 00:01:26.709
+the layer outputs to have a mean of zero and variance of one.
+
+00:01:26.709 --> 00:01:29.449
+By scaling the outputs to a consistent range,
+
+00:01:29.450 --> 00:01:32.255
+this normalization step helps the network train faster
+
+00:01:32.254 --> 00:01:35.704
+and reduces problems due to poor parameter initialization.
+
+00:01:35.704 --> 00:01:38.560
+We'll cover batch normalization more later on.
+
+00:01:38.560 --> 00:01:42.109
+Now, after a series of downsampling convolutional layers,
+
+00:01:42.109 --> 00:01:46.439
+the final convolutional layer is flattened and connected to a single sigmoid unit.
+
+00:01:46.439 --> 00:01:49.084
+To get an output and a range from zero to one,
+
+00:01:49.084 --> 00:01:51.774
+indicating whether an image is fake or real.
+
+00:01:51.775 --> 00:01:54.435
+So, this makes up the first part of a DCGAN.
+
+00:01:54.435 --> 00:01:57.040
+Next, let's talk about the generator.
+

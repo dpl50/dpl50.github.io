@@ -1,0 +1,130 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:01.815
+By the end of this lesson,
+
+00:00:01.815 --> 00:00:05.279
+we'll have built a GAN to generate new images of handwritten digits.
+
+00:00:05.280 --> 00:00:07.679
+But first, I want to take a step back and talk
+
+00:00:07.679 --> 00:00:10.429
+about how we might think about solving a task like this.
+
+00:00:10.429 --> 00:00:14.955
+We know that we can create a classifier by training a lot of MNIST images.
+
+00:00:14.955 --> 00:00:16.605
+As the classifier trains,
+
+00:00:16.605 --> 00:00:19.920
+if it sees an image of a two and it outputs the label eight,
+
+00:00:19.920 --> 00:00:23.310
+it will identify this as a mistake and change what it's doing,
+
+00:00:23.309 --> 00:00:25.469
+training until it becomes more accurate.
+
+00:00:25.469 --> 00:00:30.134
+In this process, the classifier will form some representation of the different digits.
+
+00:00:30.135 --> 00:00:33.210
+It learns what features distinguish the different kinds of images.
+
+00:00:33.210 --> 00:00:35.880
+But, you cannot ask a network like this to
+
+00:00:35.880 --> 00:00:39.030
+draw you a new picture of an eight. It doesn't know how.
+
+00:00:39.030 --> 00:00:40.465
+To generate new data,
+
+00:00:40.465 --> 00:00:44.210
+you want something that can learn the underlying structure of the training data,
+
+00:00:44.210 --> 00:00:46.999
+like what colors and shapes make up an image of an eight,
+
+00:00:46.999 --> 00:00:49.835
+and use that information to create something entirely new.
+
+00:00:49.835 --> 00:00:52.509
+Adversarial training gives us a way to do this.
+
+00:00:52.509 --> 00:00:54.929
+The idea is that you have two neural networks,
+
+00:00:54.929 --> 00:00:56.804
+a generator, and discriminator.
+
+00:00:56.804 --> 00:00:59.539
+The discriminator is a simple classifier that tries to
+
+00:00:59.539 --> 00:01:02.780
+classify images as either real from the training set,
+
+00:01:02.780 --> 00:01:04.825
+or fake generated images.
+
+00:01:04.825 --> 00:01:08.545
+The generator is acting as an adversary to the discriminator.
+
+00:01:08.545 --> 00:01:10.405
+It aims to trick the discriminator,
+
+00:01:10.405 --> 00:01:14.245
+giving it generated images that look as if they've come from the training set.
+
+00:01:14.245 --> 00:01:18.140
+If the generator produces an image that the discriminator thinks is fake,
+
+00:01:18.140 --> 00:01:20.435
+then it will change its behavior and try again.
+
+00:01:20.435 --> 00:01:23.750
+The generator will train until it can fool the discriminator into
+
+00:01:23.750 --> 00:01:27.760
+thinking that its generated data comes from the real training set.
+
+00:01:27.760 --> 00:01:32.995
+So, its goal is to force the discriminator to have as high an error rate as possible.
+
+00:01:32.995 --> 00:01:36.380
+But, at the same time, the discriminator is also training.
+
+00:01:36.379 --> 00:01:40.489
+It's alternating between looking at examples of real and fake images,
+
+00:01:40.489 --> 00:01:43.474
+and getting better at recognizing differences between them.
+
+00:01:43.474 --> 00:01:46.689
+Its goal is to have as low an error rate as possible.
+
+00:01:46.689 --> 00:01:51.859
+So, our task will be to define generator and discriminator networks with opposing goals.
+
+00:01:51.859 --> 00:01:53.825
+We'll formalize this idea by defining
+
+00:01:53.825 --> 00:01:56.540
+opposing generator and discriminator loss functions.
+
+00:01:56.540 --> 00:01:57.925
+By the end of training,
+
+00:01:57.924 --> 00:02:02.284
+the discriminator should not be able to tell the difference between real and fake images,
+
+00:02:02.284 --> 00:02:04.640
+and we'll be able to use our trained generator
+
+00:02:04.640 --> 00:02:07.719
+to create new images of handwritten digits.
+

@@ -1,0 +1,79 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:03.390
+Here's my solution for preprocessing the training image data.
+
+00:00:03.390 --> 00:00:08.130
+I know that I want the training images and the images from my generator to be comparable,
+
+00:00:08.130 --> 00:00:11.700
+and I know my generator creates images with pixels in a range from negative one to
+
+00:00:11.699 --> 00:00:15.734
+one due to a tanh activation function applied to its outputs.
+
+00:00:15.734 --> 00:00:20.515
+So here, I'm re-scaling a real training input image x into that range as well,
+
+00:00:20.515 --> 00:00:25.245
+and here I'm assuming that the input x is already in a normalized range from zero to one.
+
+00:00:25.245 --> 00:00:29.969
+In this first line, I'm getting a maximum and minimum from my feature range and
+
+00:00:29.969 --> 00:00:32.129
+the first thing I want to do is to multiply my
+
+00:00:32.130 --> 00:00:35.205
+current zero to one range by a new range that I want.
+
+00:00:35.204 --> 00:00:37.754
+In this case, one minus negative one.
+
+00:00:37.755 --> 00:00:41.130
+The max minus the min is going to give us a range of two values.
+
+00:00:41.130 --> 00:00:46.040
+So this will get me from my original zero to one to a new range zero to two and finally,
+
+00:00:46.039 --> 00:00:51.155
+I shift that zero to two range using plus min or plus negative one in this case.
+
+00:00:51.155 --> 00:00:53.840
+The shifts are ranged to be negative one to one,
+
+00:00:53.840 --> 00:00:55.385
+which is exactly what I want.
+
+00:00:55.384 --> 00:00:57.849
+Then I'm just returning the scaled x.
+
+00:00:57.850 --> 00:01:01.340
+In the cell below, I'm printing out the new min and max values for
+
+00:01:01.340 --> 00:01:04.909
+our sample image and I can see that the new min is a negative value,
+
+00:01:04.909 --> 00:01:06.454
+close to negative one in fact.
+
+00:01:06.454 --> 00:01:08.179
+So this looks pretty good,
+
+00:01:08.180 --> 00:01:12.140
+and above you could have just multiplied by two and subtracted one like we did last
+
+00:01:12.140 --> 00:01:13.805
+time but I just want to show you
+
+00:01:13.805 --> 00:01:16.700
+a more general way of preprocessing this kind of pixel data.
+
+00:01:16.700 --> 00:01:18.950
+Next, I'll introduce your main task,
+
+00:01:18.950 --> 00:01:22.000
+which will be defining generator and discriminator models.
+

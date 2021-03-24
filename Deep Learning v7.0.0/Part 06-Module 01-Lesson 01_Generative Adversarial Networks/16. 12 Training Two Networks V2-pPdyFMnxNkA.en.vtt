@@ -1,0 +1,244 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:02.384
+Training the generator and the discriminator
+
+00:00:02.384 --> 00:00:04.934
+will involve a kind of two-step training loop.
+
+00:00:04.934 --> 00:00:09.570
+The discriminator alternates between training on real data and fake data,
+
+00:00:09.570 --> 00:00:12.449
+so it's training process should follow these steps.
+
+00:00:12.449 --> 00:00:16.335
+First, compute the discriminator loss on real training images,
+
+00:00:16.335 --> 00:00:18.990
+we'll use our real_loss function to help with this.
+
+00:00:18.989 --> 00:00:20.684
+When we train the discriminator,
+
+00:00:20.684 --> 00:00:22.515
+the true labels should be smoothed.
+
+00:00:22.515 --> 00:00:25.230
+Then, you'll generate fake images and compute
+
+00:00:25.230 --> 00:00:28.199
+the discriminator loss on these fake generated images,
+
+00:00:28.199 --> 00:00:32.085
+similar to above, only using our fake_loss function to help compute the loss here.
+
+00:00:32.085 --> 00:00:33.359
+Finally, you'll add up
+
+00:00:33.359 --> 00:00:37.259
+the real and fake_loss components to get the total discriminator loss,
+
+00:00:37.259 --> 00:00:39.509
+and then you can perform backpropagation and
+
+00:00:39.509 --> 00:00:42.884
+an optimization step to update the weights of the discriminator.
+
+00:00:42.884 --> 00:00:44.674
+Next, training the generator.
+
+00:00:44.674 --> 00:00:46.439
+This should be a little simpler.
+
+00:00:46.439 --> 00:00:48.169
+The generator only cares about how
+
+00:00:48.170 --> 00:00:51.664
+the discriminator response to it's fake generated images.
+
+00:00:51.664 --> 00:00:54.649
+In fact, its goal is to trick the discriminator and get
+
+00:00:54.649 --> 00:00:57.655
+it to classify this fake generated data as real.
+
+00:00:57.655 --> 00:00:59.215
+So, to train the generator,
+
+00:00:59.215 --> 00:01:01.820
+you'll start by generating some fake images,
+
+00:01:01.820 --> 00:01:05.030
+and then you compute the discriminator loss on these fake images.
+
+00:01:05.030 --> 00:01:09.170
+Only this time, you'll use flipped labels or our real_loss function because
+
+00:01:09.170 --> 00:01:13.640
+the generator wants the discriminator to classify its images as real,
+
+00:01:13.640 --> 00:01:16.450
+and you won't need to use any labels moving in this case.
+
+00:01:16.450 --> 00:01:18.195
+Then, with this generator loss,
+
+00:01:18.194 --> 00:01:21.829
+you can perform backpropagation and an optimization step as usual.
+
+00:01:21.829 --> 00:01:23.135
+All right. So in this cell,
+
+00:01:23.135 --> 00:01:26.674
+I've started the training loop for you and commented some instructions.
+
+00:01:26.674 --> 00:01:30.650
+This will loop over our training data for some specified number of epochs,
+
+00:01:30.650 --> 00:01:33.980
+and I recommend at least 40 for some reasonable outputs.
+
+00:01:33.980 --> 00:01:37.805
+Then you have some code to keep track of the generator and discriminator losses,
+
+00:01:37.805 --> 00:01:41.240
+and also record some generated fake data as I train.
+
+00:01:41.239 --> 00:01:43.625
+So I'm setting the models to their training mode,
+
+00:01:43.625 --> 00:01:45.920
+and entering this epoch training loop.
+
+00:01:45.920 --> 00:01:48.905
+Then, I'm getting our training data batches at a time.
+
+00:01:48.905 --> 00:01:52.159
+In here, I'm getting the batch size of our input image data,
+
+00:01:52.159 --> 00:01:54.429
+and here's an important step.
+
+00:01:54.430 --> 00:01:56.670
+I'm actually re-scaling the input images,
+
+00:01:56.670 --> 00:01:58.760
+which are normalized to pixel values from zero to
+
+00:01:58.760 --> 00:02:01.975
+one to be in a range of negative one to one.
+
+00:02:01.974 --> 00:02:05.539
+The reason this is important is because our generator outputs have been
+
+00:02:05.540 --> 00:02:09.605
+scaled to be values between negative one and one with a tanh function,
+
+00:02:09.604 --> 00:02:12.879
+and I want these to be comparable to these real pixel values.
+
+00:02:12.879 --> 00:02:15.509
+So, this is an important re-scaling step.
+
+00:02:15.509 --> 00:02:19.129
+To move from a range from zero to one to a negative one to one,
+
+00:02:19.129 --> 00:02:23.854
+we can just multiply zero to one values by two to get a range of zero to two,
+
+00:02:23.854 --> 00:02:27.639
+and then subtract one to get a range of negative one to one.
+
+00:02:27.639 --> 00:02:29.454
+Okay. So then in this batch loop,
+
+00:02:29.455 --> 00:02:31.100
+I have two big marked sections.
+
+00:02:31.099 --> 00:02:35.299
+First for training the discriminator and second for training the generator.
+
+00:02:35.300 --> 00:02:38.675
+The discriminator will be trained on real and fake images.
+
+00:02:38.675 --> 00:02:41.270
+So you'll calculate two losses at each of these steps,
+
+00:02:41.270 --> 00:02:44.750
+and sum them to get a total loss and perform backpropagation.
+
+00:02:44.750 --> 00:02:48.995
+The only code I'm providing here is showing you how to generate these fake images.
+
+00:02:48.995 --> 00:02:52.819
+So first, I'm generating a latent vector z using values
+
+00:02:52.819 --> 00:02:56.965
+taken from a uniform distribution with values between negative one and one.
+
+00:02:56.965 --> 00:02:59.479
+So, these are random values in this range,
+
+00:02:59.479 --> 00:03:04.234
+and I'm making those batch size number of rows by z_size or a 100 in length.
+
+00:03:04.235 --> 00:03:08.380
+Then, I'm converting these to be float tensors that can be passed to a generator.
+
+00:03:08.379 --> 00:03:11.060
+Our generator G can then take this z as
+
+00:03:11.060 --> 00:03:14.275
+input and generate some fake image vectors as output.
+
+00:03:14.275 --> 00:03:16.865
+I'm just giving you one example for how to do this,
+
+00:03:16.865 --> 00:03:18.665
+and later on in training the generator,
+
+00:03:18.664 --> 00:03:21.289
+you'll be asked to generate some more of these images,
+
+00:03:21.289 --> 00:03:24.049
+and you can type up the same fake image creation code there.
+
+00:03:24.050 --> 00:03:26.135
+I'm leaving most of this for you to fill out.
+
+00:03:26.134 --> 00:03:27.469
+At the end of the loop,
+
+00:03:27.469 --> 00:03:29.120
+I also have some code for printing out
+
+00:03:29.120 --> 00:03:32.080
+law statistics and saving some sample generated data.
+
+00:03:32.080 --> 00:03:34.700
+This means that as we train and after each epoch,
+
+00:03:34.699 --> 00:03:36.319
+we'll be recording the discriminator and
+
+00:03:36.319 --> 00:03:39.590
+generator loss as well as saving some fake generated samples.
+
+00:03:39.590 --> 00:03:41.659
+So, try to complete this training loop,
+
+00:03:41.659 --> 00:03:42.754
+and if you've done it correctly,
+
+00:03:42.754 --> 00:03:43.939
+this notebook will be complete,
+
+00:03:43.939 --> 00:03:45.969
+and you can proceed with generating sample data.
+
+00:03:45.969 --> 00:03:50.669
+Next, I'll show you my training process and some examples of this generated data.
+

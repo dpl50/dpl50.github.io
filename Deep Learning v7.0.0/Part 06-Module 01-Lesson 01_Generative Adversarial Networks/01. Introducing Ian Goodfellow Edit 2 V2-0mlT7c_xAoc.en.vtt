@@ -1,0 +1,49 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:05.040
+Hi everyone. We have a very special instructor joining us today, Ian Goodfellow.
+
+00:00:05.040 --> 00:00:08.655
+Ian is the inventor of Generative Adversarial Networks,
+
+00:00:08.654 --> 00:00:11.809
+a major advancement in deep learning. Thanks for joining us Ian.
+
+00:00:11.810 --> 00:00:14.429
+Thanks, Matt. I'm really excited to get to teach
+
+00:00:14.429 --> 00:00:16.920
+you all about Generative Adversarial Nets at Udacity.
+
+00:00:16.920 --> 00:00:18.995
+I've spent a lot of time teaching deep learning before,
+
+00:00:18.995 --> 00:00:20.525
+as a TA at Stanford,
+
+00:00:20.524 --> 00:00:22.039
+as a textbook coauthor,
+
+00:00:22.039 --> 00:00:24.644
+and on the steering committee of a journal called Distill.
+
+00:00:24.644 --> 00:00:28.515
+So I'm going to teach you about Generative Adversarial Nets also called GANs.
+
+00:00:28.515 --> 00:00:31.380
+There are machine learning model that can imagine new things.
+
+00:00:31.379 --> 00:00:33.969
+If you give them a training set of something like images,
+
+00:00:33.969 --> 00:00:36.763
+they can make entirely new images that are realistic,
+
+00:00:36.764 --> 00:00:39.135
+even though they've never been seen before.
+
+00:00:39.134 --> 00:00:43.929
+All right. So, let's get started. Cheers.
+

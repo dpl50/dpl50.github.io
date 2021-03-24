@@ -1,0 +1,187 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:03.870
+So, deep planning techniques have given us a way to take
+
+00:00:03.870 --> 00:00:06.060
+a data-driven approach to solving
+
+00:00:06.059 --> 00:00:11.114
+challenging tasks like object recognition and image classification.
+
+00:00:11.115 --> 00:00:14.039
+So, in image classification tasks,
+
+00:00:14.039 --> 00:00:18.599
+we can take a set of training images and ground truth class labels
+
+00:00:18.600 --> 00:00:23.835
+and ensuring a classifier to produce accurate labels for those images.
+
+00:00:23.835 --> 00:00:28.679
+For example, we can create a classifier by 28 on lots of images say,
+
+00:00:28.679 --> 00:00:31.725
+of cats and dogs, and say,
+
+00:00:31.725 --> 00:00:33.554
+if an image is a cat,
+
+00:00:33.554 --> 00:00:38.519
+wants the classifier to produce a value close to one as output,
+
+00:00:38.520 --> 00:00:41.325
+and then go to zero, if it's a dog.
+
+00:00:41.325 --> 00:00:43.545
+So, as the classifier trains,
+
+00:00:43.545 --> 00:00:45.789
+if it sees a image of a cat,
+
+00:00:45.789 --> 00:00:48.679
+and outputs a small value like 0.1,
+
+00:00:48.679 --> 00:00:52.259
+it knows that's wrong and change what it's doing.
+
+00:00:52.259 --> 00:00:54.149
+Then tries again and again,
+
+00:00:54.149 --> 00:01:00.350
+until it's basically learnt to tell the difference between images of cats and dogs,
+
+00:01:00.350 --> 00:01:03.365
+and the intuits accurate to some degree.
+
+00:01:03.365 --> 00:01:08.254
+These networks trained by monitoring and correcting the errors they make.
+
+00:01:08.254 --> 00:01:14.030
+Classifiers typically use cross entropy loss as a measure of this error.
+
+00:01:14.030 --> 00:01:19.135
+So this is called an objective functioning which I will note as letter L,
+
+00:01:19.135 --> 00:01:21.710
+that measures the difference between
+
+00:01:21.709 --> 00:01:26.059
+a model prediction Y had and the ground choose label Y.
+
+00:01:26.060 --> 00:01:30.980
+So the key during training a classifier is heavy reliable measure for
+
+00:01:30.980 --> 00:01:36.670
+a distance of O error between the true and the predicted class label.
+
+00:01:36.670 --> 00:01:39.355
+So, how can we do something similar,
+
+00:01:39.355 --> 00:01:44.195
+but for comparing true and the predicted output images?
+
+00:01:44.194 --> 00:01:49.789
+So, what is a good way to measure the difference between two images?
+
+00:01:49.790 --> 00:01:55.435
+Let's think about the case of automatic colorization of an image.
+
+00:01:55.435 --> 00:01:59.885
+You might consider doing a pixel by pixel comparison.
+
+00:01:59.885 --> 00:02:02.420
+So, for an input image X,
+
+00:02:02.420 --> 00:02:05.329
+and ground truth choose output image Y,
+
+00:02:05.329 --> 00:02:11.780
+we would like to look at the output of a model Y had and a compare pixel by pixel.
+
+00:02:11.780 --> 00:02:16.189
+How close some average is to the ground choose Y.
+
+00:02:16.189 --> 00:02:20.919
+This pixel distance is called Euclidean distance,
+
+00:02:20.919 --> 00:02:23.324
+and this metric sounds reasonable,
+
+00:02:23.324 --> 00:02:26.539
+but in practice, it's a bit too simple.
+
+00:02:26.539 --> 00:02:32.525
+Since the Euclidean distance takes an average of squeal error terms between pixels,
+
+00:02:32.525 --> 00:02:38.164
+It has a tendency to blur or dore an output image.
+
+00:02:38.164 --> 00:02:44.479
+For example, if a model thinks that a bird is equally likely to be a blue
+
+00:02:44.479 --> 00:02:47.060
+or red and it tries to minimize
+
+00:02:47.060 --> 00:02:51.110
+the Euclidean distance between this pixel value possibilities,
+
+00:02:51.110 --> 00:02:57.385
+it will end up choosing an average of colors and produce a brownish bird.
+
+00:02:57.384 --> 00:03:03.409
+If we think about a pixel-wise difference being of a route he self scenarios.
+
+00:03:03.409 --> 00:03:06.754
+Yeah, its weaknesses become apparent.
+
+00:03:06.754 --> 00:03:13.144
+For example, two images of similar dogs may have very different pixel values.
+
+00:03:13.145 --> 00:03:19.400
+But an image of a basketball and an orange maybe quite close pixel wise.
+
+00:03:19.400 --> 00:03:25.390
+If we often want the content not just the appearance of an image to match up,
+
+00:03:25.389 --> 00:03:29.914
+the objective functioning that will help us translate
+
+00:03:29.914 --> 00:03:34.704
+when type of an image into another is not obvious.
+
+00:03:34.705 --> 00:03:38.270
+If we're approaching the general problem of doing
+
+00:03:38.270 --> 00:03:42.320
+image to image translation for a variety of tasks,
+
+00:03:42.319 --> 00:03:48.204
+can we find the loss function such as useful for all of these tasks?
+
+00:03:48.205 --> 00:03:54.920
+So, one thing we could try to do is to cherish this out output images and see how they
+
+00:03:54.919 --> 00:03:58.594
+compare to some real training data to get
+
+00:03:58.594 --> 00:04:02.960
+our charity images as close as two real images as possible.
+
+00:04:02.960 --> 00:04:04.715
+We can use again,
+
+00:04:04.715 --> 00:04:09.939
+which was designed to find the difference between real and cherish your data.
+
+00:04:09.939 --> 00:04:14.704
+So, before we see how they are applied to image to image translation problems.
+
+00:04:14.705 --> 00:04:16.295
+In the next video,
+
+00:04:16.295 --> 00:04:19.960
+I will do a brief recap of how guesswork.
+

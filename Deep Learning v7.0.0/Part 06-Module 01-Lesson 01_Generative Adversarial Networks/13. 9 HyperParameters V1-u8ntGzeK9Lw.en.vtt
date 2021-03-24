@@ -1,0 +1,121 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:02.294
+After defining your model classes,
+
+00:00:02.294 --> 00:00:07.049
+we need to instantiate a discriminator and a generator with the correct hyperparameters.
+
+00:00:07.049 --> 00:00:08.820
+Here, I've done just that.
+
+00:00:08.820 --> 00:00:12.085
+I have separate parameters for my discriminator and my generator.
+
+00:00:12.085 --> 00:00:15.060
+For my discriminator, I know that I want the input to be
+
+00:00:15.060 --> 00:00:20.070
+an image vector of 28 by 28 pixel values or size 784,
+
+00:00:20.070 --> 00:00:22.560
+and I'll say that my hidden dim will be 32.
+
+00:00:22.559 --> 00:00:24.524
+So as I go through my three hidden layers,
+
+00:00:24.524 --> 00:00:27.929
+my input will go from 784 to 128,
+
+00:00:27.929 --> 00:00:29.579
+which is our hidden dim times four,
+
+00:00:29.579 --> 00:00:32.039
+then to 64 and finally 32.
+
+00:00:32.039 --> 00:00:34.979
+Finally, I know my output should just be one value,
+
+00:00:34.979 --> 00:00:37.199
+indicating whether an image is real or fake,
+
+00:00:37.200 --> 00:00:38.595
+closer to one or zero,
+
+00:00:38.594 --> 00:00:40.574
+then to my generator parameters.
+
+00:00:40.575 --> 00:00:43.685
+Now, I can input a latent vector z of any size.
+
+00:00:43.685 --> 00:00:46.715
+In this case, I'm choosing a size of 100.
+
+00:00:46.715 --> 00:00:49.730
+Then, I'll have the same hidden dim as my discriminator.
+
+00:00:49.729 --> 00:00:51.814
+If I scroll up to my generator code,
+
+00:00:51.814 --> 00:00:55.954
+I know that my input 100 values will be transformed first to 32,
+
+00:00:55.954 --> 00:00:58.399
+the hidden dimension, then to 64,
+
+00:00:58.399 --> 00:01:00.605
+and finally to 128 values.
+
+00:01:00.604 --> 00:01:05.890
+Finally, this 128 will be converted to the output size of 784 values.
+
+00:01:05.890 --> 00:01:07.405
+So, back to these parameters,
+
+00:01:07.405 --> 00:01:11.329
+I know that I want this output size to be 784 values because they'll
+
+00:01:11.329 --> 00:01:15.530
+eventually be reshaped into a 28 by 28 generated image.
+
+00:01:15.530 --> 00:01:17.135
+I'll get then to complete these models,
+
+00:01:17.135 --> 00:01:20.000
+I'm defining a discriminator and generator in this cell.
+
+00:01:20.000 --> 00:01:23.299
+I'm passing in my defined hyperparameters for each of them and then
+
+00:01:23.299 --> 00:01:26.694
+printing out each of these models to check that they are as I expect.
+
+00:01:26.694 --> 00:01:31.174
+From a discriminator, I can see that it's looking at 784 input pixel values,
+
+00:01:31.174 --> 00:01:36.634
+which is what I want, and it's downsampling until it gets to a final output of one value.
+
+00:01:36.635 --> 00:01:39.515
+From my generator, I see the opposite behavior.
+
+00:01:39.515 --> 00:01:41.859
+I have my 100, which is my z size,
+
+00:01:41.859 --> 00:01:44.840
+and then eventually it's outputting 784 values,
+
+00:01:44.840 --> 00:01:47.570
+which can eventually be reshaped into an image.
+
+00:01:47.569 --> 00:01:48.994
+So, this looks great.
+
+00:01:48.995 --> 00:01:50.525
+The next step will be to define
+
+00:01:50.525 --> 00:01:54.530
+our optimization strategy and prepare both of these networks for training.
+

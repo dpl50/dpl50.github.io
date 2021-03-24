@@ -1,0 +1,463 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:02.759
+Here's my solution. I ended up running this code
+
+00:00:02.759 --> 00:00:05.580
+for quite some time and I don't expect you to do that,
+
+00:00:05.580 --> 00:00:07.589
+but even if you run it for a little bit,
+
+00:00:07.589 --> 00:00:11.500
+you should start to see some of the same patterns in our generated samples.
+
+00:00:11.500 --> 00:00:15.210
+Okay. So, first, I'll quickly go over what's happening in the training loop.
+
+00:00:15.210 --> 00:00:17.910
+First, I'm loading in all my images.
+
+00:00:17.910 --> 00:00:21.254
+The test images will strictly be used for generating samples.
+
+00:00:21.254 --> 00:00:23.054
+So, those are fixed here.
+
+00:00:23.054 --> 00:00:28.094
+I'm also scaling my fixed_X and Y to pixel values between negative one and one.
+
+00:00:28.094 --> 00:00:32.475
+You can actually call next again to get a different set of test data if you want.
+
+00:00:32.475 --> 00:00:36.164
+You'll notice that I'm also grabbing an iterator for our training data.
+
+00:00:36.164 --> 00:00:40.250
+That's because I'm going to set up our batch loop a little differently than before.
+
+00:00:40.250 --> 00:00:45.380
+I'll have to iterate over batches of X and Y image data in the same batch loop.
+
+00:00:45.380 --> 00:00:48.665
+So, first, I'm calculating how many batches will go through
+
+00:00:48.664 --> 00:00:52.310
+per epoch and that's just the length of a data iterator.
+
+00:00:52.310 --> 00:00:54.710
+Here, I'm taking the smaller number because
+
+00:00:54.710 --> 00:00:58.115
+the number of X and Y images we have is slightly different.
+
+00:00:58.115 --> 00:01:01.670
+Then, we have our usual epoch training loop and inside,
+
+00:01:01.670 --> 00:01:03.425
+instead of our typical batch loop,
+
+00:01:03.424 --> 00:01:09.194
+I have code that will reset or recreate our X and Y iterators at the start of each epoch.
+
+00:01:09.194 --> 00:01:13.684
+So, this is going to be when the epoch has reached the last batch in our iterator.
+
+00:01:13.685 --> 00:01:15.859
+So, I'm not creating another loop,
+
+00:01:15.859 --> 00:01:19.700
+I'm just making sure that I can call these iterators in appropriate number of times
+
+00:01:19.700 --> 00:01:23.609
+to iterate over all the training data or perhaps not exactly all,
+
+00:01:23.609 --> 00:01:26.284
+but an equal amount of X and Y training data.
+
+00:01:26.284 --> 00:01:29.979
+Okay. Great. So, this all was given to you in the exercise code.
+
+00:01:29.980 --> 00:01:34.670
+Okay. Then, I can use my iterators to get my real X images and real Y images.
+
+00:01:34.670 --> 00:01:38.689
+I'm scaling those as well to make sure they're in the pixel range negative one to one.
+
+00:01:38.689 --> 00:01:42.284
+Okay. Great. So, all of this was given to you in the exercise code.
+
+00:01:42.284 --> 00:01:45.064
+Then, I'm starting training with my discriminators.
+
+00:01:45.064 --> 00:01:48.004
+I'll go over one example in detail here, d_x.
+
+00:01:48.004 --> 00:01:49.984
+This code should look familiar.
+
+00:01:49.984 --> 00:01:55.450
+First, I'm passing in scaled real image_X data and storing the discriminator logits.
+
+00:01:55.450 --> 00:01:58.170
+Then, I'm using my real_mse_loss that I
+
+00:01:58.170 --> 00:02:01.504
+defined above to get the real loss for the discriminator d_x.
+
+00:02:01.504 --> 00:02:03.034
+Then, as a next step,
+
+00:02:03.034 --> 00:02:07.524
+I'm doing something similar only generating fake images to pass to the discriminator.
+
+00:02:07.525 --> 00:02:13.640
+So, I'm getting fake_X images by passing real Y images to my G_YtoX generator.
+
+00:02:13.639 --> 00:02:18.694
+Then, I'm passing those into my d_x discriminator and calculating the fake_mse_loss.
+
+00:02:18.694 --> 00:02:21.829
+Finally, I add the real and fake terms up and perform
+
+00:02:21.830 --> 00:02:25.700
+backpropagation and optimization using my d_x_optimizer.
+
+00:02:25.699 --> 00:02:31.519
+The next few steps are doing the exact same thing only for d_y and the d_y_optimizer.
+
+00:02:31.520 --> 00:02:35.570
+First, I'm training it on real images and then on fake images,
+
+00:02:35.569 --> 00:02:37.935
+adding those up and performing backpropagation.
+
+00:02:37.935 --> 00:02:39.954
+All right, then to training the generators.
+
+00:02:39.954 --> 00:02:44.020
+I'll go through one example in detail again, G_YtoX first.
+
+00:02:44.020 --> 00:02:48.155
+The first couple of steps here are going to be our typical adversarial loss.
+
+00:02:48.155 --> 00:02:53.319
+So, first, I'm using the generator to make fake_X images by passing in real Y images.
+
+00:02:53.319 --> 00:02:57.069
+So, these fake images should look like they've come from domain X.
+
+00:02:57.069 --> 00:02:59.900
+Then, I'm looking at how our X discriminator responds.
+
+00:02:59.900 --> 00:03:04.480
+Only this time, I'm using the real_mse_loss function because this generator wants
+
+00:03:04.479 --> 00:03:09.219
+to fool the discriminator into thinking it's fake_X or actually real training data,
+
+00:03:09.219 --> 00:03:12.414
+and I'm saving this as g_YtoX_loss.
+
+00:03:12.414 --> 00:03:13.854
+Then, comes the new part,
+
+00:03:13.854 --> 00:03:16.169
+calculating the cycle consistency loss.
+
+00:03:16.169 --> 00:03:19.689
+Here, my first step is to actually take the generated fake_X from
+
+00:03:19.689 --> 00:03:23.639
+above and pass it to my other generator, G_XtoY.
+
+00:03:23.639 --> 00:03:26.239
+This should return a reconstructed_Y.
+
+00:03:26.240 --> 00:03:29.060
+Remember that the goal is to get the original
+
+00:03:29.060 --> 00:03:31.640
+and reconstructed images as close as possible.
+
+00:03:31.639 --> 00:03:37.084
+So, then, I calculate my reconstructed_y_loss using my cycle_consistency_loss function.
+
+00:03:37.085 --> 00:03:39.500
+Here, I'm passing in my original images_Y,
+
+00:03:39.500 --> 00:03:43.560
+the reconstructed_Y, and a lambda_weight equal to 10.
+
+00:03:43.560 --> 00:03:47.210
+I got this value by looking at the training details in the CycleGan paper.
+
+00:03:47.210 --> 00:03:50.090
+Then, I'm doing the same steps only with
+
+00:03:50.090 --> 00:03:54.604
+G_XtoY's adversarial loss and reconstructed_x images.
+
+00:03:54.604 --> 00:03:56.179
+At the end of all this work,
+
+00:03:56.180 --> 00:03:59.840
+I'm adding up the adversarial and reconstructed losses
+
+00:03:59.840 --> 00:04:02.719
+that I calculated to get my g_total_loss.
+
+00:04:02.719 --> 00:04:07.569
+Then, I'm performing backpropagation and optimization using my g_optimizer.
+
+00:04:07.569 --> 00:04:11.750
+Then, I just have the provided print statements and sample generation code here.
+
+00:04:11.750 --> 00:04:15.275
+Now, again, I trained for a really long time, for 4,000 epochs,
+
+00:04:15.275 --> 00:04:17.449
+and I don't expect you to do the same thing,
+
+00:04:17.449 --> 00:04:20.389
+but I do want you to check out the last patterns I saw.
+
+00:04:20.389 --> 00:04:22.969
+I find it easiest just to look at this graph.
+
+00:04:22.970 --> 00:04:26.240
+So, my total generator loss is here in green and then
+
+00:04:26.240 --> 00:04:30.754
+my discriminator X and Y are here in blue and orange respectively.
+
+00:04:30.754 --> 00:04:32.269
+I can see that generally,
+
+00:04:32.269 --> 00:04:34.310
+my generator loss is much larger than
+
+00:04:34.310 --> 00:04:38.839
+my discriminator loss which I expect since it's a big summation of terms.
+
+00:04:38.839 --> 00:04:42.839
+I also see that the generator loss decreases a lot at the start of training.
+
+00:04:42.839 --> 00:04:46.594
+This is likely because it starts off producing really bad fakes.
+
+00:04:46.595 --> 00:04:50.990
+Then, it makes some big improvements and then has a sort of refine over time.
+
+00:04:50.990 --> 00:04:53.150
+I also see this kind of squiggly up and down
+
+00:04:53.149 --> 00:04:55.864
+behavior that's typical of adversarial networks.
+
+00:04:55.865 --> 00:04:57.769
+I should also see that at most points,
+
+00:04:57.769 --> 00:05:02.659
+my discriminators have similar loss values that look to be slowly but surely decreasing.
+
+00:05:02.660 --> 00:05:04.700
+At one point, quite late in training,
+
+00:05:04.699 --> 00:05:07.339
+it looks like the generator learned an important trait
+
+00:05:07.339 --> 00:05:10.714
+and so the discriminator losses shot up here for a moment.
+
+00:05:10.714 --> 00:05:12.049
+Just looking at this,
+
+00:05:12.050 --> 00:05:15.935
+I know I could have trained for a longer time because there's no clear plateau yet.
+
+00:05:15.935 --> 00:05:19.084
+All right. Then, let's look at some sample generated images.
+
+00:05:19.084 --> 00:05:23.739
+Here, I have a function view_samples that displays samples given an epoch.
+
+00:05:23.740 --> 00:05:27.230
+The samples are going to be side-by-side real X and
+
+00:05:27.230 --> 00:05:31.700
+their transformations to the Y domain or vice versa. You'll see what I mean.
+
+00:05:31.699 --> 00:05:35.420
+So, here, I'm viewing the samples after only 100 iterations.
+
+00:05:35.420 --> 00:05:38.064
+So, this is really early on in training.
+
+00:05:38.064 --> 00:05:42.305
+I'm first showing X to Y or summer to winter transformations.
+
+00:05:42.305 --> 00:05:44.269
+I can see my real summer images in
+
+00:05:44.269 --> 00:05:47.884
+the left column and then right next to them, their transformations.
+
+00:05:47.884 --> 00:05:52.689
+So, these transformations result from applying G_XtoY to the original image.
+
+00:05:52.689 --> 00:05:56.415
+For the most part, they look just blurry and a bit simpler.
+
+00:05:56.415 --> 00:05:58.275
+So, a bit of a white color palette,
+
+00:05:58.274 --> 00:05:59.969
+but really just noisy.
+
+00:05:59.970 --> 00:06:02.085
+Here, I have my Y to X samples,
+
+00:06:02.084 --> 00:06:04.609
+so from winter to summer transformations.
+
+00:06:04.610 --> 00:06:08.384
+These samples look equally noisy but much more yellow.
+
+00:06:08.384 --> 00:06:11.644
+Next, I'll show you the result at the end of training.
+
+00:06:11.644 --> 00:06:14.254
+So, for me, this was after 4,000 iterations,
+
+00:06:14.254 --> 00:06:18.980
+but you should still see improvements after 500 or 1,000 iterations.
+
+00:06:18.980 --> 00:06:21.415
+Here, you can already see a gray improvement.
+
+00:06:21.415 --> 00:06:24.170
+So, these are from summer to winter images.
+
+00:06:24.170 --> 00:06:29.165
+You can actually see that my G_XtoY generator has learned a few key things.
+
+00:06:29.165 --> 00:06:31.220
+For example, it seems to have learned to turn
+
+00:06:31.220 --> 00:06:34.445
+green foliage into sort of dead brown foliage.
+
+00:06:34.444 --> 00:06:39.050
+It also seems to turn some surfaces a bit more cool white or gray.
+
+00:06:39.050 --> 00:06:42.574
+So, sometimes, it looks like snow or just a cloudy sky.
+
+00:06:42.574 --> 00:06:45.529
+I should know also that some images do not undergo
+
+00:06:45.529 --> 00:06:47.089
+much change and that's because
+
+00:06:47.089 --> 00:06:50.000
+some things will look pretty similar in the winter or summer.
+
+00:06:50.000 --> 00:06:54.439
+So, leaving some traits alone and transforming others like this guy in
+
+00:06:54.439 --> 00:06:59.425
+green leaves is kind of a complex idea that this model has learned to distill.
+
+00:06:59.425 --> 00:07:02.720
+I think this kind of model is really exciting and I
+
+00:07:02.720 --> 00:07:05.705
+think unsupervised deep learning is going to be more important
+
+00:07:05.704 --> 00:07:07.879
+in future research because gathering
+
+00:07:07.879 --> 00:07:11.904
+labeled data is often the most time intensive part of machine learning.
+
+00:07:11.904 --> 00:07:14.389
+Now, I also want to address some shortcomings of
+
+00:07:14.389 --> 00:07:17.870
+this model including that these generators can only produce
+
+00:07:17.870 --> 00:07:20.990
+pretty low-resolution images This can maybe be
+
+00:07:20.990 --> 00:07:24.430
+improved a bit if I just make my images larger in the first place,
+
+00:07:24.430 --> 00:07:29.035
+say 256 by 256 instead of 128 by 128.
+
+00:07:29.035 --> 00:07:32.090
+I think larger images would make these results a bit better,
+
+00:07:32.089 --> 00:07:35.074
+but there would be a trade-off which is a longer training time.
+
+00:07:35.074 --> 00:07:38.329
+There have been other proposed architectures that improve
+
+00:07:38.329 --> 00:07:41.884
+upon these weaknesses and solve this low-resolution problem.
+
+00:07:41.884 --> 00:07:44.810
+I encourage you to read about high-resolution counts.
+
+00:07:44.810 --> 00:07:47.149
+Additionally, these models are best at learning
+
+00:07:47.149 --> 00:07:49.789
+stylistic and texture differences rather than
+
+00:07:49.790 --> 00:07:52.580
+complete shape transformations which is something to keep in
+
+00:07:52.579 --> 00:07:55.805
+mind if you want to apply this kind of model to a different task.
+
+00:07:55.805 --> 00:07:58.310
+Speaking of which, my favorite resource is
+
+00:07:58.310 --> 00:08:02.704
+the GitHub repository for pix2pix and CycleGAN formulations.
+
+00:08:02.704 --> 00:08:07.574
+These models were implemented in PyTorch and this repository belongs to Jun-Yan Zhu.
+
+00:08:07.574 --> 00:08:12.409
+This is a great resource to use because it uses other datasets and shows you results.
+
+00:08:12.410 --> 00:08:17.045
+You can also look directly at the model code and read it and try to replicate it.
+
+00:08:17.045 --> 00:08:21.410
+I was perusing some of this code as part of my research for creating this lesson,
+
+00:08:21.410 --> 00:08:24.900
+and there are some additional training strategies like a change in learning
+
+00:08:24.899 --> 00:08:29.364
+rate and other normalization approaches that may make this model even better.
+
+00:08:29.365 --> 00:08:31.920
+So, if you like the CycleGAN formulation,
+
+00:08:31.920 --> 00:08:36.170
+try to approach another task like transforming horses to zebras or doing
+
+00:08:36.169 --> 00:08:40.759
+collection style transfer or even trying your hand at the pix2pix formulation.
+
+00:08:40.759 --> 00:08:42.870
+Have fun learning even more.
+

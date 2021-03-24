@@ -1,0 +1,163 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:01.770
+In this notebook, we'll be building
+
+00:00:01.770 --> 00:00:05.325
+a generative adversarial network trained on the MNIST dataset.
+
+00:00:05.325 --> 00:00:07.080
+From this, we'll be able to generate
+
+00:00:07.080 --> 00:00:10.919
+new handwritten digits that should look like they've come from the original training set.
+
+00:00:10.919 --> 00:00:14.160
+If you'd like to read the original 2014 paper on GANs,
+
+00:00:14.160 --> 00:00:16.214
+I've included a link here plus a couple of
+
+00:00:16.214 --> 00:00:18.509
+other really cool resources for you to check out.
+
+00:00:18.510 --> 00:00:20.160
+These are basically a sampling of
+
+00:00:20.160 --> 00:00:23.085
+GAN architectures and tasks that GANs can be applied to.
+
+00:00:23.085 --> 00:00:25.500
+We'll specifically learn more about Pix2Pix and
+
+00:00:25.500 --> 00:00:28.289
+CycleGAN architectures later on in this program.
+
+00:00:28.289 --> 00:00:31.274
+The idea behind GANs is that you have these two networks,
+
+00:00:31.274 --> 00:00:33.854
+a generator G and a discriminator D,
+
+00:00:33.854 --> 00:00:35.814
+and they're competing against one another.
+
+00:00:35.814 --> 00:00:39.669
+The discriminator is a simple classifier that looks at an input image
+
+00:00:39.670 --> 00:00:43.855
+from either our real training data or our fake generated image data.
+
+00:00:43.854 --> 00:00:48.265
+It tries to label that image as fake or real which are values between zero and one.
+
+00:00:48.265 --> 00:00:53.179
+This again trains the discriminator gets better at distinguishing real and fake images.
+
+00:00:53.179 --> 00:00:57.369
+Simultaneously, the generator gets better at generating fake images.
+
+00:00:57.369 --> 00:00:59.079
+After some number of epochs,
+
+00:00:59.079 --> 00:01:01.204
+the generator should learn to make data that is
+
+00:01:01.204 --> 00:01:04.640
+indistinguishable from real data according to the discriminator.
+
+00:01:04.640 --> 00:01:07.459
+Now, one thing to note is that the generator has to start with
+
+00:01:07.459 --> 00:01:10.959
+some input and it will transform that input into a new image.
+
+00:01:10.959 --> 00:01:13.414
+This input is going to be a random vector,
+
+00:01:13.415 --> 00:01:15.425
+sometimes called a latent vector.
+
+00:01:15.424 --> 00:01:19.954
+The idea here is to create a latent vector space that we can mathematically operate on.
+
+00:01:19.954 --> 00:01:21.295
+As the generator trains,
+
+00:01:21.295 --> 00:01:23.689
+it figures out how to map any latent vector
+
+00:01:23.689 --> 00:01:26.329
+to an image of a digit that can fool the discriminator.
+
+00:01:26.329 --> 00:01:28.939
+Now, if your goal is to generate only new images,
+
+00:01:28.939 --> 00:01:32.980
+you can discard the discriminator after training and keep only the trained generator.
+
+00:01:32.980 --> 00:01:35.660
+Okay. So, in this notebook, I'll show you how to define and train
+
+00:01:35.659 --> 00:01:39.064
+these adversarial networks in PyTorch and generate new images.
+
+00:01:39.064 --> 00:01:43.870
+First, I'm going to load in my usual libraries and then I'm loading in my MNIST data.
+
+00:01:43.870 --> 00:01:46.400
+Here, using PyTorch's built-in datasets and
+
+00:01:46.400 --> 00:01:50.350
+a data loader for batching this data into batches of size 64.
+
+00:01:50.349 --> 00:01:53.509
+In this case, I'm really only interested in the training data.
+
+00:01:53.510 --> 00:01:55.850
+Specifically, I want to train a generator to make
+
+00:01:55.849 --> 00:01:59.269
+new data that looks like it could have come from this training data,
+
+00:01:59.269 --> 00:02:01.489
+and so I'm just loading in that training data here.
+
+00:02:01.489 --> 00:02:04.959
+Test data would be more useful in a classic classification example.
+
+00:02:04.959 --> 00:02:06.654
+Then, after I've loaded in my data,
+
+00:02:06.655 --> 00:02:09.289
+I'm going to visualize an image to make sure it's as I expect.
+
+00:02:09.289 --> 00:02:11.104
+So, I'm getting a batch of data from
+
+00:02:11.104 --> 00:02:13.969
+our data loader and just displaying the first one in there.
+
+00:02:13.969 --> 00:02:15.844
+So, here's an image of a five,
+
+00:02:15.844 --> 00:02:19.840
+and recall that these are all grayscale 28 by 28 images.
+
+00:02:19.840 --> 00:02:22.064
+Next, we want to define our GAN.
+
+00:02:22.064 --> 00:02:25.030
+But before I outline this exercise and model definition,
+
+00:02:25.030 --> 00:02:27.830
+next, I'll give you a chance to access this notebook.
+
+00:02:27.830 --> 00:02:31.730
+I recommend that you open the exercise notebook in one tab and follow along with
+
+00:02:31.729 --> 00:02:36.000
+these videos in another as I go about defining and training this complete model.
+

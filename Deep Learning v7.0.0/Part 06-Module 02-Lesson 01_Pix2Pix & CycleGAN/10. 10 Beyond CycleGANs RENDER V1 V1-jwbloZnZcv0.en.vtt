@@ -1,0 +1,58 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:03.044
+As with any promising architecture,
+
+00:00:03.044 --> 00:00:06.060
+there has been already some research that peels off
+
+00:00:06.059 --> 00:00:10.259
+the CycleGAN architeture to create some really interesting results.
+
+00:00:10.259 --> 00:00:15.509
+So, one limitation of the CycleGAN architecture is that it could only learn one mapping.
+
+00:00:15.509 --> 00:00:19.198
+So, it will only produce one style output,
+
+00:00:19.199 --> 00:00:21.150
+given an input image.
+
+00:00:21.149 --> 00:00:25.199
+There is a way to learn one-to-many mappings and combine
+
+00:00:25.199 --> 00:00:30.344
+different types of transformations for producing multiple different outputs.
+
+00:00:30.344 --> 00:00:33.329
+An architecture called Paired CycleGAN,
+
+00:00:33.329 --> 00:00:38.355
+provides a way to apply multiple styles to a given image.
+
+00:00:38.354 --> 00:00:44.308
+In this case, we're applying different makeups to the same input portrait,
+
+00:00:44.308 --> 00:00:47.599
+and there are architectures that can learn mapping between
+
+00:00:47.600 --> 00:00:51.454
+more than two domains, such as StarGAN.
+
+00:00:51.454 --> 00:00:55.924
+By providing the architecture such enclose land loss functions
+
+00:00:55.924 --> 00:00:58.074
+and the tracks of mappings,
+
+00:00:58.075 --> 00:01:02.300
+the CycleGAN can be applied to a number of applications.
+
+00:01:02.299 --> 00:01:07.325
+And I hope learning about them has expanded your understanding of GANs,
+
+00:01:07.325 --> 00:01:12.000
+and gotten you excited about programming your own generative networks.
+

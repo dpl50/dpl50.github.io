@@ -1,0 +1,223 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:04.799
+Hello. So, you've just learned all about the theory behind CycleGANs.
+
+00:00:04.799 --> 00:00:09.509
+In this notebook, we're going to define and train a CycleGAN to read in an image
+
+00:00:09.509 --> 00:00:14.250
+from a set X and transform it so that it looks as if it belongs in set Y.
+
+00:00:14.250 --> 00:00:17.070
+Specifically, we'll look at a set of images of
+
+00:00:17.070 --> 00:00:21.164
+Yosemite National Park taken either during the summer or the winter.
+
+00:00:21.164 --> 00:00:24.239
+The seasons are our two domains; X and Y.
+
+00:00:24.239 --> 00:00:26.250
+Here are some example images.
+
+00:00:26.250 --> 00:00:28.710
+In general, you can see that the summer images are
+
+00:00:28.710 --> 00:00:31.769
+brighter and with more green than the winter images.
+
+00:00:31.769 --> 00:00:34.320
+The winter images contain things like snow,
+
+00:00:34.320 --> 00:00:38.310
+cloudy images and brown or kind of dead foliage.
+
+00:00:38.310 --> 00:00:41.400
+The differences are not always so obvious though.
+
+00:00:41.399 --> 00:00:44.839
+Often, rocks and water will look really similar no matter the season.
+
+00:00:44.840 --> 00:00:47.690
+So, this is an interesting transformation task.
+
+00:00:47.689 --> 00:00:50.899
+Our main objective will be to train generators that learn to
+
+00:00:50.899 --> 00:00:54.289
+transform an image from summer into winter and vice versa.
+
+00:00:54.289 --> 00:00:59.454
+These images do not come with labels and are referred to as unpaired training data.
+
+00:00:59.454 --> 00:01:02.449
+But CycleGANs gave us a way to learn the mapping between
+
+00:01:02.450 --> 00:01:06.185
+one image domain and another using an unsupervised approach.
+
+00:01:06.185 --> 00:01:09.100
+For example, in the paper that introduced CycleGANs,
+
+00:01:09.099 --> 00:01:14.479
+[inaudible] the authors were able to translate between images of horses and zebras,
+
+00:01:14.480 --> 00:01:16.969
+even though there were no images of a zebra in
+
+00:01:16.969 --> 00:01:21.700
+exactly the same position as a horse or with exactly the same background, and so on.
+
+00:01:21.700 --> 00:01:26.055
+So, a CycleGAN is made of two types of networks; discriminators and generators.
+
+00:01:26.055 --> 00:01:30.379
+The discriminators are responsible for classifying images as real or fake,
+
+00:01:30.379 --> 00:01:33.010
+for both summer and winter images in this case.
+
+00:01:33.010 --> 00:01:38.075
+The generators are responsible for generating convincing fake images for both domains.
+
+00:01:38.075 --> 00:01:42.034
+So, two domains, two types of discriminators and generators.
+
+00:01:42.034 --> 00:01:45.090
+This notebook will be mainly about defining and training these networks.
+
+00:01:45.090 --> 00:01:47.704
+But let's start by loading in our data to work with.
+
+00:01:47.704 --> 00:01:50.480
+I've provided some code in this notebook to load in
+
+00:01:50.480 --> 00:01:53.420
+our summer and winter image data and our usual resources.
+
+00:01:53.420 --> 00:01:58.415
+Then, I'm creating training and test loaders for each of these image domains X and Y.
+
+00:01:58.415 --> 00:02:02.020
+This code should look pretty familiar so I'm going to go over pretty quickly.
+
+00:02:02.019 --> 00:02:06.019
+The get_data_loader function returns training and test data loaders
+
+00:02:06.019 --> 00:02:09.599
+that transform our image data into tensor image types.
+
+00:02:09.599 --> 00:02:13.914
+Then, the data loaders can shuffle and batch this data into a specified size.
+
+00:02:13.914 --> 00:02:17.269
+You can leave all the parameters in this loader function as is.
+
+00:02:17.270 --> 00:02:20.740
+This will resize our images and create small batches. All right.
+
+00:02:20.740 --> 00:02:25.969
+So, I'll run this cell and then create loaders for our test and training X and Y data.
+
+00:02:25.969 --> 00:02:31.504
+Note that I'm defining our summer images as our X domain and winter as our Y domain,
+
+00:02:31.504 --> 00:02:33.634
+and this choice is just arbitrary.
+
+00:02:33.634 --> 00:02:36.204
+All right. Then I'm going to display some of these images.
+
+00:02:36.205 --> 00:02:38.360
+In this cell, I have a function that takes in
+
+00:02:38.360 --> 00:02:41.420
+a tensor image and converts it to a NumPy image for display.
+
+00:02:41.419 --> 00:02:44.629
+Then, I'm getting some images from our X domain.
+
+00:02:44.629 --> 00:02:46.969
+Getting a batch of data from our data loader will
+
+00:02:46.969 --> 00:02:49.930
+naturally return a set of images and their labels.
+
+00:02:49.930 --> 00:02:51.830
+But the labels don't matter in this case,
+
+00:02:51.830 --> 00:02:53.735
+and actually, they're meaningless here.
+
+00:02:53.735 --> 00:02:56.360
+Okay. So, I'm displaying some of these summer images,
+
+00:02:56.360 --> 00:02:58.790
+and you can see that there's quite a variety of images.
+
+00:02:58.789 --> 00:03:00.125
+Some have people in them,
+
+00:03:00.125 --> 00:03:03.669
+some are quite hazy and may be mistaken for a winter images even.
+
+00:03:03.669 --> 00:03:06.964
+Then, I'll do the same thing but for some of our winter images.
+
+00:03:06.965 --> 00:03:10.129
+Here again, you can see quite a variety of images.
+
+00:03:10.129 --> 00:03:13.954
+But in general, these winter images have a kind of different color pallet.
+
+00:03:13.955 --> 00:03:18.440
+You'll end up seeing more whites and blues in these images than in our summer images.
+
+00:03:18.439 --> 00:03:21.784
+I've actually never been to Yosemite but this is making me want to go.
+
+00:03:21.784 --> 00:03:23.435
+Okay. Then, the next step I'm doing,
+
+00:03:23.435 --> 00:03:25.879
+is a pretty familiar pre-processing step,
+
+00:03:25.879 --> 00:03:28.519
+which is transforming these images from a pixel range of
+
+00:03:28.520 --> 00:03:31.520
+zero to one to arrange of negative one to one,
+
+00:03:31.520 --> 00:03:34.680
+and I'm just printing out some of these values for my own sanity.
+
+00:03:34.680 --> 00:03:38.540
+So, I can see that the image range originally is from about zero to one,
+
+00:03:38.539 --> 00:03:40.099
+and then after I scale it,
+
+00:03:40.099 --> 00:03:42.199
+it's from about negative one to one.
+
+00:03:42.199 --> 00:03:45.889
+Recall that we typically use a 10h activation function that
+
+00:03:45.889 --> 00:03:49.609
+scales are generated images to a range of negative one to one.
+
+00:03:49.610 --> 00:03:53.995
+So, this step makes our training imagery to match the output of our generator.
+
+00:03:53.995 --> 00:03:56.450
+Okay. All of this code is given to you, and next,
+
+00:03:56.449 --> 00:03:59.329
+you'll be able to access this notebook and I'll describe
+
+00:03:59.330 --> 00:04:03.400
+the actual structure of the discriminators and generators for us to define.
+

@@ -1,0 +1,154 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:04.424
+A CycleGAN is made of two discriminator and two generator networks.
+
+00:00:04.424 --> 00:00:08.129
+The discriminators D_X and D_Y in this CycleGAN are
+
+00:00:08.130 --> 00:00:13.245
+deep convolutional neural networks that see an image from domain X or Y respectively,
+
+00:00:13.244 --> 00:00:15.824
+and attempt to classify it as real or fake.
+
+00:00:15.824 --> 00:00:19.320
+The general structure for both of these discriminators is the same,
+
+00:00:19.320 --> 00:00:20.760
+and it looks like this.
+
+00:00:20.760 --> 00:00:25.410
+This network sees a 128 by 128 by 3 image as input,
+
+00:00:25.410 --> 00:00:28.660
+and passes it through a series of strided convolutional layers,
+
+00:00:28.660 --> 00:00:31.559
+that downsample an image by a factor of two.
+
+00:00:31.559 --> 00:00:34.500
+In this diagram, we have four total strided layers
+
+00:00:34.500 --> 00:00:37.859
+but you can add or decrease the number of layers as you see it fit.
+
+00:00:37.859 --> 00:00:40.310
+Through this four-strided righted convolutional layers,
+
+00:00:40.310 --> 00:00:45.350
+we see our image go from 128 to 128 to 64 to 64,
+
+00:00:45.350 --> 00:00:47.225
+all the way to eight by eight.
+
+00:00:47.225 --> 00:00:50.770
+The first layer has a ReLu activation function applied to its outputs,
+
+00:00:50.770 --> 00:00:54.734
+and the next three have BatchNorm and ReLu functions applied to their outputs.
+
+00:00:54.734 --> 00:00:57.034
+Then, we have one final convolutional layer.
+
+00:00:57.034 --> 00:00:58.699
+This is not strided,
+
+00:00:58.700 --> 00:01:01.995
+and you'll have to set the stride and padding accordingly for this layer.
+
+00:01:01.994 --> 00:01:06.500
+The job of this last layer is to act as a fully convolutional classification layer.
+
+00:01:06.500 --> 00:01:10.459
+So, its job is to take in the outputs from the last convolutional layer,
+
+00:01:10.459 --> 00:01:12.619
+and it should output a single value,
+
+00:01:12.620 --> 00:01:14.359
+the logits of our discriminator.
+
+00:01:14.359 --> 00:01:15.935
+To define the discriminators,
+
+00:01:15.935 --> 00:01:19.835
+you're expected to use the provided helper conv function in the cell.
+
+00:01:19.834 --> 00:01:23.569
+This should look familiar from the last lesson on deep convolutional GANs.
+
+00:01:23.569 --> 00:01:28.494
+This function creates a strided convolutional layer and an optional BatchNorm layer.
+
+00:01:28.495 --> 00:01:31.070
+With a stride of two and padding equal to one,
+
+00:01:31.069 --> 00:01:33.379
+I am assuming that you'll use a kernel size equal to
+
+00:01:33.379 --> 00:01:36.459
+four to downsample each input by a factor of two.
+
+00:01:36.459 --> 00:01:38.629
+So using this helper function if you want,
+
+00:01:38.629 --> 00:01:41.530
+it will be up to you to define the discriminator class.
+
+00:01:41.530 --> 00:01:44.704
+You only have to define this one class, and then later,
+
+00:01:44.704 --> 00:01:47.719
+we'll use it to instantiate two different discriminators,
+
+00:01:47.719 --> 00:01:50.539
+one for the X image domain and one for Y.
+
+00:01:50.540 --> 00:01:51.605
+To complete this class,
+
+00:01:51.605 --> 00:01:54.295
+it may help to use the above image as reference.
+
+00:01:54.295 --> 00:01:56.719
+This image also includes recommendations for
+
+00:01:56.719 --> 00:01:59.750
+increasing the depth of the convolutional layers as you go,
+
+00:01:59.750 --> 00:02:02.299
+starting with a depth of 64 and increasing
+
+00:02:02.299 --> 00:02:04.954
+by a factor of two for each convolutional layer.
+
+00:02:04.954 --> 00:02:08.270
+In fact, the starting depth is set as the conv_dim,
+
+00:02:08.270 --> 00:02:11.300
+the one input parameter of the discriminator class.
+
+00:02:11.300 --> 00:02:15.769
+I should also note that we're not applying any activation function to the last layer,
+
+00:02:15.769 --> 00:02:19.520
+and we'll talk about this later when we go over defining the discriminator to losses.
+
+00:02:19.520 --> 00:02:22.040
+I should also note that we're not applying a sigmoid
+
+00:02:22.039 --> 00:02:24.618
+or any other activation to the last layer,
+
+00:02:24.618 --> 00:02:28.310
+and we'll talk about this later when we go over defining the discriminator losses.
+
+00:02:28.310 --> 00:02:31.370
+Okay. So, try to solve the discriminator class on your own,
+
+00:02:31.370 --> 00:02:34.069
+and next, I'll go over one possible solution.
+

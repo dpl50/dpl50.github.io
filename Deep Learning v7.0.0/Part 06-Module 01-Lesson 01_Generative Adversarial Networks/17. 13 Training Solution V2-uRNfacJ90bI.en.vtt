@@ -1,0 +1,376 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:04.049
+So, here, I've decided to train my models for 100 epochs.
+
+00:00:04.049 --> 00:00:07.019
+This took some time, but whenever I train on CPU,
+
+00:00:07.019 --> 00:00:09.119
+I know that I can take the training time to take
+
+00:00:09.119 --> 00:00:11.729
+a break and make some tea or read some papers.
+
+00:00:11.730 --> 00:00:13.859
+First, I'm training my discriminator.
+
+00:00:13.859 --> 00:00:16.544
+This is what my complete training loop looks like.
+
+00:00:16.545 --> 00:00:18.540
+First, I'm training the discriminator.
+
+00:00:18.539 --> 00:00:22.230
+Before doing anything, I'm zooming out any accumulated gradients.
+
+00:00:22.230 --> 00:00:24.554
+Then I'm training on real images.
+
+00:00:24.554 --> 00:00:27.379
+These are images that I've gotten from my train loader,
+
+00:00:27.379 --> 00:00:30.989
+and I'm passing it into my discriminator D to get an output,
+
+00:00:30.989 --> 00:00:33.039
+and I called these logits D_real.
+
+00:00:33.039 --> 00:00:36.519
+I know that my discriminator wants these logits to be close to one.
+
+00:00:36.520 --> 00:00:41.270
+So, I'm calculating my real loss to see exactly how close these are to be in true labels.
+
+00:00:41.270 --> 00:00:43.159
+This is my d_real_loss,
+
+00:00:43.158 --> 00:00:46.100
+and I'm making sure to smooth these labels so that this loss will
+
+00:00:46.100 --> 00:00:49.115
+be numerically stable and my discriminator will generalize better.
+
+00:00:49.115 --> 00:00:52.835
+Next, I'm doing something similar only using generated fake images.
+
+00:00:52.835 --> 00:00:54.395
+So, as I went over before,
+
+00:00:54.395 --> 00:00:57.905
+I'm generating fake images by giving my generator a latent vector
+
+00:00:57.905 --> 00:01:01.804
+of 100 random uniform values between negative one and one.
+
+00:01:01.804 --> 00:01:06.635
+The generator outputs a 784 length vector for each fake image in a batch,
+
+00:01:06.635 --> 00:01:08.615
+and I can pass these to my discriminator.
+
+00:01:08.614 --> 00:01:11.515
+This will give me some logits that I'm calling D_fake.
+
+00:01:11.515 --> 00:01:14.510
+My discriminator wants these outputs to be close to zero.
+
+00:01:14.510 --> 00:01:18.245
+So, I'm calculating my fake loss to see how close these outputs are to zero.
+
+00:01:18.245 --> 00:01:20.405
+This gives me my d_fake_loss.
+
+00:01:20.405 --> 00:01:26.135
+Finally, I'm adding both of these losses up d_real and d_fake to get my total d_loss.
+
+00:01:26.135 --> 00:01:30.035
+I'm using this loss to perform backpropagation and optimization.
+
+00:01:30.034 --> 00:01:32.299
+This looks pretty typical though note I'm using
+
+00:01:32.299 --> 00:01:35.390
+my d_optimizer to update my discriminators weights.
+
+00:01:35.390 --> 00:01:37.924
+Then I'm moving onto training my generator.
+
+00:01:37.924 --> 00:01:40.159
+My steps here would to see how the discriminator
+
+00:01:40.159 --> 00:01:42.819
+performs when it sees generated fake images.
+
+00:01:42.819 --> 00:01:47.209
+So, I'm generating some new fake images here using the same code as above.
+
+00:01:47.209 --> 00:01:51.034
+Then, I'm passing these images to my discriminator to get my outputs D_fake.
+
+00:01:51.034 --> 00:01:53.509
+This time, I know that my generator wants
+
+00:01:53.510 --> 00:01:56.915
+these outputs to be as close to one or real as possible.
+
+00:01:56.915 --> 00:01:59.040
+This is our adversarial loss.
+
+00:01:59.040 --> 00:02:01.505
+So, I'm actually going to use my real loss function
+
+00:02:01.504 --> 00:02:04.310
+to see how close these applets are to the label one.
+
+00:02:04.310 --> 00:02:07.310
+This gives me my total generator loss and I can use this
+
+00:02:07.310 --> 00:02:10.270
+to perform backpropagation and d optimization.
+
+00:02:10.270 --> 00:02:13.100
+So, this step will update the weights of my generator.
+
+00:02:13.099 --> 00:02:17.539
+Now, I have something to print some loss over time and after each epoch,
+
+00:02:17.539 --> 00:02:20.299
+I'm recording the discriminator and generator loss.
+
+00:02:20.300 --> 00:02:25.530
+I've also saved some generated samples and I used 16 fixed latent vectors.
+
+00:02:25.530 --> 00:02:28.159
+These were set before the training loop.
+
+00:02:28.159 --> 00:02:31.060
+I created this fixed data above our training loop just to
+
+00:02:31.060 --> 00:02:34.430
+see for comparison purposes how our samples change over time.
+
+00:02:34.430 --> 00:02:37.145
+I'm using the library pickle to save these samples.
+
+00:02:37.145 --> 00:02:39.620
+So, let's actually look at the training behavior.
+
+00:02:39.620 --> 00:02:43.504
+At the beginning, I can see a kind of high generator loss.
+
+00:02:43.504 --> 00:02:46.914
+But it seems to fluctuate along with the discriminator over time.
+
+00:02:46.914 --> 00:02:50.840
+In fact, I recorded the discriminator and generator loss after each epic.
+
+00:02:50.840 --> 00:02:52.729
+Here, I'm displaying them on a graph.
+
+00:02:52.729 --> 00:02:55.099
+The discriminator is this line in blue and
+
+00:02:55.099 --> 00:02:57.625
+the generator is this more spiky line in orange.
+
+00:02:57.625 --> 00:03:00.199
+Now, this is not a typical training process because
+
+00:03:00.199 --> 00:03:03.799
+the generator is trained it's best to trick the discriminator this whole time.
+
+00:03:03.800 --> 00:03:07.310
+So, it's very normal to see an initial decrease in loss,
+
+00:03:07.310 --> 00:03:09.995
+and then a lot of sort of up and down fluctuation.
+
+00:03:09.995 --> 00:03:13.219
+This indicates that both of our networks are training at the same time.
+
+00:03:13.219 --> 00:03:15.680
+Now, if I hadn't smooth to my real labels during
+
+00:03:15.680 --> 00:03:18.770
+training or something about my initial hyperparameters was off.
+
+00:03:18.770 --> 00:03:21.760
+This is probably where I would see some unstable behavior.
+
+00:03:21.759 --> 00:03:24.919
+By unstable, I typically mean that the discriminator loss
+
+00:03:24.919 --> 00:03:28.129
+would flatten while the generator loss grows or gets quite high.
+
+00:03:28.129 --> 00:03:29.689
+But with labels moving and I'd say,
+
+00:03:29.689 --> 00:03:31.414
+this is all expected behavior.
+
+00:03:31.414 --> 00:03:35.334
+We can see that these both reached final values around one or 1.5.
+
+00:03:35.335 --> 00:03:38.045
+But this really only gives us so much information.
+
+00:03:38.044 --> 00:03:40.699
+The best method to see how our models have trained,
+
+00:03:40.699 --> 00:03:43.399
+is to look at some sample outputs from our generator.
+
+00:03:43.400 --> 00:03:46.909
+So, here, I have a helper function view_samples that will take
+
+00:03:46.909 --> 00:03:50.719
+in a list of sample fake image vectors and display some of them.
+
+00:03:50.719 --> 00:03:53.719
+There's also takes in an epoch for which to view samples at.
+
+00:03:53.719 --> 00:03:56.960
+So, let's use this to look at the images we saved during training,
+
+00:03:56.960 --> 00:03:58.585
+and I'm just loading those in here.
+
+00:03:58.585 --> 00:04:01.580
+Then, I'm passing in the index of our last epoch,
+
+00:04:01.580 --> 00:04:04.505
+and I can use negative one like list indexing in this case,
+
+00:04:04.504 --> 00:04:06.305
+and displaying our samples.
+
+00:04:06.305 --> 00:04:10.240
+Recall that, I generated samples using some fixed latent vectors,
+
+00:04:10.240 --> 00:04:15.050
+16 of these vectors and so at the end of each epoch I saved 16 samples.
+
+00:04:15.050 --> 00:04:18.935
+You can see that the generator is able to produce some pretty convincing zeros.
+
+00:04:18.935 --> 00:04:20.139
+Some threes, and fives,
+
+00:04:20.139 --> 00:04:23.599
+and nines and others you see these sort of noisy artifacts,
+
+00:04:23.600 --> 00:04:26.360
+which could have to do with our input latent vector z.
+
+00:04:26.360 --> 00:04:29.944
+Generally, these look a lot like the handwritten digits in our training set,
+
+00:04:29.944 --> 00:04:31.504
+which is exactly what we wanted.
+
+00:04:31.504 --> 00:04:33.185
+One thing that I like to do to,
+
+00:04:33.185 --> 00:04:37.024
+is to look at how the samples improved over time and as we trained.
+
+00:04:37.024 --> 00:04:41.014
+So, I have another cell that prints out the samples after every 10 epochs.
+
+00:04:41.014 --> 00:04:46.430
+So, this cell is printing out generated samples after 10-20 and up to a 100 epochs.
+
+00:04:46.430 --> 00:04:50.689
+I can see that these generated images start out as uniform noise.
+
+00:04:50.689 --> 00:04:55.194
+Then the generator learns to make only the center white and the rest is black.
+
+00:04:55.194 --> 00:04:58.329
+As we train from 10 to 20 to 30 epochs,
+
+00:04:58.329 --> 00:05:00.680
+we can see that our generator is learning to refine
+
+00:05:00.680 --> 00:05:04.879
+this noise into shapes that look more and more like our handwritten digits.
+
+00:05:04.879 --> 00:05:07.819
+At the end, I can see some pretty convincing 1,
+
+00:05:07.819 --> 00:05:09.844
+6 and zeros and so on.
+
+00:05:09.845 --> 00:05:11.870
+Now, one last thing I want to show you,
+
+00:05:11.870 --> 00:05:14.389
+is that we can now use our train generator to create
+
+00:05:14.389 --> 00:05:17.735
+images from any latent vector in a latent space.
+
+00:05:17.735 --> 00:05:20.530
+So, I can create any new random vector z,
+
+00:05:20.529 --> 00:05:23.944
+turn it into a float tensor and pass it to our train generator
+
+00:05:23.944 --> 00:05:28.339
+and here I'm setting our generator into evaluation mode because it's no longer training.
+
+00:05:28.339 --> 00:05:31.250
+I can display these randomly generated samples using
+
+00:05:31.250 --> 00:05:34.610
+my function and getting just the one batch of samples here.
+
+00:05:34.610 --> 00:05:36.560
+As many times as I run this cell,
+
+00:05:36.560 --> 00:05:38.829
+I should get a new batch of generated samples.
+
+00:05:38.829 --> 00:05:42.500
+What's interesting is that the latent space is a large space.
+
+00:05:42.500 --> 00:05:44.829
+So, we may find that certain vectors result in
+
+00:05:44.829 --> 00:05:47.750
+generated images that look sort of like the numbers we know.
+
+00:05:47.750 --> 00:05:50.810
+But might occupy a strange in-between state.
+
+00:05:50.810 --> 00:05:53.060
+Say in between the three and an eight,
+
+00:05:53.060 --> 00:05:55.910
+or one and nine and other vectors
+
+00:05:55.910 --> 00:05:59.015
+might result in some really nicely rendered handwritten digits.
+
+00:05:59.014 --> 00:06:02.050
+We'll actually see that this latent space is really interesting,
+
+00:06:02.050 --> 00:06:04.759
+that we can transform vectors in latent space to see if
+
+00:06:04.759 --> 00:06:08.644
+certain dimensions correspond to certain features like size, curvature, and so on.
+
+00:06:08.644 --> 00:06:13.089
+So, experiment with this code and see what kind of generated samples you can make.
+
+00:06:13.089 --> 00:06:16.474
+In the next lesson, you'll learn about improving this formulation
+
+00:06:16.475 --> 00:06:20.270
+and using convolutional layers to make a deep convolutional GAN.
+

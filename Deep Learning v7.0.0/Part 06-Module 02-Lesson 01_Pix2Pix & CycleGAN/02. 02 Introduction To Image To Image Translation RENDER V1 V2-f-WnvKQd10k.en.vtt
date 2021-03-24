@@ -1,0 +1,127 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:03.250
+So, you've already learned about how charity or
+
+00:00:03.250 --> 00:00:06.509
+a sewer networks have been used in a variety
+
+00:00:06.509 --> 00:00:12.330
+of ways to generate new realistic beam rocking images given a set of training data.
+
+00:00:12.330 --> 00:00:17.925
+So, this is pretty interesting because charity new data is a challenging task.
+
+00:00:17.925 --> 00:00:22.505
+Say we have a bunch of training data that are images of cat faces.
+
+00:00:22.504 --> 00:00:24.480
+It's not entirely clear.
+
+00:00:24.480 --> 00:00:28.408
+How to make a new image of a cat but I can model,
+
+00:00:28.408 --> 00:00:32.519
+can learn something about the underlying structure of this training data.
+
+00:00:32.520 --> 00:00:37.265
+I've what colours and shapes that made up an image of a cat face.
+
+00:00:37.265 --> 00:00:41.630
+As I incorporates some randomness like a random noise to create
+
+00:00:41.630 --> 00:00:47.030
+an entirely new image that looks like it may have come from the training set.
+
+00:00:47.030 --> 00:00:52.469
+Today, we are going to look at another task such games can be applied to.
+
+00:00:52.469 --> 00:00:55.310
+That's image to image translation.
+
+00:00:55.310 --> 00:01:01.295
+So, image to image translation covers a variety of computer vision applications,
+
+00:01:01.295 --> 00:01:07.109
+that aim to look at an input image and produce a transformed image as output.
+
+00:01:07.109 --> 00:01:09.614
+In computer vision and deep learning.
+
+00:01:09.614 --> 00:01:13.420
+These applications include; semantic segmentation,
+
+00:01:13.420 --> 00:01:17.915
+in which every pixel in the input image is labeled as a cast.
+
+00:01:17.915 --> 00:01:19.730
+Like a car, bike,
+
+00:01:19.730 --> 00:01:24.630
+person or background pixel and the edge of bounded detection.
+
+00:01:24.629 --> 00:01:28.310
+So, given the input image such as funding the boundary of
+
+00:01:28.310 --> 00:01:33.475
+a person's hand and these are both image in and image out tasks.
+
+00:01:33.474 --> 00:01:37.679
+In computer graphics there are also a number of applications.
+
+00:01:37.680 --> 00:01:42.925
+We often want to translate an image into a new domain with a desired property.
+
+00:01:42.924 --> 00:01:45.539
+For example, automatically colouring
+
+00:01:45.540 --> 00:01:49.594
+greyscale image or make a low-risk image much sharper.
+
+00:01:49.594 --> 00:01:52.400
+These applications may look quite different at
+
+00:01:52.400 --> 00:01:56.260
+first glance as they share a common structure.
+
+00:01:56.260 --> 00:01:59.175
+One image as an input,
+
+00:01:59.174 --> 00:02:02.114
+and another the desired output.
+
+00:02:02.114 --> 00:02:07.799
+In other words, we are mapping an image from one domain to a new domain.
+
+00:02:07.799 --> 00:02:14.509
+So, can we find a way to solve all these problems with well unified framework?
+
+00:02:14.509 --> 00:02:17.584
+That's what this lesson will be all about.
+
+00:02:17.585 --> 00:02:22.530
+First, we will talk about how we can best compell images and
+
+00:02:22.530 --> 00:02:27.500
+our brief we'll go over the structure of a GAN and how it works.
+
+00:02:27.500 --> 00:02:31.490
+Then we will go over how GANs are used in
+
+00:02:31.490 --> 00:02:36.245
+two specific formulations that aim to do image to image translation.
+
+00:02:36.245 --> 00:02:38.965
+Peaks two peaks and cycle GAN.
+
+00:02:38.965 --> 00:02:43.085
+These two formulations learn to transform an input image
+
+00:02:43.085 --> 00:02:47.555
+into a desired output and they can be applied to a variety of tasks.
+
+00:02:47.555 --> 00:02:49.480
+So, let's get started.
+

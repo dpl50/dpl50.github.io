@@ -1,0 +1,169 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:02.040
+Let's say that we have a GAN,
+
+00:00:02.040 --> 00:00:05.894
+and we are tuning it to generate new images of cats,
+
+00:00:05.894 --> 00:00:08.115
+giving a bunch of training data.
+
+00:00:08.115 --> 00:00:13.185
+So, a typical GAN is made of two types of neural networks;
+
+00:00:13.185 --> 00:00:17.984
+a discriminator D, which was a straightforward classifier,
+
+00:00:17.984 --> 00:00:20.594
+usually a convolutional neural network.
+
+00:00:20.594 --> 00:00:22.410
+You give it an image,
+
+00:00:22.410 --> 00:00:23.954
+it outputs a number,
+
+00:00:23.954 --> 00:00:25.949
+between zero and one,
+
+00:00:25.949 --> 00:00:28.484
+and indicates whether or not,
+
+00:00:28.484 --> 00:00:29.789
+the image is real,
+
+00:00:29.789 --> 00:00:32.640
+so one, or fake, zero.
+
+00:00:32.640 --> 00:00:39.575
+A generator G, which produce a fake or generate images G of Z.
+
+00:00:39.575 --> 00:00:42.725
+This is typically a network made of
+
+00:00:42.725 --> 00:00:47.329
+transpose convolutional layers of ups and post the vector z,
+
+00:00:47.329 --> 00:00:49.509
+and generates an image.
+
+00:00:49.509 --> 00:00:52.729
+So, during training, the discriminator will alternate
+
+00:00:52.729 --> 00:00:56.134
+between seeing real and generated images.
+
+00:00:56.134 --> 00:01:00.809
+So again, pit these two networks against one another.
+
+00:01:00.810 --> 00:01:03.635
+So, essentially fighting over one number,
+
+00:01:03.634 --> 00:01:06.489
+the error rate of the discriminator.
+
+00:01:06.489 --> 00:01:09.859
+So, the discriminator wants his classification error to be low.
+
+00:01:09.859 --> 00:01:12.275
+So, if he sees a fake image,
+
+00:01:12.275 --> 00:01:15.290
+it wants to classify it as fake.
+
+00:01:15.290 --> 00:01:20.469
+Generally, a log-likelihood loss is used to calculate how
+
+00:01:20.469 --> 00:01:26.319
+close output of the discriminator is to classifying generated images as fake.
+
+00:01:26.319 --> 00:01:33.019
+This is a measure of how good the discriminator has in identifying fake images.
+
+00:01:33.019 --> 00:01:35.579
+If it sees a real image x,
+
+00:01:35.579 --> 00:01:38.754
+it wants to classify it as real or one,
+
+00:01:38.754 --> 00:01:41.515
+another log loss term is added.
+
+00:01:41.515 --> 00:01:44.344
+The generator wants the opposite.
+
+00:01:44.344 --> 00:01:48.250
+It wants the classification error of the discriminator to be
+
+00:01:48.250 --> 00:01:52.855
+high because his job is to fool the discriminator.
+
+00:01:52.855 --> 00:01:55.165
+So, if it produce an image,
+
+00:01:55.165 --> 00:01:58.165
+such that discriminator thinks it's fake,
+
+00:01:58.165 --> 00:02:00.905
+says it knows that's not good,
+
+00:02:00.905 --> 00:02:07.015
+and it changes its behavior and tries again until it can fool the discriminator.
+
+00:02:07.015 --> 00:02:13.219
+Eventually over time and using back propagation to update their weights,
+
+00:02:13.219 --> 00:02:15.944
+both of these network should improve.
+
+00:02:15.944 --> 00:02:17.938
+In this cat example,
+
+00:02:17.938 --> 00:02:20.525
+the generator will produce images,
+
+00:02:20.525 --> 00:02:23.175
+that looks more and more like real cats,
+
+00:02:23.175 --> 00:02:28.610
+and total discriminator when faced with a real or a generated images,
+
+00:02:28.610 --> 00:02:31.030
+the output is 0.5.
+
+00:02:31.030 --> 00:02:35.539
+This means that these images are indistinguishable.
+
+00:02:35.539 --> 00:02:42.174
+Then, the generator is said to be trained and you can tell it to make new data.
+
+00:02:42.175 --> 00:02:46.445
+So, the generator has basically lend a mapping between
+
+00:02:46.444 --> 00:02:51.129
+any latent factor Z and an image of a cat.
+
+00:02:51.129 --> 00:02:58.189
+So indeed, the generator in this method treats the discriminator as its loss function.
+
+00:02:58.189 --> 00:03:02.930
+So, in trying to develop a generalizable loss function, here,
+
+00:03:02.930 --> 00:03:04.525
+we have found the solution,
+
+00:03:04.525 --> 00:03:06.585
+by creating a loss function,
+
+00:03:06.585 --> 00:03:10.500
+that is learned and rather than explicitly did found.
+
+00:03:10.500 --> 00:03:13.909
+Next, let's see how we can get a similar architecture,
+
+00:03:13.909 --> 00:03:19.639
+pics to pics, to work for an image to image translation problem.
+

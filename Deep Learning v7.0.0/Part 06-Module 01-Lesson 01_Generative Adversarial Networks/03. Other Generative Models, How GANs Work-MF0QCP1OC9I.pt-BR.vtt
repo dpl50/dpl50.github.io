@@ -1,0 +1,393 @@
+WEBVTT
+Kind: captions
+Language: pt-BR
+
+00:00:00.834 --> 00:00:04.634
+Redes Geradoras Adversárias
+são um tipo de modelo gerador.
+
+00:00:04.667 --> 00:00:08.434
+Você já viu como redes recorrentes
+podem ser treinadas
+
+00:00:08.467 --> 00:00:10.300
+como modelos de texto
+geradores.
+
+00:00:10.601 --> 00:00:14.300
+Modelos de texto recorrentes geram
+frases palavra por palavra.
+
+00:00:14.801 --> 00:00:17.701
+Também é possível fazer
+modelos de estilo
+
+00:00:17.734 --> 00:00:19.701
+palavra por palavra
+para imagens
+
+00:00:19.734 --> 00:00:22.968
+em que o modelo gera a imagem
+a cada pixel.
+
+00:00:23.000 --> 00:00:24.901
+Esta estratégia
+costuma ser chamada
+
+00:00:24.934 --> 00:00:28.267
+de "rede de crença visível",
+desde os anos 1990,
+
+00:00:28.300 --> 00:00:30.367
+ou de "modelos
+autorregressivos",
+
+00:00:30.400 --> 00:00:33.501
+como foram rebatizados
+ao serem redescobertos depois.
+
+00:00:33.534 --> 00:00:36.534
+Mas, e se quisermos gerar
+um valor de saída inteiro,
+
+00:00:36.567 --> 00:00:39.567
+como uma imagem, de uma vez?
+
+00:00:39.801 --> 00:00:41.601
+GANs são um modelo gerador
+
+00:00:41.634 --> 00:00:44.634
+que permite gerar
+uma imagem em paralelo.
+
+00:00:44.667 --> 00:00:47.367
+Assim como vários outros
+modelos geradores,
+
+00:00:47.400 --> 00:00:49.934
+as GANs usam
+uma função diferenciável
+
+00:00:49.968 --> 00:00:53.834
+representada por uma rede neural
+como uma rede geradora.
+
+00:00:53.868 --> 00:00:56.968
+A rede geradora usa
+ruído aleatório como entrada
+
+00:00:57.000 --> 00:01:00.300
+e executa esse ruído
+por uma função diferenciável
+
+00:01:00.334 --> 00:01:04.634
+para transformá-lo e moldá-lo
+numa estrutura reconhecível.
+
+00:01:04.667 --> 00:01:08.133
+A saída da rede geradora
+é uma imagem realista.
+
+00:01:08.167 --> 00:01:10.234
+A escolha do ruído
+de entrada aleatório
+
+00:01:10.267 --> 00:01:13.467
+determina qual imagem sairá
+da rede geradora.
+
+00:01:13.501 --> 00:01:14.701
+Executar a rede geradora
+
+00:01:14.734 --> 00:01:17.067
+com muitos
+valores de ruídos diferentes
+
+00:01:17.100 --> 00:01:20.033
+produz muitas
+imagens de saída diferentes.
+
+00:01:20.067 --> 00:01:22.167
+O objetivo é que as imagens
+sejam amostras
+
+00:01:22.200 --> 00:01:24.434
+da distribuição
+sobre dados reais.
+
+00:01:24.467 --> 00:01:28.601
+Mas, claro, a rede geradora não
+sai produzindo imagens realistas.
+
+00:01:28.634 --> 00:01:30.200
+Ela precisa ser treinada.
+
+00:01:30.234 --> 00:01:33.167
+O processo de treinamento
+para um modelo gerador é diferente
+
+00:01:33.200 --> 00:01:36.200
+do de um modelo
+de aprendizado supervisionado.
+
+00:01:36.234 --> 00:01:38.067
+Para um modelo
+de aprendizado supervisionado,
+
+00:01:38.100 --> 00:01:40.567
+mostramos ao modelo
+a imagem de um semáforo
+
+00:01:40.601 --> 00:01:43.501
+e dizemos:
+"Isto é um semáforo."
+
+00:01:43.534 --> 00:01:44.667
+Para um modelo gerador,
+
+00:01:44.701 --> 00:01:47.334
+não há saída para associar
+com cada imagem.
+
+00:01:47.367 --> 00:01:49.667
+Apenas mostramos
+várias imagens ao modelo
+
+00:01:49.701 --> 00:01:51.033
+e pedimos mais imagens
+
+00:01:51.067 --> 00:01:53.701
+da mesma distribuição
+de probabilidade.
+
+00:01:53.734 --> 00:01:56.167
+Mas como obrigar o modelo
+a fazer isso?
+
+00:01:56.200 --> 00:01:59.701
+A maioria dos modelos geradores
+é treinada para ajustar parâmetros
+
+00:01:59.734 --> 00:02:02.234
+para maximizar a probabilidade
+de que a rede geradora
+
+00:02:02.267 --> 00:02:04.334
+gere os dados
+de treinamento.
+
+00:02:04.367 --> 00:02:07.200
+Infelizmente,
+para modelos interessantes,
+
+00:02:07.234 --> 00:02:10.133
+é muito difícil computar
+essa probabilidade.
+
+00:02:10.434 --> 00:02:14.033
+A maioria dos modelos
+contorna isso com uma aproximação.
+
+00:02:14.067 --> 00:02:16.667
+GANs usam uma aproximação
+em que uma 2ª rede,
+
+00:02:16.701 --> 00:02:19.968
+o discriminador,
+aprende a guiar o gerador.
+
+00:02:20.301 --> 00:02:23.667
+O discriminador é um classificador
+de redes neurais comum,
+
+00:02:23.701 --> 00:02:26.200
+como você já viu
+várias vezes.
+
+00:02:26.234 --> 00:02:27.968
+Durante o processo
+de treinamento,
+
+00:02:28.000 --> 00:02:31.601
+o discriminador recebe imagens
+reais dos dados de treinamento
+
+00:02:31.634 --> 00:02:34.968
+e imagens falsas
+do gerador no resto do tempo.
+
+00:02:35.400 --> 00:02:37.868
+O discriminador é treinado
+para enviar a probabilidade
+
+00:02:37.901 --> 00:02:39.601
+de que a entrada é real.
+
+00:02:39.634 --> 00:02:41.834
+Ele tenta indicar
+uma probabilidade próxima a 1
+
+00:02:41.868 --> 00:02:43.167
+para imagens reais
+
+00:02:43.200 --> 00:02:45.801
+e uma próxima a 0
+para imagens falsas.
+
+00:02:46.367 --> 00:02:49.367
+Já o gerador tenta
+fazer o contrário.
+
+00:02:49.400 --> 00:02:52.367
+Ele é treinado para gerar
+imagens a que o discriminador
+
+00:02:52.400 --> 00:02:55.200
+vai indicar uma probabilidade
+próxima a 1 de ser real.
+
+00:02:55.667 --> 00:02:58.300
+Com o tempo, o gerador
+é forçado a produzir
+
+00:02:58.334 --> 00:03:02.100
+mais saídas realistas
+para enganar o discriminador.
+
+00:03:02.133 --> 00:03:04.634
+O gerador pega
+os valores de ruído Z
+
+00:03:04.667 --> 00:03:07.033
+e os mapeia
+para os valores de saída X.
+
+00:03:07.067 --> 00:03:09.934
+Onde o gerador mapear
+mais valores de Z,
+
+00:03:09.968 --> 00:03:12.033
+a distribuição de probabilidade
+sobre X,
+
+00:03:12.067 --> 00:03:15.067
+representada pelo modelo,
+fica mais densa.
+
+00:03:15.101 --> 00:03:17.400
+O discriminador
+envia valores altos
+
+00:03:17.434 --> 00:03:21.934
+em que a densidade dos dados reais
+é maior que a dos dados gerados.
+
+00:03:22.434 --> 00:03:25.067
+O gerador muda
+as amostras que produz
+
+00:03:25.100 --> 00:03:28.701
+para subir pela função
+aprendida pelo discriminador.
+
+00:03:28.734 --> 00:03:31.601
+Ou seja, o gerador
+muda as amostras
+
+00:03:31.634 --> 00:03:35.634
+para áreas em que a distribuição
+do modelo não é densa o bastante.
+
+00:03:35.667 --> 00:03:38.367
+A distribuição do gerador
+
+00:03:38.400 --> 00:03:40.701
+acaba se aproximando
+da distribuição real,
+
+00:03:40.734 --> 00:03:44.167
+e o discriminador tem que enviar
+uma probabilidade de metade
+
+00:03:44.200 --> 00:03:47.834
+em todo lugar, porque todo ponto
+pode tanto ser gerado
+
+00:03:47.868 --> 00:03:51.234
+pelo conjunto de dados real
+quanto pelo modelo.
+
+00:03:51.267 --> 00:03:53.601
+As duas densidades
+são iguais.
+
+00:03:53.634 --> 00:03:55.501
+Podemos pensar
+neste processo
+
+00:03:55.534 --> 00:03:59.801
+como uma competição
+entre falsificadores e policiais.
+
+00:03:59.834 --> 00:04:03.334
+A rede geradora é como
+um grupo de falsificadores
+
+00:04:03.367 --> 00:04:06.834
+tentando produzir dinheiro falso
+e fazê-lo se passar por real.
+
+00:04:06.868 --> 00:04:10.000
+Os policiais tentam
+prender os falsificadores,
+
+00:04:10.033 --> 00:04:12.868
+mas querem deixar as pessoas
+gastarem dinheiro real.
+
+00:04:12.901 --> 00:04:16.767
+Com o tempo a polícia aperfeiçoa
+a detecção do dinheiro falso,
+
+00:04:16.801 --> 00:04:19.234
+e os falsificadores aperfeiçoam
+a falsificação.
+
+00:04:19.267 --> 00:04:21.534
+Os falsificadores
+acabam criando
+
+00:04:21.567 --> 00:04:24.868
+réplicas perfeitas
+do dinheiro real.
+
+00:04:24.901 --> 00:04:28.267
+Quando treinamos uma GAN
+no conjunto de dados CIFAR-10,
+
+00:04:28.300 --> 00:04:31.534
+nós a vemos começar gerando
+imagens aleatórias,
+
+00:04:31.567 --> 00:04:34.067
+até que gradualmente
+ela aprende a gerar cavalos,
+
+00:04:34.100 --> 00:04:36.934
+aviões, caminhões etc.
+
+00:04:36.968 --> 00:04:39.501
+Essa é a base do funcionamento
+das GANs.
+
+00:04:39.534 --> 00:04:40.968
+Nas próximas aulas,
+
+00:04:41.000 --> 00:04:43.133
+vamos explicar
+a teoria das GANs
+
+00:04:43.167 --> 00:04:45.466
+e dar algumas dicas
+para que funcionem bem.
+

@@ -1,0 +1,154 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:02.399
+So, let's consider a case.
+
+00:00:02.399 --> 00:00:07.080
+CycleGAN are well suited for cat in the style transfer.
+
+00:00:07.080 --> 00:00:11.115
+You may have seen the example of style transfer before,
+
+00:00:11.115 --> 00:00:17.219
+that aims to make a real photo appear in the style of a particular pentium.
+
+00:00:17.219 --> 00:00:21.809
+CycleGAN going keeps us away through expand these a bit more.
+
+00:00:21.809 --> 00:00:28.214
+Instead of transforming a real photo into a photo that looks like one work of art,
+
+00:00:28.214 --> 00:00:31.844
+we can actually map it into a general style,
+
+00:00:31.844 --> 00:00:37.884
+saves the style of the connector work of the impressionist painter policy zone.
+
+00:00:37.884 --> 00:00:41.929
+So, we have some input photos X and we generally want to learn
+
+00:00:41.929 --> 00:00:47.255
+the transformation between those photos and the collection of Cezanne painting Y.
+
+00:00:47.255 --> 00:00:51.950
+This is an interesting task because within a collection of work,
+
+00:00:51.950 --> 00:00:54.500
+we are basically asking if you can find
+
+00:00:54.500 --> 00:00:58.984
+some common color palettes and brushwork and in the case,
+
+00:00:58.984 --> 00:01:00.994
+the general style Cezanne.
+
+00:01:00.994 --> 00:01:03.259
+So, to find these two mappings,
+
+00:01:03.259 --> 00:01:07.314
+from the X-domain to Y-domain and back.
+
+00:01:07.314 --> 00:01:14.704
+A CycleGAN architecture includes two adversarial discriminatory networks, dx and dy.
+
+00:01:14.704 --> 00:01:18.739
+That calls out the discriminative networks are
+
+00:01:18.739 --> 00:01:25.574
+CNN's aim to perform a binary real or fake classification giving an image.
+
+00:01:25.575 --> 00:01:28.969
+Let's take one of these discriminators as a exemple.
+
+00:01:28.969 --> 00:01:34.429
+Dy So, dy tries to classify training images from
+
+00:01:34.430 --> 00:01:40.550
+a wide set of data as real and generate image g of x as fake.
+
+00:01:40.549 --> 00:01:44.179
+As the trims it will alternate between looking at a real image
+
+00:01:44.180 --> 00:01:48.205
+from the y-domain or a generated image.
+
+00:01:48.204 --> 00:01:50.084
+Dx does the same,
+
+00:01:50.084 --> 00:01:52.849
+only it tries to distinguish to generate it,
+
+00:01:52.849 --> 00:01:56.269
+a real image from the x-domain.
+
+00:01:56.269 --> 00:02:01.054
+Notice that we're using the universe mapping in this example.
+
+00:02:01.055 --> 00:02:07.010
+This means that there are two other bassoon clausius have compare generated
+
+00:02:07.010 --> 00:02:14.155
+data from the mappings g and g-inverse to real data from an x and y-domains.
+
+00:02:14.155 --> 00:02:18.469
+To make these mappings act has tracks for one another,
+
+00:02:18.469 --> 00:02:24.560
+we introduce two additional loss terms, Cycle Consistency losses.
+
+00:02:24.560 --> 00:02:27.625
+For image acts front domain capital X,
+
+00:02:27.625 --> 00:02:35.340
+the image translation cycle that transforms x into domain-y and then back again.
+
+00:02:35.340 --> 00:02:42.025
+Should be able to bring x back to something such as close to the original image.
+
+00:02:42.025 --> 00:02:46.329
+In this example, x when we reconstruct x-hat,
+
+00:02:46.329 --> 00:02:48.625
+should be as close as possible.
+
+00:02:48.625 --> 00:02:52.625
+This is called forward Cycle Consistency.
+
+00:02:52.625 --> 00:02:58.680
+So, the difference between x and x-hat is the Cycle Consistency Loss.
+
+00:02:58.680 --> 00:03:05.340
+This loss terms are a measure of how much these mappings contradict one another,
+
+00:03:05.340 --> 00:03:09.240
+and they are sometimes called the reconstruction errors.
+
+00:03:09.240 --> 00:03:12.995
+We'll also check consistency between y-transformations.
+
+00:03:12.995 --> 00:03:16.460
+For each image y from domain y,
+
+00:03:16.460 --> 00:03:22.730
+the image transmission cycle should be able to bring y back to the original image.
+
+00:03:22.729 --> 00:03:26.459
+This is called backwards Cycle consistency.
+
+00:03:26.460 --> 00:03:29.545
+The Cycle Consistent Loss, typically,
+
+00:03:29.544 --> 00:03:34.204
+L1 loss measures any difference between these values.
+
+00:03:34.205 --> 00:03:38.630
+The complete loss function for a CycleGAN is then
+
+00:03:38.629 --> 00:03:44.810
+a weighted combination of anniversary losses and the Cycle Consistency losses.
+
+00:03:44.810 --> 00:03:51.520
+Where lambda is the weight value that controls the rate of importance of these terms.
+
