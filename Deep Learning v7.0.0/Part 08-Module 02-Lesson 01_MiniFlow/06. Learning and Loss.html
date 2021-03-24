@@ -1,0 +1,565 @@
+<!-- udacimak v1.4.4 -->
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="ie=edge" http-equiv="X-UA-Compatible"/>
+  <title>
+   Learning and Loss
+  </title>
+  <link href="../assets/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="../assets/css/plyr.css" rel="stylesheet"/>
+  <link href="../assets/css/katex.min.css" rel="stylesheet"/>
+  <link href="../assets/css/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
+  <link href="../assets/css/styles.css" rel="stylesheet"/>
+  <link href="../assets/img/udacimak.png" rel="shortcut icon" type="image/png">
+  </link>
+ </head>
+ <body>
+  <div class="wrapper">
+   <nav id="sidebar">
+    <div class="sidebar-header">
+     <h3>
+      MiniFlow
+     </h3>
+    </div>
+    <ul class="sidebar-list list-unstyled CTAs">
+     <li>
+      <a class="article" href="../index.html">
+       Back to Home
+      </a>
+     </li>
+    </ul>
+    <ul class="sidebar-list list-unstyled components">
+     <li class="">
+      <a href="01. Welcome to MiniFlow.html">
+       01. Welcome to MiniFlow
+      </a>
+     </li>
+     <li class="">
+      <a href="02. Graphs.html">
+       02. Graphs
+      </a>
+     </li>
+     <li class="">
+      <a href="03. MiniFlow Architecture.html">
+       03. MiniFlow Architecture
+      </a>
+     </li>
+     <li class="">
+      <a href="04. Forward Propagation.html">
+       04. Forward Propagation
+      </a>
+     </li>
+     <li class="">
+      <a href="05. Forward Propagation Solution.html">
+       05. Forward Propagation Solution
+      </a>
+     </li>
+     <li class="">
+      <a href="06. Learning and Loss.html">
+       06. Learning and Loss
+      </a>
+     </li>
+     <li class="">
+      <a href="07. Linear Transform.html">
+       07. Linear Transform
+      </a>
+     </li>
+     <li class="">
+      <a href="08. Sigmoid Function.html">
+       08. Sigmoid Function
+      </a>
+     </li>
+     <li class="">
+      <a href="09. Cost.html">
+       09. Cost
+      </a>
+     </li>
+     <li class="">
+      <a href="10. Cost Solution.html">
+       10. Cost Solution
+      </a>
+     </li>
+     <li class="">
+      <a href="11. Gradient Descent.html">
+       11. Gradient Descent
+      </a>
+     </li>
+     <li class="">
+      <a href="12. Backpropagation.html">
+       12. Backpropagation
+      </a>
+     </li>
+     <li class="">
+      <a href="13. Stochastic Gradient Descent.html">
+       13. Stochastic Gradient Descent
+      </a>
+     </li>
+     <li class="">
+      <a href="14. SGD Solution.html">
+       14. SGD Solution
+      </a>
+     </li>
+     <li class="">
+      <a href="15. Outro.html">
+       15. Outro
+      </a>
+     </li>
+    </ul>
+    <ul class="sidebar-list list-unstyled CTAs">
+     <li>
+      <a class="article" href="../index.html">
+       Back to Home
+      </a>
+     </li>
+    </ul>
+   </nav>
+   <div id="content">
+    <header class="container-fluild header">
+     <div class="container">
+      <div class="row">
+       <div class="col-12">
+        <div class="align-items-middle">
+         <button class="btn btn-toggle-sidebar" id="sidebarCollapse" type="button">
+          <div>
+          </div>
+          <div>
+          </div>
+          <div>
+          </div>
+         </button>
+         <h1 style="display: inline-block">
+          06. Learning and Loss
+         </h1>
+        </div>
+       </div>
+      </div>
+     </div>
+    </header>
+    <main class="container">
+     <div class="row">
+      <div class="col-12">
+       <div class="ud-atom">
+        <h3>
+        </h3>
+        <div>
+         <h3 id="learning-and-loss">
+          Learning and Loss
+         </h3>
+         <p>
+          Like
+          <code>
+           MiniFlow
+          </code>
+          in its current state, neural networks take inputs and produce outputs. But unlike
+          <code>
+           MiniFlow
+          </code>
+          in its current state, neural networks can
+          <em>
+           improve
+          </em>
+          the accuracy of their outputs over time (it's hard to imagine improving the accuracy of
+          <code>
+           Add
+          </code>
+          over time!). To explore why accuracy matters, I want you to first implement a trickier (and more useful!) node than
+          <code>
+           Add
+          </code>
+          : the
+          <code>
+           Linear
+          </code>
+          node.
+         </p>
+         <h3 id="the-linear-function">
+          The Linear Function
+         </h3>
+        </div>
+       </div>
+       <div class="divider">
+       </div>
+       <div class="ud-atom">
+        <h3>
+        </h3>
+        <div>
+         <figure class="figure">
+          <img alt="" class="img img-fluid" src="img/neuron.png"/>
+          <figcaption class="figure-caption">
+          </figcaption>
+         </figure>
+        </div>
+       </div>
+       <div class="divider">
+       </div>
+       <div class="ud-atom">
+        <h3>
+        </h3>
+        <div>
+         <p>
+          Think back to the Intro to Neural Networks lesson. A simple artificial neuron depends on three components:
+         </p>
+         <ul>
+          <li>
+           inputs,
+           <span class="mathquill ud-math">
+            x_i
+           </span>
+          </li>
+          <li>
+           weights,
+           <span class="mathquill ud-math">
+            w_i
+           </span>
+          </li>
+          <li>
+           bias,
+           <span class="mathquill ud-math">
+            b
+           </span>
+          </li>
+         </ul>
+         <p>
+          The output,
+          <span class="mathquill ud-math">
+           y
+          </span>
+          , is just the weighted sum of the inputs plus the bias.
+         </p>
+        </div>
+       </div>
+       <div class="divider">
+       </div>
+       <div class="ud-atom">
+        <h3>
+        </h3>
+        <div>
+         <p>
+          Remember, by varying the weights, you can vary the amount of influence any given input has on the output. The learning aspect of neural networks takes place during a process known as backpropagation. In backpropogation, the network modifies the weights to improve the network's output accuracy. You'll be applying all of this shortly.
+         </p>
+         <p>
+          In this next quiz, you'll try to build a linear neuron that generates an output by applying a simplified version of the weighted sum.
+          <code>
+           Linear
+          </code>
+          should take a list of inbound nodes of length
+          <em>
+           n
+          </em>
+          , a list of weights of length
+          <em>
+           n
+          </em>
+          , and a bias.
+         </p>
+         <h3 id="instructions">
+          Instructions
+         </h3>
+         <ol>
+          <li>
+           Open nn.py below. Read through the neural network to see the expected output of
+           <code>
+            Linear
+           </code>
+           .
+          </li>
+          <li>
+           Open miniflow.py below. Modify
+           <code>
+            Linear
+           </code>
+           , which is a subclass of
+           <code>
+            Node
+           </code>
+           , to generate an output with
+           <span class="mathquill ud-math">
+            y = \sum w_i x_i + b
+           </span>
+           .
+          </li>
+         </ol>
+         <p>
+          (Hint: you could use
+          <code>
+           numpy
+          </code>
+          to solve this quiz if you'd like, but it's possible to solve this with plain Python.)
+         </p>
+        </div>
+       </div>
+       <div class="divider">
+       </div>
+       <div class="ud-atom">
+        <h3>
+        </h3>
+        <div>
+         <h4>
+          Start Quiz:
+         </h4>
+         <div>
+          <div class="nav nav-tabs nav-fill" id="question-tabs" role="tablist">
+           <a aria-controls="262847-nn-py" aria-selected="true" class="nav-item nav-link active show" data-toggle="tab" href="#262847-nn-py" id="tab-262847-nn-py" role="tab">
+            nn.py
+           </a>
+           <a aria-controls="262847-miniflow-py" aria-selected="false" class="nav-item nav-link" data-toggle="tab" href="#262847-miniflow-py" id="tab-262847-miniflow-py" role="tab">
+            miniflow.py
+           </a>
+          </div>
+          <div class="tab-content" id="question-tab-contents" style="padding: 20px 0;">
+           <div aria-labelledby="tab-262847-nn-py" class="tab-pane active show" id="262847-nn-py" role="tabpanel">
+            <pre><code></code>"""
+NOTE: Here we're using an Input node for more than a scalar.
+In the case of weights and inputs the value of the Input node is
+actually a python list!
+
+In general, there's no restriction on the values that can be passed to an Input node.
+"""
+from miniflow import *
+
+inputs, weights, bias = Input(), Input(), Input()
+
+f = Linear(inputs, weights, bias)
+
+feed_dict = {
+    inputs: [6, 14, 3],
+    weights: [0.5, 0.25, 1.4],
+    bias: 2
+}
+
+graph = topological_sort(feed_dict)
+output = forward_pass(f, graph)
+
+print(output) # should be 12.7 with this example</pre>
+           </div>
+           <div aria-labelledby="tab-262847-miniflow-py" class="tab-pane" id="262847-miniflow-py" role="tabpanel">
+            <pre><code></code>"""
+Write the Linear#forward method below!
+"""
+
+
+class Node:
+    def __init__(self, inbound_nodes=[]):
+        # Nodes from which this Node receives values
+        self.inbound_nodes = inbound_nodes
+        # Nodes to which this Node passes values
+        self.outbound_nodes = []
+        # A calculated value
+        self.value = None
+        # Add this node as an outbound node on its inputs.
+        for n in self.inbound_nodes:
+            n.outbound_nodes.append(self)
+
+    # These will be implemented in a subclass.
+    def forward(self):
+        """
+        Forward propagation.
+
+        Compute the output value based on `inbound_nodes` and
+        store the result in self.value.
+        """
+        raise NotImplemented
+
+
+class Input(Node):
+    def __init__(self):
+        # An Input Node has no inbound nodes,
+        # so no need to pass anything to the Node instantiator
+        Node.__init__(self)
+
+        # NOTE: Input Node is the only Node where the value
+        # may be passed as an argument to forward().
+        #
+        # All other Node implementations should get the value
+        # of the previous nodes from self.inbound_nodes
+        #
+        # Example:
+        # val0 = self.inbound_nodes[0].value
+    def forward(self, value=None):
+        # Overwrite the value if one is passed in.
+        if value is not None:
+            self.value = value
+
+
+class Linear(Node):
+    def __init__(self, inputs, weights, bias):
+        Node.__init__(self, [inputs, weights, bias])
+
+        # NOTE: The weights and bias properties here are not
+        # numbers, but rather references to other nodes.
+        # The weight and bias values are stored within the
+        # respective nodes.
+
+    def forward(self):
+        """
+        Set self.value to the value of the linear function output.
+
+        Your code goes here!
+        """
+        pass
+
+
+
+def topological_sort(feed_dict):
+    """
+    Sort the nodes in topological order using Kahn's Algorithm.
+
+    `feed_dict`: A dictionary where the key is a `Input` Node and the value is the respective value feed to that Node.
+
+    Returns a list of sorted nodes.
+    """
+
+    input_nodes = [n for n in feed_dict.keys()]
+
+    G = {}
+    nodes = [n for n in input_nodes]
+    while len(nodes) &gt; 0:
+        n = nodes.pop(0)
+        if n not in G:
+            G[n] = {'in': set(), 'out': set()}
+        for m in n.outbound_nodes:
+            if m not in G:
+                G[m] = {'in': set(), 'out': set()}
+            G[n]['out'].add(m)
+            G[m]['in'].add(n)
+            nodes.append(m)
+
+    L = []
+    S = set(input_nodes)
+    while len(S) &gt; 0:
+        n = S.pop()
+
+        if isinstance(n, Input):
+            n.value = feed_dict[n]
+
+        L.append(n)
+        for m in n.outbound_nodes:
+            G[n]['out'].remove(m)
+            G[m]['in'].remove(n)
+            # if no other incoming edges add to S
+            if len(G[m]['in']) == 0:
+                S.add(m)
+    return L
+
+
+def forward_pass(output_node, sorted_nodes):
+    """
+    Performs a forward pass through a list of sorted nodes.
+
+    Arguments:
+
+        `output_node`: A node in the graph, should be the output node (have no outgoing edges).
+        `sorted_nodes`: A topologically sorted list of nodes.
+
+    Returns the output Node's value
+    """
+
+    for n in sorted_nodes:
+        n.forward()
+
+    return output_node.value
+</pre>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+       <div class="divider">
+       </div>
+      </div>
+      <div class="col-12">
+       <p class="text-right">
+        <a class="btn btn-outline-primary mt-4" href="07. Linear Transform.html" role="button">
+         Next Concept
+        </a>
+       </p>
+      </div>
+     </div>
+    </main>
+    <footer class="footer">
+     <div class="container">
+      <div class="row">
+       <div class="col-12">
+        <p class="text-center">
+         udacity2.0 If you need the newest courses Plase add me wechat: udacity6
+        </p>
+       </div>
+      </div>
+     </div>
+    </footer>
+   </div>
+  </div>
+  <script src="../assets/js/jquery-3.3.1.min.js">
+  </script>
+  <script src="../assets/js/plyr.polyfilled.min.js">
+  </script>
+  <script src="../assets/js/bootstrap.min.js">
+  </script>
+  <script src="../assets/js/jquery.mCustomScrollbar.concat.min.js">
+  </script>
+  <script src="../assets/js/katex.min.js">
+  </script>
+  <script>
+   // Initialize Plyr video players
+    const players = Array.from(document.querySelectorAll('video')).map(p => new Plyr(p));
+
+    // render math equations
+    let elMath = document.getElementsByClassName('mathquill');
+    for (let i = 0, len = elMath.length; i < len; i += 1) {
+      const el = elMath[i];
+
+      katex.render(el.textContent, el, {
+        throwOnError: false
+      });
+    }
+
+    // this hack will make sure Bootstrap tabs work when using Handlebars
+    if ($('#question-tabs').length && $('#user-answer-tabs').length) {
+      $("#question-tabs a.nav-link").on('click', function () {
+        $("#question-tab-contents .tab-pane").hide();
+        $($(this).attr("href")).show();
+      });
+      $("#user-answer-tabs a.nav-link").on('click', function () {
+        $("#user-answer-tab-contents .tab-pane").hide();
+        $($(this).attr("href")).show();
+      });
+    } else {
+      $("a.nav-link").on('click', function () {
+        $(".tab-pane").hide();
+        $($(this).attr("href")).show();
+      });
+    }
+
+    // side bar events
+    $(document).ready(function () {
+      $("#sidebar").mCustomScrollbar({
+        theme: "minimal"
+      });
+
+      $('#sidebarCollapse').on('click', function () {
+        $('#sidebar, #content').toggleClass('active');
+        $('.collapse.in').toggleClass('in');
+        $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+      });
+
+      // scroll to first video on page loading
+      if ($('video').length) {
+        $('html,body').animate({ scrollTop: $('div.plyr').prev().offset().top});
+      }
+
+      // auto play first video: this may not work with chrome/safari due to autoplay policy
+      if (players && players.length > 0) {
+        players[0].play();
+      }
+
+      // scroll sidebar to current concept
+      const currentInSideBar = $( "ul.sidebar-list.components li a:contains('06. Learning and Loss')" )
+      currentInSideBar.css( "text-decoration", "underline" );
+      $("#sidebar").mCustomScrollbar('scrollTo', currentInSideBar);
+    });
+  </script>
+ </body>
+</html>

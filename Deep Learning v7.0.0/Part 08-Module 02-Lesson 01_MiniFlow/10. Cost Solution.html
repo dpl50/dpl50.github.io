@@ -1,0 +1,330 @@
+<!-- udacimak v1.4.4 -->
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="ie=edge" http-equiv="X-UA-Compatible"/>
+  <title>
+   Cost Solution
+  </title>
+  <link href="../assets/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="../assets/css/plyr.css" rel="stylesheet"/>
+  <link href="../assets/css/katex.min.css" rel="stylesheet"/>
+  <link href="../assets/css/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
+  <link href="../assets/css/styles.css" rel="stylesheet"/>
+  <link href="../assets/img/udacimak.png" rel="shortcut icon" type="image/png">
+  </link>
+ </head>
+ <body>
+  <div class="wrapper">
+   <nav id="sidebar">
+    <div class="sidebar-header">
+     <h3>
+      MiniFlow
+     </h3>
+    </div>
+    <ul class="sidebar-list list-unstyled CTAs">
+     <li>
+      <a class="article" href="../index.html">
+       Back to Home
+      </a>
+     </li>
+    </ul>
+    <ul class="sidebar-list list-unstyled components">
+     <li class="">
+      <a href="01. Welcome to MiniFlow.html">
+       01. Welcome to MiniFlow
+      </a>
+     </li>
+     <li class="">
+      <a href="02. Graphs.html">
+       02. Graphs
+      </a>
+     </li>
+     <li class="">
+      <a href="03. MiniFlow Architecture.html">
+       03. MiniFlow Architecture
+      </a>
+     </li>
+     <li class="">
+      <a href="04. Forward Propagation.html">
+       04. Forward Propagation
+      </a>
+     </li>
+     <li class="">
+      <a href="05. Forward Propagation Solution.html">
+       05. Forward Propagation Solution
+      </a>
+     </li>
+     <li class="">
+      <a href="06. Learning and Loss.html">
+       06. Learning and Loss
+      </a>
+     </li>
+     <li class="">
+      <a href="07. Linear Transform.html">
+       07. Linear Transform
+      </a>
+     </li>
+     <li class="">
+      <a href="08. Sigmoid Function.html">
+       08. Sigmoid Function
+      </a>
+     </li>
+     <li class="">
+      <a href="09. Cost.html">
+       09. Cost
+      </a>
+     </li>
+     <li class="">
+      <a href="10. Cost Solution.html">
+       10. Cost Solution
+      </a>
+     </li>
+     <li class="">
+      <a href="11. Gradient Descent.html">
+       11. Gradient Descent
+      </a>
+     </li>
+     <li class="">
+      <a href="12. Backpropagation.html">
+       12. Backpropagation
+      </a>
+     </li>
+     <li class="">
+      <a href="13. Stochastic Gradient Descent.html">
+       13. Stochastic Gradient Descent
+      </a>
+     </li>
+     <li class="">
+      <a href="14. SGD Solution.html">
+       14. SGD Solution
+      </a>
+     </li>
+     <li class="">
+      <a href="15. Outro.html">
+       15. Outro
+      </a>
+     </li>
+    </ul>
+    <ul class="sidebar-list list-unstyled CTAs">
+     <li>
+      <a class="article" href="../index.html">
+       Back to Home
+      </a>
+     </li>
+    </ul>
+   </nav>
+   <div id="content">
+    <header class="container-fluild header">
+     <div class="container">
+      <div class="row">
+       <div class="col-12">
+        <div class="align-items-middle">
+         <button class="btn btn-toggle-sidebar" id="sidebarCollapse" type="button">
+          <div>
+          </div>
+          <div>
+          </div>
+          <div>
+          </div>
+         </button>
+         <h1 style="display: inline-block">
+          10. Cost Solution
+         </h1>
+        </div>
+       </div>
+      </div>
+     </div>
+    </header>
+    <main class="container">
+     <div class="row">
+      <div class="col-12">
+       <div class="ud-atom">
+        <h3>
+        </h3>
+        <div>
+         <p>
+          Here's how I implemented
+          <code>
+           MSE
+          </code>
+          :
+         </p>
+         <pre><code class="python language-python">class MSE(Node):
+    def __init__(self, y, a):
+        """
+        The mean squared error cost function.
+        Should be used as the last node for a network.
+        """
+        # Call the base class' constructor.
+        Node.__init__(self, [y, a])
+
+    def forward(self):
+        """
+        Calculates the mean squared error.
+        """
+        # NOTE: We reshape these to avoid possible matrix/vector broadcast
+        # errors.
+        #
+        # For example, if we subtract an array of shape (3,) from an array of shape
+        # (3,1) we get an array of shape(3,3) as the result when we want
+        # an array of shape (3,1) instead.
+        #
+        # Making both arrays (3,1) insures the result is (3,1) and does
+        # an elementwise subtraction as expected.
+        y = self.inbound_nodes[0].value.reshape(-1, 1)
+        a = self.inbound_nodes[1].value.reshape(-1, 1)
+        m = self.inbound_nodes[0].value.shape[0]
+
+        diff = y - a
+        self.value = np.mean(diff**2)</code></pre>
+         <p>
+          The math behind
+          <code>
+           MSE
+          </code>
+          reflects Equation (5), where
+          <em>
+           y
+          </em>
+          is target output and
+          <em>
+           a
+          </em>
+          is output computed by the neural network. We then square the difference
+          <code>
+           diff**2
+          </code>
+          , alternatively, this could be
+          <code>
+           np.square(diff)
+          </code>
+          . Lastly we need to sum the squared differences and divide by the total number of examples
+          <em>
+           m
+          </em>
+          . This can be achieved in with
+          <code>
+           np.mean
+          </code>
+          or
+          <code>
+           (1 /m) * np.sum(diff**2)
+          </code>
+          .
+         </p>
+         <p>
+          Note the order of
+          <code>
+           y
+          </code>
+          and
+          <code>
+           a
+          </code>
+          doesn't actually matter, we could switch them around (
+          <code>
+           a - y
+          </code>
+          ) and get the same value.
+         </p>
+        </div>
+       </div>
+       <div class="divider">
+       </div>
+      </div>
+      <div class="col-12">
+       <p class="text-right">
+        <a class="btn btn-outline-primary mt-4" href="11. Gradient Descent.html" role="button">
+         Next Concept
+        </a>
+       </p>
+      </div>
+     </div>
+    </main>
+    <footer class="footer">
+     <div class="container">
+      <div class="row">
+       <div class="col-12">
+        <p class="text-center">
+         udacity2.0 If you need the newest courses Plase add me wechat: udacity6
+        </p>
+       </div>
+      </div>
+     </div>
+    </footer>
+   </div>
+  </div>
+  <script src="../assets/js/jquery-3.3.1.min.js">
+  </script>
+  <script src="../assets/js/plyr.polyfilled.min.js">
+  </script>
+  <script src="../assets/js/bootstrap.min.js">
+  </script>
+  <script src="../assets/js/jquery.mCustomScrollbar.concat.min.js">
+  </script>
+  <script src="../assets/js/katex.min.js">
+  </script>
+  <script>
+   // Initialize Plyr video players
+    const players = Array.from(document.querySelectorAll('video')).map(p => new Plyr(p));
+
+    // render math equations
+    let elMath = document.getElementsByClassName('mathquill');
+    for (let i = 0, len = elMath.length; i < len; i += 1) {
+      const el = elMath[i];
+
+      katex.render(el.textContent, el, {
+        throwOnError: false
+      });
+    }
+
+    // this hack will make sure Bootstrap tabs work when using Handlebars
+    if ($('#question-tabs').length && $('#user-answer-tabs').length) {
+      $("#question-tabs a.nav-link").on('click', function () {
+        $("#question-tab-contents .tab-pane").hide();
+        $($(this).attr("href")).show();
+      });
+      $("#user-answer-tabs a.nav-link").on('click', function () {
+        $("#user-answer-tab-contents .tab-pane").hide();
+        $($(this).attr("href")).show();
+      });
+    } else {
+      $("a.nav-link").on('click', function () {
+        $(".tab-pane").hide();
+        $($(this).attr("href")).show();
+      });
+    }
+
+    // side bar events
+    $(document).ready(function () {
+      $("#sidebar").mCustomScrollbar({
+        theme: "minimal"
+      });
+
+      $('#sidebarCollapse').on('click', function () {
+        $('#sidebar, #content').toggleClass('active');
+        $('.collapse.in').toggleClass('in');
+        $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+      });
+
+      // scroll to first video on page loading
+      if ($('video').length) {
+        $('html,body').animate({ scrollTop: $('div.plyr').prev().offset().top});
+      }
+
+      // auto play first video: this may not work with chrome/safari due to autoplay policy
+      if (players && players.length > 0) {
+        players[0].play();
+      }
+
+      // scroll sidebar to current concept
+      const currentInSideBar = $( "ul.sidebar-list.components li a:contains('10. Cost Solution')" )
+      currentInSideBar.css( "text-decoration", "underline" );
+      $("#sidebar").mCustomScrollbar('scrollTo', currentInSideBar);
+    });
+  </script>
+ </body>
+</html>

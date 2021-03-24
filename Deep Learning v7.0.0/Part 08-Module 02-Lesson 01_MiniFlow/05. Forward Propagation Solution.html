@@ -1,0 +1,582 @@
+<!-- udacimak v1.4.4 -->
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="ie=edge" http-equiv="X-UA-Compatible"/>
+  <title>
+   Forward Propagation Solution
+  </title>
+  <link href="../assets/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="../assets/css/plyr.css" rel="stylesheet"/>
+  <link href="../assets/css/katex.min.css" rel="stylesheet"/>
+  <link href="../assets/css/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
+  <link href="../assets/css/styles.css" rel="stylesheet"/>
+  <link href="../assets/img/udacimak.png" rel="shortcut icon" type="image/png">
+  </link>
+ </head>
+ <body>
+  <div class="wrapper">
+   <nav id="sidebar">
+    <div class="sidebar-header">
+     <h3>
+      MiniFlow
+     </h3>
+    </div>
+    <ul class="sidebar-list list-unstyled CTAs">
+     <li>
+      <a class="article" href="../index.html">
+       Back to Home
+      </a>
+     </li>
+    </ul>
+    <ul class="sidebar-list list-unstyled components">
+     <li class="">
+      <a href="01. Welcome to MiniFlow.html">
+       01. Welcome to MiniFlow
+      </a>
+     </li>
+     <li class="">
+      <a href="02. Graphs.html">
+       02. Graphs
+      </a>
+     </li>
+     <li class="">
+      <a href="03. MiniFlow Architecture.html">
+       03. MiniFlow Architecture
+      </a>
+     </li>
+     <li class="">
+      <a href="04. Forward Propagation.html">
+       04. Forward Propagation
+      </a>
+     </li>
+     <li class="">
+      <a href="05. Forward Propagation Solution.html">
+       05. Forward Propagation Solution
+      </a>
+     </li>
+     <li class="">
+      <a href="06. Learning and Loss.html">
+       06. Learning and Loss
+      </a>
+     </li>
+     <li class="">
+      <a href="07. Linear Transform.html">
+       07. Linear Transform
+      </a>
+     </li>
+     <li class="">
+      <a href="08. Sigmoid Function.html">
+       08. Sigmoid Function
+      </a>
+     </li>
+     <li class="">
+      <a href="09. Cost.html">
+       09. Cost
+      </a>
+     </li>
+     <li class="">
+      <a href="10. Cost Solution.html">
+       10. Cost Solution
+      </a>
+     </li>
+     <li class="">
+      <a href="11. Gradient Descent.html">
+       11. Gradient Descent
+      </a>
+     </li>
+     <li class="">
+      <a href="12. Backpropagation.html">
+       12. Backpropagation
+      </a>
+     </li>
+     <li class="">
+      <a href="13. Stochastic Gradient Descent.html">
+       13. Stochastic Gradient Descent
+      </a>
+     </li>
+     <li class="">
+      <a href="14. SGD Solution.html">
+       14. SGD Solution
+      </a>
+     </li>
+     <li class="">
+      <a href="15. Outro.html">
+       15. Outro
+      </a>
+     </li>
+    </ul>
+    <ul class="sidebar-list list-unstyled CTAs">
+     <li>
+      <a class="article" href="../index.html">
+       Back to Home
+      </a>
+     </li>
+    </ul>
+   </nav>
+   <div id="content">
+    <header class="container-fluild header">
+     <div class="container">
+      <div class="row">
+       <div class="col-12">
+        <div class="align-items-middle">
+         <button class="btn btn-toggle-sidebar" id="sidebarCollapse" type="button">
+          <div>
+          </div>
+          <div>
+          </div>
+          <div>
+          </div>
+         </button>
+         <h1 style="display: inline-block">
+          05. Forward Propagation Solution
+         </h1>
+        </div>
+       </div>
+      </div>
+     </div>
+    </header>
+    <main class="container">
+     <div class="row">
+      <div class="col-12">
+       <div class="ud-atom">
+        <h3>
+        </h3>
+        <div>
+         <p>
+          Here's my solution (I'm just showing
+          <code>
+           forward
+          </code>
+          method of the
+          <code>
+           Add
+          </code>
+          class):
+         </p>
+         <pre><code>def forward(self):
+    x_value = self.inbound_nodes[0].value
+    y_value = self.inbound_nodes[1].value
+    self.value = x_value + y_value</code></pre>
+         <p>
+          While this looks simple, I want to show you why I used
+          <code>
+           x_value
+          </code>
+          and
+          <code>
+           y_value
+          </code>
+          from the
+          <code>
+           inbound_nodes
+          </code>
+          array. Let's take a look at the start with
+          <code>
+           Node
+          </code>
+          's constructor:
+         </p>
+         <pre><code>class Node(object):
+    def __init__(self, inbound_nodes=[]):
+        # Node(s) from which this Node receives values.
+        self.inbound_nodes = inbound_nodes
+        # Removed everything else for brevity.</code></pre>
+         <p>
+          <code>
+           inbound_nodes
+          </code>
+          are set when the
+          <code>
+           Node
+          </code>
+          is instantiated.
+         </p>
+         <p>
+          Of course, you weren't using
+          <code>
+           Node
+          </code>
+          directly, rather you used
+          <code>
+           Add
+          </code>
+          , which is a subclass of
+          <code>
+           Node
+          </code>
+          .
+          <code>
+           Add
+          </code>
+          's constructor is responsible for passing the
+          <code>
+           inbound_nodes
+          </code>
+          to
+          <code>
+           Node
+          </code>
+          , which happens here:
+         </p>
+         <pre><code>class Add(Node):
+    def __init__(self, x, y):
+         Node.__init__(self, [x, y]) # calls Node's constructor
+    ...</code></pre>
+         <p>
+          Lastly, there's the question of why
+          <code>
+           node.value
+          </code>
+          holds the value of the inputs.  For each node of the
+          <code>
+           Input()
+          </code>
+          class, the nodes are set directly when you run
+          <code>
+           topological_sort
+          </code>
+          :
+         </p>
+         <pre><code>def topological_sort(feed_dict):
+    ...
+    if isinstance(n, Input):
+        n.value = feed_dict[n]
+    ...</code></pre>
+         <p>
+          For other classes, the value of node.value is set in the forward pass:
+         </p>
+         <pre><code>def forward_pass(output_node, sorted_nodes):
+    ...
+    for n in sorted_nodes:
+        n.forward()
+    ...</code></pre>
+         <p>
+          And that's it for addition!
+         </p>
+         <p>
+          Keep going to make
+          <code>
+           MiniFlow
+          </code>
+          more capable.
+         </p>
+        </div>
+       </div>
+       <div class="divider">
+       </div>
+       <div class="ud-atom">
+        <h3>
+        </h3>
+        <div>
+         <h3 id="bonus-challenges">
+          Bonus Challenges!
+         </h3>
+         <p>
+          These are
+          <strong>
+           ungraded
+          </strong>
+          challenges as they are more of a test of your Python skills than neural network skills.
+         </p>
+         <ol>
+          <li>
+           Can you make
+           <code>
+            Add
+           </code>
+           accept any number of inputs? Eg.
+           <code>
+            Add(x, y, z)
+           </code>
+           .
+          </li>
+          <li>
+           Can you make a
+           <code>
+            Mul
+           </code>
+           class that multiplies
+           <em>
+            n
+           </em>
+           inputs?
+          </li>
+         </ol>
+        </div>
+       </div>
+       <div class="divider">
+       </div>
+       <div class="ud-atom">
+        <h3>
+        </h3>
+        <div>
+         <h4>
+          Start Quiz:
+         </h4>
+         <div>
+          <div class="nav nav-tabs nav-fill" id="question-tabs" role="tablist">
+           <a aria-controls="196743-nn-py" aria-selected="true" class="nav-item nav-link active show" data-toggle="tab" href="#196743-nn-py" id="tab-196743-nn-py" role="tab">
+            nn.py
+           </a>
+           <a aria-controls="196743-miniflow-py" aria-selected="false" class="nav-item nav-link" data-toggle="tab" href="#196743-miniflow-py" id="tab-196743-miniflow-py" role="tab">
+            miniflow.py
+           </a>
+          </div>
+          <div class="tab-content" id="question-tab-contents" style="padding: 20px 0;">
+           <div aria-labelledby="tab-196743-nn-py" class="tab-pane active show" id="196743-nn-py" role="tabpanel">
+            <pre><code></code>"""
+No need to change anything here!
+
+If all goes well, this should work after you
+modify the Add class in miniflow.py.
+"""
+
+from miniflow import *
+
+x, y, z = Input(), Input(), Input()
+
+f = Add(x, y, z)
+
+feed_dict = {x: 4, y: 5, z: 10}
+
+graph = topological_sort(feed_dict)
+output = forward_pass(f, graph)
+
+# should output 19
+print("{} + {} + {} = {} (according to miniflow)".format(feed_dict[x], feed_dict[y], feed_dict[z], output))
+</pre>
+           </div>
+           <div aria-labelledby="tab-196743-miniflow-py" class="tab-pane" id="196743-miniflow-py" role="tabpanel">
+            <pre><code></code>"""
+Bonus Challenge!
+
+Write your code in Add (scroll down).
+"""
+
+class Node(object):
+    def __init__(self, inbound_nodes=[]):
+        # Nodes from which this Node receives values
+        self.inbound_nodes = inbound_nodes
+        # Nodes to which this Node passes values
+        self.outbound_nodes = []
+        # A calculated value
+        self.value = None
+        # Add this node as an outbound node on its inputs.
+        for n in self.inbound_nodes:
+            n.outbound_nodes.append(self)
+
+    # These will be implemented in a subclass.
+    def forward(self):
+        """
+        Forward propagation.
+
+        Compute the output value based on `inbound_nodes` and
+        store the result in self.value.
+        """
+        raise NotImplemented
+
+
+class Input(Node):
+    def __init__(self):
+        # An Input Node has no inbound nodes,
+        # so no need to pass anything to the Node instantiator
+        Node.__init__(self)
+
+    # NOTE: Input Node is the only Node where the value
+    # may be passed as an argument to forward().
+    #
+    # All other Node implementations should get the value
+    # of the previous nodes from self.inbound_nodes
+    #
+    # Example:
+    # val0 = self.inbound_nodes[0].value
+    def forward(self, value=None):
+        # Overwrite the value if one is passed in.
+        if value is not None:
+            self.value = value
+
+
+"""
+Can you augment the Add class so that it accepts
+any number of nodes as input?
+
+Hint: this may be useful:
+https://docs.python.org/3/tutorial/controlflow.html#unpacking-argument-lists
+"""
+class Add(Node):
+    # You may need to change this...
+    def __init__(self, *inputs):
+        Node.__init__(self, inputs)
+
+    def forward(self):
+        """
+        For reference, here's the old way from the last
+        quiz. You'll want to write code here.
+        """
+        # x_value = self.inbound_nodes[0].value
+        # y_value = self.inbound_nodes[1].value
+        # self.value = x_value + y_value
+
+def topological_sort(feed_dict):
+    """
+    Sort the nodes in topological order using Kahn's Algorithm.
+
+    `feed_dict`: A dictionary where the key is a `Input` Node and the value is the respective value feed to that Node.
+
+    Returns a list of sorted nodes.
+    """
+
+    input_nodes = [n for n in feed_dict.keys()]
+
+    G = {}
+    nodes = [n for n in input_nodes]
+    while len(nodes) &gt; 0:
+        n = nodes.pop(0)
+        if n not in G:
+            G[n] = {'in': set(), 'out': set()}
+        for m in n.outbound_nodes:
+            if m not in G:
+                G[m] = {'in': set(), 'out': set()}
+            G[n]['out'].add(m)
+            G[m]['in'].add(n)
+            nodes.append(m)
+
+    L = []
+    S = set(input_nodes)
+    while len(S) &gt; 0:
+        n = S.pop()
+
+        if isinstance(n, Input):
+            n.value = feed_dict[n]
+
+        L.append(n)
+        for m in n.outbound_nodes:
+            G[n]['out'].remove(m)
+            G[m]['in'].remove(n)
+            # if no other incoming edges add to S
+            if len(G[m]['in']) == 0:
+                S.add(m)
+    return L
+
+
+def forward_pass(output_node, sorted_nodes):
+    """
+    Performs a forward pass through a list of sorted nodes.
+
+    Arguments:
+
+        `output_node`: A node in the graph, should be the output node (have no outgoing edges).
+        `sorted_nodes`: A topologically sorted list of nodes.
+
+    Returns the output Node's value
+    """
+
+    for n in sorted_nodes:
+        n.forward()
+
+    return output_node.value
+</pre>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+       <div class="divider">
+       </div>
+      </div>
+      <div class="col-12">
+       <p class="text-right">
+        <a class="btn btn-outline-primary mt-4" href="06. Learning and Loss.html" role="button">
+         Next Concept
+        </a>
+       </p>
+      </div>
+     </div>
+    </main>
+    <footer class="footer">
+     <div class="container">
+      <div class="row">
+       <div class="col-12">
+        <p class="text-center">
+         udacity2.0 If you need the newest courses Plase add me wechat: udacity6
+        </p>
+       </div>
+      </div>
+     </div>
+    </footer>
+   </div>
+  </div>
+  <script src="../assets/js/jquery-3.3.1.min.js">
+  </script>
+  <script src="../assets/js/plyr.polyfilled.min.js">
+  </script>
+  <script src="../assets/js/bootstrap.min.js">
+  </script>
+  <script src="../assets/js/jquery.mCustomScrollbar.concat.min.js">
+  </script>
+  <script src="../assets/js/katex.min.js">
+  </script>
+  <script>
+   // Initialize Plyr video players
+    const players = Array.from(document.querySelectorAll('video')).map(p => new Plyr(p));
+
+    // render math equations
+    let elMath = document.getElementsByClassName('mathquill');
+    for (let i = 0, len = elMath.length; i < len; i += 1) {
+      const el = elMath[i];
+
+      katex.render(el.textContent, el, {
+        throwOnError: false
+      });
+    }
+
+    // this hack will make sure Bootstrap tabs work when using Handlebars
+    if ($('#question-tabs').length && $('#user-answer-tabs').length) {
+      $("#question-tabs a.nav-link").on('click', function () {
+        $("#question-tab-contents .tab-pane").hide();
+        $($(this).attr("href")).show();
+      });
+      $("#user-answer-tabs a.nav-link").on('click', function () {
+        $("#user-answer-tab-contents .tab-pane").hide();
+        $($(this).attr("href")).show();
+      });
+    } else {
+      $("a.nav-link").on('click', function () {
+        $(".tab-pane").hide();
+        $($(this).attr("href")).show();
+      });
+    }
+
+    // side bar events
+    $(document).ready(function () {
+      $("#sidebar").mCustomScrollbar({
+        theme: "minimal"
+      });
+
+      $('#sidebarCollapse').on('click', function () {
+        $('#sidebar, #content').toggleClass('active');
+        $('.collapse.in').toggleClass('in');
+        $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+      });
+
+      // scroll to first video on page loading
+      if ($('video').length) {
+        $('html,body').animate({ scrollTop: $('div.plyr').prev().offset().top});
+      }
+
+      // auto play first video: this may not work with chrome/safari due to autoplay policy
+      if (players && players.length > 0) {
+        players[0].play();
+      }
+
+      // scroll sidebar to current concept
+      const currentInSideBar = $( "ul.sidebar-list.components li a:contains('05. Forward Propagation Solution')" )
+      currentInSideBar.css( "text-decoration", "underline" );
+      $("#sidebar").mCustomScrollbar('scrollTo', currentInSideBar);
+    });
+  </script>
+ </body>
+</html>

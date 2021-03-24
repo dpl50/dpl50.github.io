@@ -1,0 +1,170 @@
+WEBVTT
+Kind: captions
+Language: pt-BR
+
+00:00:00.488 --> 00:00:03.719
+Esta é outra forma de lidar
+com dados não lineares como estes.
+
+00:00:03.753 --> 00:00:06.308
+Para isso, usamos
+uma função linear em trechos,
+
+00:00:06.342 --> 00:00:09.976
+que é uma combinação de linhas
+que se ajustam aos dados.
+
+00:00:10.010 --> 00:00:14.327
+Para fazer isso, usamos
+nossa velha amiga, a rede neural.
+
+00:00:14.361 --> 00:00:17.554
+Este é um exemplo de uma rede neural
+usada para classificação,
+
+00:00:17.588 --> 00:00:20.236
+com n inputs,
+algumas unidades enviesadas
+
+00:00:20.270 --> 00:00:23.339
+e várias funções de ativação
+ReLU.
+
+00:00:23.373 --> 00:00:25.497
+No fim,
+há uma função sigmoide,
+
+00:00:25.531 --> 00:00:28.228
+pois estamos usando a rede neural
+para classificação,
+
+00:00:28.262 --> 00:00:32.493
+logo, queremos que a resposta final
+seja um número de 0 a 1.
+
+00:00:32.527 --> 00:00:35.234
+E se não precisarmos
+da rede neural para classificação,
+
+00:00:35.268 --> 00:00:36.579
+mas para regressão?
+
+00:00:36.613 --> 00:00:41.223
+Nesse caso, não queremos um número
+de 0 a 1, mas qualquer número.
+
+00:00:41.257 --> 00:00:43.137
+Vou mostrar um truque
+muito simples.
+
+00:00:43.171 --> 00:00:46.389
+Basta remover
+esta unidade sigmoide final
+
+00:00:46.423 --> 00:00:49.623
+e retornar o valor anterior.
+
+00:00:49.657 --> 00:00:54.048
+Esse valor é a soma ponderada
+dos outputs da camada anterior.
+
+00:00:54.082 --> 00:00:55.393
+Só isso.
+
+00:00:55.427 --> 00:00:58.922
+Para treinar essa rede, usaríamos
+outra função de erro ou perda.
+
+00:00:58.956 --> 00:01:02.749
+Seria, como vimos nesta seção, dada
+pela função de erro quadrático médio
+
+00:01:02.783 --> 00:01:06.465
+ou pelo quadrado da diferença
+entre o rótulo e a predição,
+
+00:01:06.499 --> 00:01:09.180
+que é (y-ŷ) ao quadrado.
+
+00:01:09.214 --> 00:01:12.687
+Claro, adicionaríamos ou faríamos
+a média sobre todos os pontos,
+
+00:01:12.721 --> 00:01:15.889
+mas ao usarmos essa função
+combinada à retropropagação,
+
+00:01:15.923 --> 00:01:19.997
+podemos treinar a rede neural assim
+como fizemos para classificação.
+
+00:01:20.031 --> 00:01:22.661
+É assim que imagino
+redes neurais de regressão.
+
+00:01:22.695 --> 00:01:25.510
+Na camada oculta, há várias
+funções lineares e os inputs,
+
+00:01:25.544 --> 00:01:30.971
+que são x e a unidade enviesada 1.
+Essas funções lineares são linhas.
+
+00:01:31.005 --> 00:01:33.868
+Então, as combinamos a uma ReLU.
+Para fazer isso,
+
+00:01:33.902 --> 00:01:36.312
+transformamos a parte da linha
+que está negativa,
+
+00:01:36.346 --> 00:01:39.264
+ou abaixo do eixo x, em 0.
+
+00:01:39.298 --> 00:01:41.701
+A camada seguinte só aceita
+combinações lineares,
+
+00:01:41.735 --> 00:01:44.242
+logo, essas funções lineares
+se combinam a ReLUs.
+
+00:01:44.276 --> 00:01:48.207
+As combinações lineares ficam assim.
+Como funções lineares em trechos.
+
+00:01:48.241 --> 00:01:51.627
+Podemos usar outras funções de
+ativação, como sigmoide ou tanh.
+
+00:01:51.661 --> 00:01:53.984
+Ainda treinaríamos as redes
+por retropropagação
+
+00:01:54.018 --> 00:01:57.453
+para minimizar o erro quadrático
+médio. Essas redes ficariam assim.
+
+00:01:57.487 --> 00:01:59.662
+Você combinaria
+funções lineares a sigmoides
+
+00:01:59.696 --> 00:02:02.490
+e pegaria
+combinações lineares delas.
+
+00:02:02.524 --> 00:02:04.535
+De modo geral,
+essa notícia é fantástica.
+
+00:02:04.569 --> 00:02:07.875
+Significa que podemos usar redes
+neurais não só para classificação,
+
+00:02:07.909 --> 00:02:09.234
+mas também para regressão.
+
+00:02:09.268 --> 00:02:11.596
+Basta remover
+a função de ativação final.
+

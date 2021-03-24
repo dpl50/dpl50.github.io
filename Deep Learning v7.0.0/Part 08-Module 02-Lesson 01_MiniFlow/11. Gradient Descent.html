@@ -1,0 +1,525 @@
+<!-- udacimak v1.4.4 -->
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="ie=edge" http-equiv="X-UA-Compatible"/>
+  <title>
+   Gradient Descent
+  </title>
+  <link href="../assets/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="../assets/css/plyr.css" rel="stylesheet"/>
+  <link href="../assets/css/katex.min.css" rel="stylesheet"/>
+  <link href="../assets/css/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
+  <link href="../assets/css/styles.css" rel="stylesheet"/>
+  <link href="../assets/img/udacimak.png" rel="shortcut icon" type="image/png">
+  </link>
+ </head>
+ <body>
+  <div class="wrapper">
+   <nav id="sidebar">
+    <div class="sidebar-header">
+     <h3>
+      MiniFlow
+     </h3>
+    </div>
+    <ul class="sidebar-list list-unstyled CTAs">
+     <li>
+      <a class="article" href="../index.html">
+       Back to Home
+      </a>
+     </li>
+    </ul>
+    <ul class="sidebar-list list-unstyled components">
+     <li class="">
+      <a href="01. Welcome to MiniFlow.html">
+       01. Welcome to MiniFlow
+      </a>
+     </li>
+     <li class="">
+      <a href="02. Graphs.html">
+       02. Graphs
+      </a>
+     </li>
+     <li class="">
+      <a href="03. MiniFlow Architecture.html">
+       03. MiniFlow Architecture
+      </a>
+     </li>
+     <li class="">
+      <a href="04. Forward Propagation.html">
+       04. Forward Propagation
+      </a>
+     </li>
+     <li class="">
+      <a href="05. Forward Propagation Solution.html">
+       05. Forward Propagation Solution
+      </a>
+     </li>
+     <li class="">
+      <a href="06. Learning and Loss.html">
+       06. Learning and Loss
+      </a>
+     </li>
+     <li class="">
+      <a href="07. Linear Transform.html">
+       07. Linear Transform
+      </a>
+     </li>
+     <li class="">
+      <a href="08. Sigmoid Function.html">
+       08. Sigmoid Function
+      </a>
+     </li>
+     <li class="">
+      <a href="09. Cost.html">
+       09. Cost
+      </a>
+     </li>
+     <li class="">
+      <a href="10. Cost Solution.html">
+       10. Cost Solution
+      </a>
+     </li>
+     <li class="">
+      <a href="11. Gradient Descent.html">
+       11. Gradient Descent
+      </a>
+     </li>
+     <li class="">
+      <a href="12. Backpropagation.html">
+       12. Backpropagation
+      </a>
+     </li>
+     <li class="">
+      <a href="13. Stochastic Gradient Descent.html">
+       13. Stochastic Gradient Descent
+      </a>
+     </li>
+     <li class="">
+      <a href="14. SGD Solution.html">
+       14. SGD Solution
+      </a>
+     </li>
+     <li class="">
+      <a href="15. Outro.html">
+       15. Outro
+      </a>
+     </li>
+    </ul>
+    <ul class="sidebar-list list-unstyled CTAs">
+     <li>
+      <a class="article" href="../index.html">
+       Back to Home
+      </a>
+     </li>
+    </ul>
+   </nav>
+   <div id="content">
+    <header class="container-fluild header">
+     <div class="container">
+      <div class="row">
+       <div class="col-12">
+        <div class="align-items-middle">
+         <button class="btn btn-toggle-sidebar" id="sidebarCollapse" type="button">
+          <div>
+          </div>
+          <div>
+          </div>
+          <div>
+          </div>
+         </button>
+         <h1 style="display: inline-block">
+          11. Gradient Descent
+         </h1>
+        </div>
+       </div>
+      </div>
+     </div>
+    </header>
+    <main class="container">
+     <div class="row">
+      <div class="col-12">
+       <div class="ud-atom">
+        <h3>
+        </h3>
+        <div>
+         <h3 id="journey-to-the-bottom-of-the-valley">
+          Journey to the Bottom of the Valley
+         </h3>
+         <p>
+          Here I'll give you a little refresher on gradient descent so we can start training our network with MiniFlow. Remember that our goal is to make our network output as close as possible to the target values by minimizing the cost. You can envision the cost as a hill or mountain and we want to get to the bottom.
+         </p>
+         <p>
+          Imagine your model parameters are represented by a ball sitting on a hill. Intuitively, we want to push the ball downhill. And that makes sense, but when we're talking about our cost function, how do we know which way is downhill?
+         </p>
+         <p>
+          Luckily, the gradient provides this exact information.
+         </p>
+         <p>
+          Technically, the gradient actually points uphill, in the direction of
+          <strong>
+           steepest ascent
+          </strong>
+          . But if we put a
+          <code>
+           -
+          </code>
+          sign in front of this value, we get the direction of
+          <strong>
+           steepest descent
+          </strong>
+          , which is what we want.
+         </p>
+         <p>
+          You'll learn more about the gradient in a moment, but, for now, just think of it as a vector of numbers. Each number represents the amount by which we should adjust a corresponding weight or bias in the neural network. Adjusting all of the weights and biases by the gradient values reduces the cost (or error) of the network.
+         </p>
+         <p>
+          Got all that?
+         </p>
+         <p>
+          Great! Now we know where to push the ball. The next thing to consider is how much force should be applied to the
+          <em>
+           push
+          </em>
+          . This is known as the
+          <em>
+           learning rate
+          </em>
+          , which is an apt name since this value determines how quickly or slowly the neural network learns.
+         </p>
+         <p>
+          You might be tempted to set a really big learning rate, so the network learns really fast, right?
+         </p>
+         <p>
+          Be careful! If the value is too large you could overshoot the target and eventually diverge. Yikes!
+         </p>
+        </div>
+       </div>
+       <div class="divider">
+       </div>
+       <div class="ud-atom">
+        <h3>
+        </h3>
+        <div>
+         <figure class="figure">
+          <img alt="**Convergence**. This is the ideal behaviour." class="img img-fluid" src="img/gradient-descent-convergence.gif"/>
+          <figcaption class="figure-caption">
+           <p>
+            <strong>
+             Convergence
+            </strong>
+            . This is the ideal behaviour.
+           </p>
+          </figcaption>
+         </figure>
+        </div>
+       </div>
+       <div class="divider">
+       </div>
+       <div class="ud-atom">
+        <h3>
+        </h3>
+        <div>
+         <figure class="figure">
+          <img alt="**Divergence**. This can happen when the learning rate is too large." class="img img-fluid" src="img/gradient-descent-divergence.gif"/>
+          <figcaption class="figure-caption">
+           <p>
+            <strong>
+             Divergence
+            </strong>
+            . This can happen when the learning rate is too large.
+           </p>
+          </figcaption>
+         </figure>
+        </div>
+       </div>
+       <div class="divider">
+       </div>
+       <div class="ud-atom">
+        <h3>
+        </h3>
+        <div>
+         <p>
+          So what is a good learning rate, then?
+         </p>
+         <p>
+          This is more of a guessing game than anything else but empirically values in the range 0.1 to 0.0001 work well. The range 0.001 to 0.0001 is popular, as 0.1 and 0.01 are sometimes too large.
+         </p>
+         <p>
+          Here's the formula for gradient descent (pseudocode):
+         </p>
+         <pre><code>x = x - learning_rate * gradient_of_x</code></pre>
+         <p>
+          <code>
+           x
+          </code>
+          is a parameter used by the neural network (i.e. a single weight or bias).
+         </p>
+         <p>
+          We multiply
+          <code>
+           gradient_of_x
+          </code>
+          (the uphill direction) by
+          <code>
+           learning_rate
+          </code>
+          (the force of the push) and then subtract that from
+          <code>
+           x
+          </code>
+          to make the push go downhill.
+         </p>
+         <p>
+          Awesome! Time to apply all this in a quiz.
+         </p>
+        </div>
+       </div>
+       <div class="divider">
+       </div>
+       <div class="ud-atom">
+        <h3>
+        </h3>
+        <div>
+         <h3 id="setup">
+          Setup
+         </h3>
+         <p>
+          For this quiz you'll complete
+          <code>
+           TODOs
+          </code>
+          in both the
+          <code>
+           f.py
+          </code>
+          and
+          <code>
+           gd.py
+          </code>
+          files.
+         </p>
+         <p>
+          Tasks:
+         </p>
+         <ul>
+          <li>
+           Set the
+           <code>
+            learning_rate
+           </code>
+           in
+           <code>
+            f.py
+           </code>
+           .
+          </li>
+          <li>
+           Complete the gradient descent implementation in
+           <code>
+            gradient_descent_update
+           </code>
+           function in
+           <code>
+            gd.py
+           </code>
+           .
+          </li>
+         </ul>
+         <p>
+          Notes:
+         </p>
+         <ul>
+          <li>
+           Setting the
+           <code>
+            learning_rate
+           </code>
+           to 0.1 should result in
+           <code>
+            x
+           </code>
+           -&gt; 0 and
+           <code>
+            f(x)
+           </code>
+           -&gt; 5 if you've implemented gradient descent correctly.
+          </li>
+          <li>
+           Play around with different values for the learning rate. Try very small values, values close to 1, above 1, etc. What happens?
+          </li>
+         </ul>
+        </div>
+       </div>
+       <div class="divider">
+       </div>
+       <div class="ud-atom">
+        <h3>
+        </h3>
+        <div>
+         <h4>
+          Start Quiz:
+         </h4>
+         <div>
+          <div class="nav nav-tabs nav-fill" id="question-tabs" role="tablist">
+           <a aria-controls="264036-f-py" aria-selected="true" class="nav-item nav-link active show" data-toggle="tab" href="#264036-f-py" id="tab-264036-f-py" role="tab">
+            f.py
+           </a>
+           <a aria-controls="264036-gd-py" aria-selected="false" class="nav-item nav-link" data-toggle="tab" href="#264036-gd-py" id="tab-264036-gd-py" role="tab">
+            gd.py
+           </a>
+          </div>
+          <div class="tab-content" id="question-tab-contents" style="padding: 20px 0;">
+           <div aria-labelledby="tab-264036-f-py" class="tab-pane active show" id="264036-f-py" role="tabpanel">
+            <pre><code></code>"""
+Given the starting point of any `x` gradient descent
+should be able to find the minimum value of x for the
+cost function `f` defined below.
+"""
+import random
+from gd import gradient_descent_update
+
+
+def f(x):
+    """
+    Quadratic function.
+
+    It's easy to see the minimum value of the function
+    is 5 when is x=0.
+    """
+    return x**2 + 5
+
+
+def df(x):
+    """
+    Derivative of `f` with respect to `x`.
+    """
+    return 2*x
+
+
+# Random number between 0 and 10,000. Feel free to set x whatever you like.
+x = random.randint(0, 10000)
+# TODO: Set the learning rate
+learning_rate = None
+epochs = 100
+
+for i in range(epochs+1):
+    cost = f(x)
+    gradx = df(x)
+    print("EPOCH {}: Cost = {:.3f}, x = {:.3f}".format(i, cost, gradx))
+    x = gradient_descent_update(x, gradx, learning_rate)
+</pre>
+           </div>
+           <div aria-labelledby="tab-264036-gd-py" class="tab-pane" id="264036-gd-py" role="tabpanel">
+            <pre><code></code>def gradient_descent_update(x, gradx, learning_rate):
+    """
+    Performs a gradient descent update.
+    """
+    # TODO: Implement gradient descent.
+    
+    # Return the new value for x
+    return x
+import f</pre>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+       <div class="divider">
+       </div>
+      </div>
+      <div class="col-12">
+       <p class="text-right">
+        <a class="btn btn-outline-primary mt-4" href="12. Backpropagation.html" role="button">
+         Next Concept
+        </a>
+       </p>
+      </div>
+     </div>
+    </main>
+    <footer class="footer">
+     <div class="container">
+      <div class="row">
+       <div class="col-12">
+        <p class="text-center">
+         udacity2.0 If you need the newest courses Plase add me wechat: udacity6
+        </p>
+       </div>
+      </div>
+     </div>
+    </footer>
+   </div>
+  </div>
+  <script src="../assets/js/jquery-3.3.1.min.js">
+  </script>
+  <script src="../assets/js/plyr.polyfilled.min.js">
+  </script>
+  <script src="../assets/js/bootstrap.min.js">
+  </script>
+  <script src="../assets/js/jquery.mCustomScrollbar.concat.min.js">
+  </script>
+  <script src="../assets/js/katex.min.js">
+  </script>
+  <script>
+   // Initialize Plyr video players
+    const players = Array.from(document.querySelectorAll('video')).map(p => new Plyr(p));
+
+    // render math equations
+    let elMath = document.getElementsByClassName('mathquill');
+    for (let i = 0, len = elMath.length; i < len; i += 1) {
+      const el = elMath[i];
+
+      katex.render(el.textContent, el, {
+        throwOnError: false
+      });
+    }
+
+    // this hack will make sure Bootstrap tabs work when using Handlebars
+    if ($('#question-tabs').length && $('#user-answer-tabs').length) {
+      $("#question-tabs a.nav-link").on('click', function () {
+        $("#question-tab-contents .tab-pane").hide();
+        $($(this).attr("href")).show();
+      });
+      $("#user-answer-tabs a.nav-link").on('click', function () {
+        $("#user-answer-tab-contents .tab-pane").hide();
+        $($(this).attr("href")).show();
+      });
+    } else {
+      $("a.nav-link").on('click', function () {
+        $(".tab-pane").hide();
+        $($(this).attr("href")).show();
+      });
+    }
+
+    // side bar events
+    $(document).ready(function () {
+      $("#sidebar").mCustomScrollbar({
+        theme: "minimal"
+      });
+
+      $('#sidebarCollapse').on('click', function () {
+        $('#sidebar, #content').toggleClass('active');
+        $('.collapse.in').toggleClass('in');
+        $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+      });
+
+      // scroll to first video on page loading
+      if ($('video').length) {
+        $('html,body').animate({ scrollTop: $('div.plyr').prev().offset().top});
+      }
+
+      // auto play first video: this may not work with chrome/safari due to autoplay policy
+      if (players && players.length > 0) {
+        players[0].play();
+      }
+
+      // scroll sidebar to current concept
+      const currentInSideBar = $( "ul.sidebar-list.components li a:contains('11. Gradient Descent')" )
+      currentInSideBar.css( "text-decoration", "underline" );
+      $("#sidebar").mCustomScrollbar('scrollTo', currentInSideBar);
+    });
+  </script>
+ </body>
+</html>

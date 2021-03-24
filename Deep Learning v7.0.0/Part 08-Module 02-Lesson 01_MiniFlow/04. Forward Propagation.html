@@ -1,0 +1,643 @@
+<!-- udacimak v1.4.4 -->
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="ie=edge" http-equiv="X-UA-Compatible"/>
+  <title>
+   Forward Propagation
+  </title>
+  <link href="../assets/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="../assets/css/plyr.css" rel="stylesheet"/>
+  <link href="../assets/css/katex.min.css" rel="stylesheet"/>
+  <link href="../assets/css/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
+  <link href="../assets/css/styles.css" rel="stylesheet"/>
+  <link href="../assets/img/udacimak.png" rel="shortcut icon" type="image/png">
+  </link>
+ </head>
+ <body>
+  <div class="wrapper">
+   <nav id="sidebar">
+    <div class="sidebar-header">
+     <h3>
+      MiniFlow
+     </h3>
+    </div>
+    <ul class="sidebar-list list-unstyled CTAs">
+     <li>
+      <a class="article" href="../index.html">
+       Back to Home
+      </a>
+     </li>
+    </ul>
+    <ul class="sidebar-list list-unstyled components">
+     <li class="">
+      <a href="01. Welcome to MiniFlow.html">
+       01. Welcome to MiniFlow
+      </a>
+     </li>
+     <li class="">
+      <a href="02. Graphs.html">
+       02. Graphs
+      </a>
+     </li>
+     <li class="">
+      <a href="03. MiniFlow Architecture.html">
+       03. MiniFlow Architecture
+      </a>
+     </li>
+     <li class="">
+      <a href="04. Forward Propagation.html">
+       04. Forward Propagation
+      </a>
+     </li>
+     <li class="">
+      <a href="05. Forward Propagation Solution.html">
+       05. Forward Propagation Solution
+      </a>
+     </li>
+     <li class="">
+      <a href="06. Learning and Loss.html">
+       06. Learning and Loss
+      </a>
+     </li>
+     <li class="">
+      <a href="07. Linear Transform.html">
+       07. Linear Transform
+      </a>
+     </li>
+     <li class="">
+      <a href="08. Sigmoid Function.html">
+       08. Sigmoid Function
+      </a>
+     </li>
+     <li class="">
+      <a href="09. Cost.html">
+       09. Cost
+      </a>
+     </li>
+     <li class="">
+      <a href="10. Cost Solution.html">
+       10. Cost Solution
+      </a>
+     </li>
+     <li class="">
+      <a href="11. Gradient Descent.html">
+       11. Gradient Descent
+      </a>
+     </li>
+     <li class="">
+      <a href="12. Backpropagation.html">
+       12. Backpropagation
+      </a>
+     </li>
+     <li class="">
+      <a href="13. Stochastic Gradient Descent.html">
+       13. Stochastic Gradient Descent
+      </a>
+     </li>
+     <li class="">
+      <a href="14. SGD Solution.html">
+       14. SGD Solution
+      </a>
+     </li>
+     <li class="">
+      <a href="15. Outro.html">
+       15. Outro
+      </a>
+     </li>
+    </ul>
+    <ul class="sidebar-list list-unstyled CTAs">
+     <li>
+      <a class="article" href="../index.html">
+       Back to Home
+      </a>
+     </li>
+    </ul>
+   </nav>
+   <div id="content">
+    <header class="container-fluild header">
+     <div class="container">
+      <div class="row">
+       <div class="col-12">
+        <div class="align-items-middle">
+         <button class="btn btn-toggle-sidebar" id="sidebarCollapse" type="button">
+          <div>
+          </div>
+          <div>
+          </div>
+          <div>
+          </div>
+         </button>
+         <h1 style="display: inline-block">
+          04. Forward Propagation
+         </h1>
+        </div>
+       </div>
+      </div>
+     </div>
+    </header>
+    <main class="container">
+     <div class="row">
+      <div class="col-12">
+       <div class="ud-atom">
+        <h3>
+        </h3>
+        <div>
+         <h1 id="forward-propagation">
+          Forward propagation
+         </h1>
+         <p>
+          <code>
+           MiniFlow
+          </code>
+          has two methods to help you define and then run values through your graphs:
+          <code>
+           topological_sort()
+          </code>
+          and
+          <code>
+           forward_pass()
+          </code>
+          .
+         </p>
+         <p>
+          In order to define your network, you'll need to define the order of operations for your nodes. Given that the input to some node depends on the outputs of others, you need to flatten the graph in such a way where all the input dependencies for each node are resolved before trying to run its calculation. This is a technique called a
+          <a href="https://en.wikipedia.org/wiki/Topological_sorting" rel="noopener noreferrer" target="_blank">
+           topological sort
+          </a>
+          .
+         </p>
+        </div>
+       </div>
+       <div class="divider">
+       </div>
+       <div class="ud-atom">
+        <h3>
+        </h3>
+        <div>
+         <figure class="figure">
+          <img alt="An example of topological sorting" class="img img-fluid" src="img/topological-sort.001.jpeg"/>
+          <figcaption class="figure-caption">
+           <p>
+            An example of topological sorting
+           </p>
+          </figcaption>
+         </figure>
+        </div>
+       </div>
+       <div class="divider">
+       </div>
+       <div class="ud-atom">
+        <h3>
+        </h3>
+        <div>
+         <p>
+          The
+          <code>
+           topological_sort()
+          </code>
+          function implements topological sorting using
+          <a href="https://en.wikipedia.org/wiki/Topological_sorting#Kahn.27s_algorithm" rel="noopener noreferrer" target="_blank">
+           Kahn's Algorithm
+          </a>
+          .  The details of this method are not important, the result is;
+          <code>
+           topological_sort()
+          </code>
+          returns a sorted list of nodes in which all of the calculations can run in series.
+          <code>
+           topological_sort()
+          </code>
+          takes in a
+          <code>
+           feed_dict
+          </code>
+          , which is how we initially set a value for an
+          <code>
+           Input
+          </code>
+          node. The
+          <code>
+           feed_dict
+          </code>
+          is represented by the Python dictionary data structure. Here's an example use case:
+         </p>
+         <pre><code># Define 2 `Input` nodes.
+x, y = Input(), Input()
+
+# Define an `Add` node, the two above `Input` nodes being the input.
+add = Add(x, y)
+
+# The value of `x` and `y` will be set to 10 and 20 respectively.
+feed_dict = {x: 10, y: 20}
+
+# Sort the nodes with topological sort.
+sorted_nodes = topological_sort(feed_dict=feed_dict)</code></pre>
+         <p>
+          (You can find the source code for
+          <code>
+           topological_sort()
+          </code>
+          in miniflow.py in the programming quiz below.)
+         </p>
+         <p>
+          The other method at your disposal is
+          <code>
+           forward_pass()
+          </code>
+          , which actually runs the network and outputs a value.
+         </p>
+         <pre><code>def forward_pass(output_node, sorted_nodes):
+    """
+    Performs a forward pass through a list of sorted nodes.
+
+    Arguments:
+
+        `output_node`: The output node of the graph (no outgoing edges).
+        `sorted_nodes`: a topologically sorted list of nodes.
+
+    Returns the output node's value
+    """
+
+    for n in sorted_nodes:
+        n.forward()
+
+    return output_node.value</code></pre>
+         <h3 id="quiz-1---passing-values-forward">
+          Quiz 1 - Passing Values Forward
+         </h3>
+         <p>
+          Create and run this graph!
+         </p>
+        </div>
+       </div>
+       <div class="divider">
+       </div>
+       <div class="ud-atom">
+        <h3>
+        </h3>
+        <div>
+         <figure class="figure">
+          <img alt="The graph you'll run in this quiz. The node values may change, though!" class="img img-fluid" src="img/addition-graph.png"/>
+          <figcaption class="figure-caption">
+           <p>
+            The graph you'll run in this quiz. The node values may change, though!
+           </p>
+          </figcaption>
+         </figure>
+        </div>
+       </div>
+       <div class="divider">
+       </div>
+       <div class="ud-atom">
+        <h3>
+        </h3>
+        <div>
+         <h3 id="setup">
+          Setup
+         </h3>
+         <p>
+          Review
+          <code>
+           nn.py
+          </code>
+          and
+          <code>
+           miniflow.py
+          </code>
+          .
+         </p>
+         <p>
+          The neural network architecture is already there for you in nn.py. It's your job to finish
+          <code>
+           MiniFlow
+          </code>
+          to make it work.
+         </p>
+         <p>
+          For this quiz, I want you to:
+         </p>
+         <ol>
+          <li>
+           Open
+           <code>
+            nn.py
+           </code>
+           below.
+           <strong>
+            You don't need to change anything.
+           </strong>
+           I just want you to see how
+           <code>
+            MiniFlow
+           </code>
+           works.
+          </li>
+          <li>
+           Open
+           <code>
+            miniflow.py
+           </code>
+           .
+           <strong>
+            Finish the
+            <code>
+             forward
+            </code>
+            method on the
+            <code>
+             Add
+            </code>
+            class. All that's required to pass this quiz is a correct implementation of
+            <code>
+             forward
+            </code>
+            .
+           </strong>
+          </li>
+          <li>
+           Test your network by hitting "Test Run!" When the output looks right, hit "Submit!"
+          </li>
+         </ol>
+         <p>
+          (You'll find the solution on the next page.)
+         </p>
+        </div>
+       </div>
+       <div class="divider">
+       </div>
+       <div class="ud-atom">
+        <h3>
+        </h3>
+        <div>
+         <h4>
+          Start Quiz:
+         </h4>
+         <div>
+          <div class="nav nav-tabs nav-fill" id="question-tabs" role="tablist">
+           <a aria-controls="216729-nn-py" aria-selected="true" class="nav-item nav-link active show" data-toggle="tab" href="#216729-nn-py" id="tab-216729-nn-py" role="tab">
+            nn.py
+           </a>
+           <a aria-controls="216729-miniflow-py" aria-selected="false" class="nav-item nav-link" data-toggle="tab" href="#216729-miniflow-py" id="tab-216729-miniflow-py" role="tab">
+            miniflow.py
+           </a>
+          </div>
+          <div class="tab-content" id="question-tab-contents" style="padding: 20px 0;">
+           <div aria-labelledby="tab-216729-nn-py" class="tab-pane active show" id="216729-nn-py" role="tabpanel">
+            <pre><code></code>"""
+This script builds and runs a graph with miniflow.
+
+There is no need to change anything to solve this quiz!
+
+However, feel free to play with the network! Can you also
+build a network that solves the equation below?
+
+(x + y) + y
+"""
+
+from miniflow import *
+
+x, y = Input(), Input()
+
+f = Add(x, y)
+
+feed_dict = {x: 10, y: 5}
+
+sorted_nodes = topological_sort(feed_dict)
+output = forward_pass(f, sorted_nodes)
+
+# NOTE: because topological_sort sets the values for the `Input` nodes we could also access
+# the value for x with x.value (same goes for y).
+print("{} + {} = {} (according to miniflow)".format(feed_dict[x], feed_dict[y], output))
+</pre>
+           </div>
+           <div aria-labelledby="tab-216729-miniflow-py" class="tab-pane" id="216729-miniflow-py" role="tabpanel">
+            <pre><code></code>"""
+You need to change the Add() class below.
+"""
+
+class Node(object):
+    def __init__(self, inbound_nodes=[]):
+        # Nodes from which this Node receives values
+        self.inbound_nodes = inbound_nodes
+        # Nodes to which this Node passes values
+        self.outbound_nodes = []
+        # A calculated value
+        self.value = None
+        # Add this node as an outbound node on its inputs.
+        for n in self.inbound_nodes:
+            n.outbound_nodes.append(self)
+
+    # These will be implemented in a subclass.
+    def forward(self):
+        """
+        Forward propagation.
+
+        Compute the output value based on `inbound_nodes` and
+        store the result in self.value.
+        """
+        raise NotImplemented
+
+
+class Input(Node):
+    def __init__(self):
+        # an Input node has no inbound nodes,
+        # so no need to pass anything to the Node instantiator
+        Node.__init__(self)
+
+    # NOTE: Input node is the only node that may
+    # receive its value as an argument to forward().
+    #
+    # All other node implementations should calculate their
+    # values from the value of previous nodes, using
+    # self.inbound_nodes
+    #
+    # Example:
+    # val0 = self.inbound_nodes[0].value
+    def forward(self, value=None):
+        if value is not None:
+            self.value = value
+
+
+class Add(Node):
+    def __init__(self, x, y):
+        # You could access `x` and `y` in forward with
+        # self.inbound_nodes[0] (`x`) and self.inbound_nodes[1] (`y`)
+        Node.__init__(self, [x, y])
+
+    def forward(self):
+        """
+        Set the value of this node (`self.value`) to the sum of its inbound_nodes.
+        Remember to grab the value of each inbound_node to sum!
+
+        Your code here!
+        """
+
+
+"""
+No need to change anything below here!
+"""
+
+
+def topological_sort(feed_dict):
+    """
+    Sort generic nodes in topological order using Kahn's Algorithm.
+
+    `feed_dict`: A dictionary where the key is a `Input` node and the value is the respective value feed to that node.
+
+    Returns a list of sorted nodes.
+    """
+
+    input_nodes = [n for n in feed_dict.keys()]
+
+    G = {}
+    nodes = [n for n in input_nodes]
+    while len(nodes) &gt; 0:
+        n = nodes.pop(0)
+        if n not in G:
+            G[n] = {'in': set(), 'out': set()}
+        for m in n.outbound_nodes:
+            if m not in G:
+                G[m] = {'in': set(), 'out': set()}
+            G[n]['out'].add(m)
+            G[m]['in'].add(n)
+            nodes.append(m)
+
+    L = []
+    S = set(input_nodes)
+    while len(S) &gt; 0:
+        n = S.pop()
+
+        if isinstance(n, Input):
+            n.value = feed_dict[n]
+
+        L.append(n)
+        for m in n.outbound_nodes:
+            G[n]['out'].remove(m)
+            G[m]['in'].remove(n)
+            # if no other incoming edges add to S
+            if len(G[m]['in']) == 0:
+                S.add(m)
+    return L
+
+
+def forward_pass(output_node, sorted_nodes):
+    """
+    Performs a forward pass through a list of sorted nodes.
+
+    Arguments:
+
+        `output_node`: A node in the graph, should be the output node (have no outgoing edges).
+        `sorted_nodes`: A topologically sorted list of nodes.
+
+    Returns the output Node's value
+    """
+
+    for n in sorted_nodes:
+        n.forward()
+
+    return output_node.value
+</pre>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+       <div class="divider">
+       </div>
+      </div>
+      <div class="col-12">
+       <p class="text-right">
+        <a class="btn btn-outline-primary mt-4" href="05. Forward Propagation Solution.html" role="button">
+         Next Concept
+        </a>
+       </p>
+      </div>
+     </div>
+    </main>
+    <footer class="footer">
+     <div class="container">
+      <div class="row">
+       <div class="col-12">
+        <p class="text-center">
+         udacity2.0 If you need the newest courses Plase add me wechat: udacity6
+        </p>
+       </div>
+      </div>
+     </div>
+    </footer>
+   </div>
+  </div>
+  <script src="../assets/js/jquery-3.3.1.min.js">
+  </script>
+  <script src="../assets/js/plyr.polyfilled.min.js">
+  </script>
+  <script src="../assets/js/bootstrap.min.js">
+  </script>
+  <script src="../assets/js/jquery.mCustomScrollbar.concat.min.js">
+  </script>
+  <script src="../assets/js/katex.min.js">
+  </script>
+  <script>
+   // Initialize Plyr video players
+    const players = Array.from(document.querySelectorAll('video')).map(p => new Plyr(p));
+
+    // render math equations
+    let elMath = document.getElementsByClassName('mathquill');
+    for (let i = 0, len = elMath.length; i < len; i += 1) {
+      const el = elMath[i];
+
+      katex.render(el.textContent, el, {
+        throwOnError: false
+      });
+    }
+
+    // this hack will make sure Bootstrap tabs work when using Handlebars
+    if ($('#question-tabs').length && $('#user-answer-tabs').length) {
+      $("#question-tabs a.nav-link").on('click', function () {
+        $("#question-tab-contents .tab-pane").hide();
+        $($(this).attr("href")).show();
+      });
+      $("#user-answer-tabs a.nav-link").on('click', function () {
+        $("#user-answer-tab-contents .tab-pane").hide();
+        $($(this).attr("href")).show();
+      });
+    } else {
+      $("a.nav-link").on('click', function () {
+        $(".tab-pane").hide();
+        $($(this).attr("href")).show();
+      });
+    }
+
+    // side bar events
+    $(document).ready(function () {
+      $("#sidebar").mCustomScrollbar({
+        theme: "minimal"
+      });
+
+      $('#sidebarCollapse').on('click', function () {
+        $('#sidebar, #content').toggleClass('active');
+        $('.collapse.in').toggleClass('in');
+        $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+      });
+
+      // scroll to first video on page loading
+      if ($('video').length) {
+        $('html,body').animate({ scrollTop: $('div.plyr').prev().offset().top});
+      }
+
+      // auto play first video: this may not work with chrome/safari due to autoplay policy
+      if (players && players.length > 0) {
+        players[0].play();
+      }
+
+      // scroll sidebar to current concept
+      const currentInSideBar = $( "ul.sidebar-list.components li a:contains('04. Forward Propagation')" )
+      currentInSideBar.css( "text-decoration", "underline" );
+      $("#sidebar").mCustomScrollbar('scrollTo', currentInSideBar);
+    });
+  </script>
+ </body>
+</html>

@@ -1,0 +1,287 @@
+<!-- udacimak v1.4.4 -->
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="ie=edge" http-equiv="X-UA-Compatible"/>
+  <title>
+   CNNs in Keras: Practical Example
+  </title>
+  <link href="../assets/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="../assets/css/plyr.css" rel="stylesheet"/>
+  <link href="../assets/css/katex.min.css" rel="stylesheet"/>
+  <link href="../assets/css/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
+  <link href="../assets/css/styles.css" rel="stylesheet"/>
+  <link href="../assets/img/udacimak.png" rel="shortcut icon" type="image/png">
+  </link>
+ </head>
+ <body>
+  <div class="wrapper">
+   <nav id="sidebar">
+    <div class="sidebar-header">
+     <h3>
+      Keras CNNs
+     </h3>
+    </div>
+    <ul class="sidebar-list list-unstyled CTAs">
+     <li>
+      <a class="article" href="../index.html">
+       Back to Home
+      </a>
+     </li>
+    </ul>
+    <ul class="sidebar-list list-unstyled components">
+     <li class="">
+      <a href="01. Convolutional Layers in Keras.html">
+       01. Convolutional Layers in Keras
+      </a>
+     </li>
+     <li class="">
+      <a href="02. Quiz Dimensionality.html">
+       02. Quiz: Dimensionality
+      </a>
+     </li>
+     <li class="">
+      <a href="03. CNNs in Keras Practical Example.html">
+       03. CNNs in Keras: Practical Example
+      </a>
+     </li>
+     <li class="">
+      <a href="04. Mini Project CNNs in Keras.html">
+       04. Mini Project: CNNs in Keras
+      </a>
+     </li>
+     <li class="">
+      <a href="05. Image Augmentation in Keras.html">
+       05. Image Augmentation in Keras
+      </a>
+     </li>
+     <li class="">
+      <a href="06. Mini Project Image Augmentation in Keras.html">
+       06. Mini Project: Image Augmentation in Keras
+      </a>
+     </li>
+     <li class="">
+      <a href="07. Transfer Learning.html">
+       07. Transfer Learning
+      </a>
+     </li>
+     <li class="">
+      <a href="08. Transfer Learning in Keras.html">
+       08. Transfer Learning in Keras
+      </a>
+     </li>
+    </ul>
+    <ul class="sidebar-list list-unstyled CTAs">
+     <li>
+      <a class="article" href="../index.html">
+       Back to Home
+      </a>
+     </li>
+    </ul>
+   </nav>
+   <div id="content">
+    <header class="container-fluild header">
+     <div class="container">
+      <div class="row">
+       <div class="col-12">
+        <div class="align-items-middle">
+         <button class="btn btn-toggle-sidebar" id="sidebarCollapse" type="button">
+          <div>
+          </div>
+          <div>
+          </div>
+          <div>
+          </div>
+         </button>
+         <h1 style="display: inline-block">
+          03. CNNs in Keras: Practical Example
+         </h1>
+        </div>
+       </div>
+      </div>
+     </div>
+    </header>
+    <main class="container">
+     <div class="row">
+      <div class="col-12">
+       <div class="ud-atom">
+        <h3>
+         <p>
+          CNNs in Keras: Practical Example
+         </p>
+        </h3>
+        <video controls="">
+         <source src="03. CNNs in Keras Practical Example-faFvmGDwXX0.mp4" type="video/mp4"/>
+         <track default="false" kind="subtitles" label="zh-CN" src="03. CNNs in Keras Practical Example-faFvmGDwXX0.zh-CN.vtt" srclang="zh-CN"/>
+         <track default="false" kind="subtitles" label="pt-BR" src="03. CNNs in Keras Practical Example-faFvmGDwXX0.pt-BR.vtt" srclang="pt-BR"/>
+         <track default="true" kind="subtitles" label="en" src="03. CNNs in Keras Practical Example-faFvmGDwXX0.en.vtt" srclang="en"/>
+        </video>
+       </div>
+       <div class="divider">
+       </div>
+       <div class="ud-atom">
+        <h3>
+        </h3>
+        <div>
+         <p>
+          If you have not yet launched a GPU-enabled server with AWS, you are strongly encouraged to do so before running the notebooks from this video.  While it is possible to train the notebooks on your CPU, an AWS GPU instance will be much faster.
+         </p>
+         <p>
+          The Jupyter notebooks described in the video can be accessed from the
+          <code>
+           aind2-cnn
+          </code>
+          GitHub
+          <a href="https://github.com/udacity/aind2-cnn" rel="noopener noreferrer" target="_blank">
+           repository
+          </a>
+          .  Navigate to the
+          <strong>
+           cifar10-classification/
+          </strong>
+          folder and open
+          <strong>
+           cifar10_mlp.ipynb
+          </strong>
+          and
+          <strong>
+           cifar10_cnn.ipynb
+          </strong>
+          .
+         </p>
+         <h3 id="a-note-on-the-validation-set">
+          A Note on the Validation Set
+         </h3>
+         <p>
+          <a href="https://github.com/udacity/aind2-cnn/blob/master/mnist-mlp/mnist_mlp.ipynb" rel="noopener noreferrer" target="_blank">
+           Earlier in the lesson
+          </a>
+          , we trained a neural network with validation by setting the
+          <code>
+           validation_split
+          </code>
+          argument in
+          <code>
+           model.fit
+          </code>
+          to 0.2.  This removed the final 20% of the training data, which was instead used as validation data.  In the notebook for this video, instead of having Keras split off the validation set for us, we hard-code the split ourselves.
+         </p>
+         <h3 id="optional-resources">
+          Optional Resources
+         </h3>
+         <ul>
+          <li>
+           Here's a
+           <a href="https://s3.amazonaws.com/assets.datacamp.com/blog_assets/Keras_Cheat_Sheet_Python.pdf" rel="noopener noreferrer" target="_blank">
+            cheat sheet
+           </a>
+           for specifying neural networks (including CNNs!) in Keras.
+          </li>
+          <li>
+           Check out the CIFAR-10 Competition's
+           <a href="http://blog.kaggle.com/2015/01/02/cifar-10-competition-winners-interviews-with-dr-ben-graham-phil-culliton-zygmunt-zajac/" rel="noopener noreferrer" target="_blank">
+            winning architecture
+           </a>
+           !
+          </li>
+         </ul>
+        </div>
+       </div>
+       <div class="divider">
+       </div>
+      </div>
+      <div class="col-12">
+       <p class="text-right">
+        <a class="btn btn-outline-primary mt-4" href="04. Mini Project CNNs in Keras.html" role="button">
+         Next Concept
+        </a>
+       </p>
+      </div>
+     </div>
+    </main>
+    <footer class="footer">
+     <div class="container">
+      <div class="row">
+       <div class="col-12">
+        <p class="text-center">
+         udacity2.0 If you need the newest courses Plase add me wechat: udacity6
+        </p>
+       </div>
+      </div>
+     </div>
+    </footer>
+   </div>
+  </div>
+  <script src="../assets/js/jquery-3.3.1.min.js">
+  </script>
+  <script src="../assets/js/plyr.polyfilled.min.js">
+  </script>
+  <script src="../assets/js/bootstrap.min.js">
+  </script>
+  <script src="../assets/js/jquery.mCustomScrollbar.concat.min.js">
+  </script>
+  <script src="../assets/js/katex.min.js">
+  </script>
+  <script>
+   // Initialize Plyr video players
+    const players = Array.from(document.querySelectorAll('video')).map(p => new Plyr(p));
+
+    // render math equations
+    let elMath = document.getElementsByClassName('mathquill');
+    for (let i = 0, len = elMath.length; i < len; i += 1) {
+      const el = elMath[i];
+
+      katex.render(el.textContent, el, {
+        throwOnError: false
+      });
+    }
+
+    // this hack will make sure Bootstrap tabs work when using Handlebars
+    if ($('#question-tabs').length && $('#user-answer-tabs').length) {
+      $("#question-tabs a.nav-link").on('click', function () {
+        $("#question-tab-contents .tab-pane").hide();
+        $($(this).attr("href")).show();
+      });
+      $("#user-answer-tabs a.nav-link").on('click', function () {
+        $("#user-answer-tab-contents .tab-pane").hide();
+        $($(this).attr("href")).show();
+      });
+    } else {
+      $("a.nav-link").on('click', function () {
+        $(".tab-pane").hide();
+        $($(this).attr("href")).show();
+      });
+    }
+
+    // side bar events
+    $(document).ready(function () {
+      $("#sidebar").mCustomScrollbar({
+        theme: "minimal"
+      });
+
+      $('#sidebarCollapse').on('click', function () {
+        $('#sidebar, #content').toggleClass('active');
+        $('.collapse.in').toggleClass('in');
+        $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+      });
+
+      // scroll to first video on page loading
+      if ($('video').length) {
+        $('html,body').animate({ scrollTop: $('div.plyr').prev().offset().top});
+      }
+
+      // auto play first video: this may not work with chrome/safari due to autoplay policy
+      if (players && players.length > 0) {
+        players[0].play();
+      }
+
+      // scroll sidebar to current concept
+      const currentInSideBar = $( "ul.sidebar-list.components li a:contains('03. CNNs in Keras: Practical Example')" )
+      currentInSideBar.css( "text-decoration", "underline" );
+      $("#sidebar").mCustomScrollbar('scrollTo', currentInSideBar);
+    });
+  </script>
+ </body>
+</html>

@@ -1,0 +1,67 @@
+WEBVTT
+Kind: captions
+Language: pt-BR
+
+00:00:00.000 --> 00:00:03.801
+Já devem ter construído
+uma pequena rede neural com NumPy.
+
+00:00:03.834 --> 00:00:05.767
+Mas redes
+de aprendizagem profunda
+
+00:00:05.801 --> 00:00:08.634
+podem ter centenas, milhares
+de camadas ocultas.
+
+00:00:08.667 --> 00:00:11.567
+Claramente, NumPy não está
+à altura da tarefa.
+
+00:00:11.601 --> 00:00:13.300
+Em vez disso,
+usaremos TensorFlow
+
+00:00:13.334 --> 00:00:17.133
+para construir e treinar modelos
+de aprendizagem profunda no curso.
+
+00:00:17.167 --> 00:00:19.901
+TensorFlow é uma biblioteca
+de rede neural
+
+00:00:19.934 --> 00:00:21.934
+desenvolvida
+pelo Google Brain.
+
+00:00:21.968 --> 00:00:25.100
+Mas antes de começarmos,
+preparamos uma lição
+
+00:00:25.133 --> 00:00:28.033
+para aprenderem
+sobre gráficos diferenciáveis,
+
+00:00:28.067 --> 00:00:30.667
+a abstração fundamental
+que o TensorFlow usa
+
+00:00:30.701 --> 00:00:32.934
+para executar
+e treinar redes.
+
+00:00:32.968 --> 00:00:35.667
+Criarão uma pequena biblioteca,
+a MiniFlow,
+
+00:00:35.701 --> 00:00:38.567
+que será a sua própria versão
+do TensorFlow.
+
+00:00:38.601 --> 00:00:41.667
+Com isso, entenderão
+gráficos diferenciáveis,
+
+00:00:41.701 --> 00:00:44.334
+assim como retropropagação.
+
