@@ -1,0 +1,104 @@
+WEBVTT
+Kind: captions
+Language: pt-BR
+
+00:00:00.292 --> 00:00:03.687
+Para calcular a perda de estilo
+entre uma imagem-alvo e de estilo,
+
+00:00:03.720 --> 00:00:05.530
+medimos
+a distância quadrática média
+
+00:00:05.563 --> 00:00:08.349
+entre as matrizes de Gram
+das imagens de estilo e alvo,
+
+00:00:08.382 --> 00:00:10.851
+ou seja, os 5 pares
+calculados em cada camada
+
+00:00:10.884 --> 00:00:15.057
+na nossa lista pré-definida,
+conv1_1 a conv5_1.
+
+00:00:15.090 --> 00:00:18.116
+Vou chamar estas listas
+de "Ss" e "Ts",
+
+00:00:18.149 --> 00:00:21.862
+e "a" é uma constante referente
+ao número de valores de cada camada.
+
+00:00:21.895 --> 00:00:24.418
+Multiplicaremos
+as 5 distâncias calculadas
+
+00:00:24.451 --> 00:00:27.080
+por um peso de estilo "w",
+que vamos especificar,
+
+00:00:27.113 --> 00:00:28.314
+e as somaremos.
+
+00:00:28.347 --> 00:00:31.245
+Os pesos de estilo são valores
+que dão mais ou menos peso
+
+00:00:31.278 --> 00:00:34.810
+à perda de estilo calculada
+de cada uma das 5 camadas,
+
+00:00:34.843 --> 00:00:38.408
+mudando o quanto a representação
+do estilo de cada camada
+
+00:00:38.441 --> 00:00:40.743
+afetará a imagem-alvo final.
+
+00:00:40.776 --> 00:00:44.673
+Nós só mudaremos as representações
+do estilo da imagem-alvo
+
+00:00:44.706 --> 00:00:48.427
+conforme minimizarmos essa perda
+após algumas iterações.
+
+00:00:48.460 --> 00:00:50.194
+Então já temos
+a perda de conteúdo,
+
+00:00:50.227 --> 00:00:53.287
+que mostra o quanto o conteúdo
+da imagem-alvo se assemelha
+
+00:00:53.320 --> 00:00:55.029
+ao conteúdo
+da imagem de conteúdo,
+
+00:00:55.062 --> 00:00:56.446
+e a perda de estilo,
+
+00:00:56.479 --> 00:00:58.823
+que mostra a semelhança
+entre o estilo do alvo
+
+00:00:58.856 --> 00:01:00.246
+e o da imagem de estilo.
+
+00:01:00.279 --> 00:01:03.516
+Agora podemos somar as perdas
+para obter a perda total,
+
+00:01:03.549 --> 00:01:08.177
+depois usar retropropagação
+e otimização para reduzir essa perda
+
+00:01:08.210 --> 00:01:10.632
+mudando iterativamente
+a imagem-alvo
+
+00:01:10.665 --> 00:01:13.290
+para que coincida
+com o conteúdo e estilo desejados.
+

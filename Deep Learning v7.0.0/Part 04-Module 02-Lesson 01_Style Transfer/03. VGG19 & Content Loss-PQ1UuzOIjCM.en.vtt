@@ -1,0 +1,208 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:02.490
+In the code example that I'll go through,
+
+00:00:02.490 --> 00:00:05.940
+we'll recreate a style transfer method that's outlined in the paper,
+
+00:00:05.940 --> 00:00:09.269
+image style transfer using convolutional neural networks.
+
+00:00:09.269 --> 00:00:14.324
+In this paper, style transfer uses the features found in the 19 layer VGG network,
+
+00:00:14.324 --> 00:00:16.199
+which I'll call VGG 19.
+
+00:00:16.199 --> 00:00:19.019
+This network accepts a color image as input and
+
+00:00:19.019 --> 00:00:22.134
+passes it through a series of convolutional and pooling layers.
+
+00:00:22.135 --> 00:00:26.750
+Followed finally by three fully connected layers but classify the past in image.
+
+00:00:26.750 --> 00:00:28.815
+In-between the five pooling layers,
+
+00:00:28.815 --> 00:00:31.734
+there are stacks of two or four convolutional layers.
+
+00:00:31.734 --> 00:00:34.908
+The depth of these layers is standard within each stack,
+
+00:00:34.908 --> 00:00:37.274
+but increases after each pooling layer.
+
+00:00:37.274 --> 00:00:40.405
+Here they're named by stack and their order in the stack.
+
+00:00:40.405 --> 00:00:43.100
+Conv one, one, is the first convolutional layer
+
+00:00:43.100 --> 00:00:45.780
+that an image is passed through in the first stack.
+
+00:00:45.780 --> 00:00:49.070
+Conv two, one, is the first convolutional layer in the second stack.
+
+00:00:49.070 --> 00:00:53.295
+The deepest convolutional layer in the network is conv five, four.
+
+00:00:53.295 --> 00:00:55.850
+Now, we know that style transfer wants to create
+
+00:00:55.850 --> 00:00:59.155
+an image that has the content of one image and the style of another.
+
+00:00:59.155 --> 00:01:00.560
+To create this image,
+
+00:01:00.560 --> 00:01:02.210
+which I'll call our target image,
+
+00:01:02.210 --> 00:01:07.480
+it will first pass both the content and style images through this VGG 19 network.
+
+00:01:07.480 --> 00:01:10.109
+First, when the network sees the content image,
+
+00:01:10.109 --> 00:01:12.739
+it will go through the feed-forward process until it
+
+00:01:12.739 --> 00:01:16.134
+gets to a convolutional layer that is deep in the network.
+
+00:01:16.135 --> 00:01:20.455
+The output of this layer will be the content representation of the input image.
+
+00:01:20.454 --> 00:01:22.519
+Next, when it sees the style image,
+
+00:01:22.519 --> 00:01:24.589
+it will extract different features from
+
+00:01:24.590 --> 00:01:27.484
+multiple layers that represent the style of that image.
+
+00:01:27.484 --> 00:01:30.049
+Finally, it will use both the content and style
+
+00:01:30.049 --> 00:01:33.584
+representations to inform the creation of the target image.
+
+00:01:33.584 --> 00:01:36.399
+The challenge is how to create the target image.
+
+00:01:36.400 --> 00:01:39.680
+How can we take a target image which often starts as
+
+00:01:39.680 --> 00:01:43.280
+either a blank canvas or as a copy of our content image,
+
+00:01:43.280 --> 00:01:47.090
+and manipulate it so that it's content is close to that of our content image,
+
+00:01:47.090 --> 00:01:49.775
+and it's style is close to that of our style image?
+
+00:01:49.775 --> 00:01:53.430
+Let's start by discussing in the content.
+
+00:01:53.430 --> 00:01:56.960
+In the paper, the content representation for an image is taken as
+
+00:01:56.959 --> 00:02:01.039
+the output from the fourth convolutional stack, conv four, two.
+
+00:02:01.040 --> 00:02:02.805
+As we form our new target image,
+
+00:02:02.805 --> 00:02:06.375
+we'll compare it's content representation with that of our content image.
+
+00:02:06.375 --> 00:02:08.780
+These two representations should be close to the
+
+00:02:08.780 --> 00:02:12.039
+same even as our target image changes it's style.
+
+00:02:12.039 --> 00:02:13.889
+To formalize this comparison,
+
+00:02:13.889 --> 00:02:15.664
+we'll define a content loss,
+
+00:02:15.664 --> 00:02:17.689
+a loss that calculates the difference between
+
+00:02:17.689 --> 00:02:20.199
+the content and target image representations,
+
+00:02:20.199 --> 00:02:23.549
+which I'll call Cc and Tc respectively.
+
+00:02:23.550 --> 00:02:28.130
+In this case, we calculate the mean squared difference between the two representations.
+
+00:02:28.129 --> 00:02:29.620
+This is our content loss,
+
+00:02:29.620 --> 00:02:33.659
+and it measures how far away these two representations are from one another.
+
+00:02:33.659 --> 00:02:36.185
+As we try to create the best target image,
+
+00:02:36.185 --> 00:02:38.590
+our aim will be to minimize this loss.
+
+00:02:38.590 --> 00:02:40.700
+This is similar to how we used loss and
+
+00:02:40.699 --> 00:02:43.914
+optimization to determine the weights of a CNN during training.
+
+00:02:43.914 --> 00:02:47.409
+But this time, our aim is not to minimize classification error.
+
+00:02:47.409 --> 00:02:50.199
+In fact, we're not training the CNN at all.
+
+00:02:50.199 --> 00:02:53.109
+Rather, our goal is to change only the target image,
+
+00:02:53.110 --> 00:02:55.190
+updating it's appearance until it's content
+
+00:02:55.189 --> 00:02:57.829
+representation matches that of our content image.
+
+00:02:57.830 --> 00:03:01.969
+So, we're not using the VGG 19 network in a traditional sense,
+
+00:03:01.969 --> 00:03:04.379
+we're not training it to produce a specific output.
+
+00:03:04.379 --> 00:03:06.849
+But we are using it as a feature extractor,
+
+00:03:06.849 --> 00:03:08.944
+and using back propagation to minimize
+
+00:03:08.944 --> 00:03:12.784
+a defined loss function between our target and content images.
+
+00:03:12.784 --> 00:03:17.055
+In fact, we'll have to define a loss function between our target and style images,
+
+00:03:17.055 --> 00:03:19.830
+in order to produce an image with our desired style.
+
+00:03:19.830 --> 00:03:23.200
+Next, let's learn more about how to represent the style of an image.
+

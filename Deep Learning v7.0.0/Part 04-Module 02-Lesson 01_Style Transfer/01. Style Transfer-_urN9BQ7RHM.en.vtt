@@ -1,0 +1,73 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:02.250
+You've seen that CNN's or some of
+
+00:00:02.250 --> 00:00:05.945
+the most powerful networks for image classification and analysis.
+
+00:00:05.945 --> 00:00:09.839
+CNN's process visual information in a feed forward manner,
+
+00:00:09.839 --> 00:00:11.969
+passing an input image through a collection of
+
+00:00:11.970 --> 00:00:15.655
+image filters which extract certain features from the input image.
+
+00:00:15.654 --> 00:00:18.554
+It turns out that these feature level representations
+
+00:00:18.554 --> 00:00:20.934
+are not only useful for classification,
+
+00:00:20.934 --> 00:00:23.119
+but for image construction as well.
+
+00:00:23.120 --> 00:00:28.005
+These representations are the basis for applications like Style Transfer and Deep Dream.
+
+00:00:28.004 --> 00:00:33.019
+Which compose images based on CNN layer activations and extracted features.
+
+00:00:33.020 --> 00:00:35.310
+In this lesson we'll focus on learning about
+
+00:00:35.310 --> 00:00:37.775
+and implementing the style transfer algorithm.
+
+00:00:37.774 --> 00:00:40.310
+Style transfer allows you to apply the style of
+
+00:00:40.310 --> 00:00:42.850
+one image to another image of your choice.
+
+00:00:42.850 --> 00:00:45.770
+For example, here we've applied the style of Hokusai,
+
+00:00:45.770 --> 00:00:48.675
+The Great Wave [inaudible] print to a picture of a cat.
+
+00:00:48.674 --> 00:00:50.479
+The key to this technique is using
+
+00:00:50.479 --> 00:00:54.104
+a trained CNN to separate the content from the style of an image.
+
+00:00:54.104 --> 00:00:56.809
+If you can do this then you can merge the content of
+
+00:00:56.810 --> 00:01:00.810
+one image with the style of another and create something entirely different.
+
+00:01:00.810 --> 00:01:03.440
+Next, we'll talk about how style and content
+
+00:01:03.439 --> 00:01:06.140
+can be separated and by the end of this lesson,
+
+00:01:06.140 --> 00:01:10.640
+you'll have all the knowledge you need to generate a stylized image of your own design.
+

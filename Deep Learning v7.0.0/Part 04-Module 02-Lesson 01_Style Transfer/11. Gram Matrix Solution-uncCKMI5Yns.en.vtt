@@ -1,0 +1,130 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:02.799
+So, here is a complete Gram matrix function.
+
+00:00:02.799 --> 00:00:06.669
+This takes inner tensor which will be the output of some convolutional layer.
+
+00:00:06.669 --> 00:00:09.504
+Then the first thing I do is take a look at its size.
+
+00:00:09.505 --> 00:00:12.714
+Each tensor is going to be four-dimensional with a batch size,
+
+00:00:12.714 --> 00:00:14.849
+a depth, a height, and a width.
+
+00:00:14.849 --> 00:00:17.460
+I can ignore the batch size at this point because I'm really
+
+00:00:17.460 --> 00:00:20.150
+interested in the depth or number of feature maps,
+
+00:00:20.149 --> 00:00:21.404
+and the height and width.
+
+00:00:21.405 --> 00:00:25.575
+These dimensions then tell me all I need to know to then factorize this tensor.
+
+00:00:25.574 --> 00:00:28.214
+Next, I'm reshaping this tensor so that it's now
+
+00:00:28.214 --> 00:00:31.370
+a 2-D shape that has its spatial dimensions flattened.
+
+00:00:31.370 --> 00:00:34.210
+It retains the number of feature maps as the number of rows.
+
+00:00:34.210 --> 00:00:37.289
+So, it's D rows by H times W columns.
+
+00:00:37.289 --> 00:00:39.769
+Finally, I calculate the Gram matrix by
+
+00:00:39.770 --> 00:00:42.875
+matrix multiplying this tensor times its transpose.
+
+00:00:42.875 --> 00:00:46.939
+This effectively multiplies all the features and gets the correlations.
+
+00:00:46.939 --> 00:00:50.070
+Finally, I make sure to return that calculated matrix.
+
+00:00:50.070 --> 00:00:52.465
+Then, I can put all these pieces together,
+
+00:00:52.465 --> 00:00:56.315
+I have my Get features function and my Gram matrix function.
+
+00:00:56.314 --> 00:00:59.390
+Before I even start to form my target image,
+
+00:00:59.390 --> 00:01:02.795
+I know I want to get the features from my content and style image.
+
+00:01:02.795 --> 00:01:05.644
+Those are going to remain the same throughout this process.
+
+00:01:05.644 --> 00:01:07.849
+So, right here I'm calling Get features on
+
+00:01:07.849 --> 00:01:11.689
+our content image passing in our content image and the VGG model,
+
+00:01:11.689 --> 00:01:14.030
+and I do the same thing for our style features,
+
+00:01:14.030 --> 00:01:16.844
+passing on our style image and the VGG model.
+
+00:01:16.844 --> 00:01:20.179
+Here, I'm calculating all the gram matrices for each of
+
+00:01:20.180 --> 00:01:23.455
+my style layers comv 11 up to comv 51.
+
+00:01:23.454 --> 00:01:28.019
+This looks at all of the layers in our style features and computes the gram matrix.
+
+00:01:28.019 --> 00:01:30.935
+Then it returns a dictionary where I can call style grams
+
+00:01:30.935 --> 00:01:34.129
+with a given layer name and get the gram matrix for that layer.
+
+00:01:34.129 --> 00:01:36.454
+Then I'm going to create a target image.
+
+00:01:36.454 --> 00:01:38.049
+I could start with a blank slate,
+
+00:01:38.049 --> 00:01:42.344
+but it turns out to be easier to just start with a clone of the content image.
+
+00:01:42.344 --> 00:01:46.489
+This way, my image will not divert too far from my octopus content and
+
+00:01:46.489 --> 00:01:50.899
+my plan will be to iterate and change this image to stylize it more and more later.
+
+00:01:50.900 --> 00:01:53.780
+So, in preparation for changing this target image,
+
+00:01:53.780 --> 00:01:55.885
+I'm going to set requires-grad to true,
+
+00:01:55.885 --> 00:01:58.635
+and I'll move it to GPU if available.
+
+00:01:58.635 --> 00:02:01.070
+All right, the next part is the most involved part,
+
+00:02:01.069 --> 00:02:04.099
+and next we'll talk about how to set and calculate our style and
+
+00:02:04.099 --> 00:02:07.669
+content losses for creating interesting target images.
+

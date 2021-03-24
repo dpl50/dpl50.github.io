@@ -1,0 +1,166 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:02.319
+All right, here's my final solution.
+
+00:00:02.319 --> 00:00:07.185
+I played around with the values for style_weights giving more weight to earlier layers.
+
+00:00:07.184 --> 00:00:11.625
+I left the content and style_weights at one and one times 10_6.
+
+00:00:11.625 --> 00:00:14.310
+Then I got into the iteration loop.
+
+00:00:14.310 --> 00:00:18.129
+I first got a list of target features using our get_features function.
+
+00:00:18.129 --> 00:00:21.820
+Then I defined our content loss by looking at the target_features at
+
+00:00:21.820 --> 00:00:25.754
+the layer conv4_2 and the content_features at conv4_2.
+
+00:00:25.754 --> 00:00:30.574
+So, I'm comparing my content image and my target image content representations.
+
+00:00:30.574 --> 00:00:34.634
+I found the distance between the two and calculated the mean squared difference.
+
+00:00:34.634 --> 00:00:37.369
+Then the style_loss. For this one,
+
+00:00:37.369 --> 00:00:39.954
+I looked at every layer in our style_weights dictionary.
+
+00:00:39.954 --> 00:00:41.424
+For each of these layers,
+
+00:00:41.424 --> 00:00:43.689
+I got the target_feature at that layer.
+
+00:00:43.689 --> 00:00:47.059
+For example, this would be what happens if our target image goes
+
+00:00:47.060 --> 00:00:50.969
+through our VGG 19 Network and hits conv1_1.
+
+00:00:50.969 --> 00:00:55.674
+The output of the convolutional layer is then fed into our gram_matrix function.
+
+00:00:55.674 --> 00:00:58.584
+This gives us our target gram_matrix.
+
+00:00:58.585 --> 00:01:03.109
+Earlier, I calculated a dictionary of gram matrices for our style image.
+
+00:01:03.109 --> 00:01:07.424
+So, I get the gram_matrix for our style image by accessing that by layer.
+
+00:01:07.424 --> 00:01:09.829
+Then here, I'm calculating the mean squared difference
+
+00:01:09.829 --> 00:01:12.545
+between our style_gram and target_gram matrix.
+
+00:01:12.545 --> 00:01:15.394
+Again, this is for a particular layer and I weighted
+
+00:01:15.394 --> 00:01:18.609
+by the weights that I specified in our style_weights dictionary.
+
+00:01:18.609 --> 00:01:21.525
+So, for example, for the first layer conv1_1,
+
+00:01:21.525 --> 00:01:26.080
+I'm going to multiply the difference between the target and style_gram matrices by one.
+
+00:01:26.079 --> 00:01:28.649
+Then I'm adding that layer style_loss to
+
+00:01:28.650 --> 00:01:32.765
+our accumulated style_loss and just dividing it by the size of that layer.
+
+00:01:32.765 --> 00:01:36.334
+This effectively normalizes our layer style_loss.
+
+00:01:36.334 --> 00:01:38.219
+So, by the end of this for loop,
+
+00:01:38.219 --> 00:01:42.920
+I have the value for this style_loss at all five of my convolutional layers added up.
+
+00:01:42.920 --> 00:01:45.355
+Finally, I can compute the total_loss,
+
+00:01:45.355 --> 00:01:47.870
+which is just my content_loss and style_loss
+
+00:01:47.870 --> 00:01:51.165
+summed up and multiplied by their respective weights.
+
+00:01:51.165 --> 00:01:54.440
+Our content_loss is multiplied by one and style is
+
+00:01:54.439 --> 00:01:58.200
+multiplied by one times 10_6, and that's basically it.
+
+00:01:58.200 --> 00:02:00.409
+I run this loop for 2,000 iterations,
+
+00:02:00.409 --> 00:02:03.099
+but I showed intermittently images every 400.
+
+00:02:03.099 --> 00:02:04.890
+I printed out the loss,
+
+00:02:04.890 --> 00:02:06.125
+which was quite large,
+
+00:02:06.125 --> 00:02:09.509
+and I could see a difference in my octopus image right away.
+
+00:02:09.509 --> 00:02:12.139
+Then at the end of my 2,000 iterations,
+
+00:02:12.139 --> 00:02:15.474
+I displayed my content and my target image side-by-side.
+
+00:02:15.474 --> 00:02:19.144
+You can see that the target image still looks a lot like an octopus.
+
+00:02:19.144 --> 00:02:21.890
+In fact, I think I could have stylized this even more.
+
+00:02:21.889 --> 00:02:23.659
+But it also has the colors and
+
+00:02:23.659 --> 00:02:28.055
+some brushstroke texture from the Hockney painting that I used as a style image.
+
+00:02:28.055 --> 00:02:29.340
+Now, using this notebook,
+
+00:02:29.340 --> 00:02:33.585
+you should be able to choose any content and style image combo that you want.
+
+00:02:33.585 --> 00:02:37.849
+Some example images have been provided in this notebook folder for you,
+
+00:02:37.848 --> 00:02:39.674
+but if you run this in a local environment,
+
+00:02:39.675 --> 00:02:41.570
+you can combine any images.
+
+00:02:41.569 --> 00:02:44.084
+If you do end up making your own images,
+
+00:02:44.085 --> 00:02:46.520
+I'd encourage you to share it on social media.
+
+00:02:46.520 --> 00:02:48.270
+I know that I would love to see it.
+

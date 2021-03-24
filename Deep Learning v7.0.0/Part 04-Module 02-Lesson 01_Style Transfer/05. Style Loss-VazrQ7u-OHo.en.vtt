@@ -1,0 +1,70 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:03.899
+To calculate the style loss between a target and style image,
+
+00:00:03.899 --> 00:00:08.419
+we find the mean squared distance between the style and target image gram matrices,
+
+00:00:08.419 --> 00:00:12.429
+all five pairs that are computed at each layer in our predefined list,
+
+00:00:12.429 --> 00:00:14.964
+conv1_1 up to conv5_1.
+
+00:00:14.964 --> 00:00:18.100
+These lists, I'll call Ss and Ts,
+
+00:00:18.100 --> 00:00:21.790
+and A is a constant that accounts for the number of values in each layer.
+
+00:00:21.789 --> 00:00:27.099
+We'll multiply these five calculated distances by some style weights W that we specify,
+
+00:00:27.100 --> 00:00:28.455
+and then add them up.
+
+00:00:28.454 --> 00:00:31.529
+The style weights are values that will give more or less weight to
+
+00:00:31.530 --> 00:00:34.850
+the calculated style loss at each of the five layers,
+
+00:00:34.850 --> 00:00:36.615
+thereby changing how much effect
+
+00:00:36.615 --> 00:00:40.460
+each layer style representation will have on our final target image.
+
+00:00:40.460 --> 00:00:42.439
+Again, we'll only be changing
+
+00:00:42.439 --> 00:00:45.140
+the target image's style representations as we
+
+00:00:45.140 --> 00:00:48.240
+minimize this loss over some number of iterations.
+
+00:00:48.240 --> 00:00:50.255
+So, now we have the content loss,
+
+00:00:50.255 --> 00:00:54.810
+which tells us how close the content of our target image is to that of our content image,
+
+00:00:54.810 --> 00:00:56.510
+and the style loss,
+
+00:00:56.509 --> 00:01:00.159
+which tells us how close our target is in style to our style image.
+
+00:01:00.159 --> 00:01:03.709
+We can now add these losses together to get the total loss,
+
+00:01:03.710 --> 00:01:08.269
+and then use typical back propagation and optimization to reduce this loss
+
+00:01:08.269 --> 00:01:13.519
+by iteratively changing the target image to match our desired content and style.
+

@@ -1,0 +1,115 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:04.320
+Okay. If I look at the original paper and I scroll down close to the bottom,
+
+00:00:04.320 --> 00:00:08.370
+I can see exactly which layers make up our style and content representations.
+
+00:00:08.369 --> 00:00:13.709
+I see here that the content representation is taken as the output of layer conv4_2,
+
+00:00:13.710 --> 00:00:16.589
+and the style representations are going to be made of features
+
+00:00:16.589 --> 00:00:19.634
+from the first convolutional layer in all five stacks,
+
+00:00:19.635 --> 00:00:22.140
+conv1_1 up to conv5_1.
+
+00:00:22.140 --> 00:00:25.560
+Back to our notebook, I basically want to map these numbers that point
+
+00:00:25.559 --> 00:00:29.089
+to these VGG 19 layers to their more descriptive name.
+
+00:00:29.089 --> 00:00:31.009
+So, 0 is Conv1_1,
+
+00:00:31.010 --> 00:00:32.445
+which is easy enough.
+
+00:00:32.445 --> 00:00:34.225
+Next after this maxpooling layer,
+
+00:00:34.225 --> 00:00:36.910
+I can see I have Conv2_1 at layer 5.
+
+00:00:36.909 --> 00:00:41.549
+I'll look for the next maxpooling layer and then Conv3_1 at layer 10.
+
+00:00:41.549 --> 00:00:46.824
+So now I want to grab Conv4_1 and Conv4_2 for our content representation.
+
+00:00:46.825 --> 00:00:49.890
+Lastly, I also want to grab Conv5_1.
+
+00:00:49.890 --> 00:00:52.015
+So, it might get features function,
+
+00:00:52.015 --> 00:00:54.369
+I've listed out all the layers whose outputs I'll
+
+00:00:54.369 --> 00:00:57.679
+need to form my style and content representations.
+
+00:00:57.679 --> 00:01:01.859
+I find it easiest to keep all these in one list and access them by name later,
+
+00:01:01.859 --> 00:01:05.840
+but you could also choose to separate out this content representation layer.
+
+00:01:05.840 --> 00:01:09.055
+Okay. Great. So this completes our get features function.
+
+00:01:09.055 --> 00:01:12.560
+Eventually, one of our tasks will be to pass a style image through
+
+00:01:12.560 --> 00:01:14.900
+the VGG model and extract the style
+
+00:01:14.900 --> 00:01:17.925
+features at the right layers which we've just specified.
+
+00:01:17.924 --> 00:01:21.170
+Then, once we get these style features at a specific layer,
+
+00:01:21.170 --> 00:01:23.614
+we'll have to compute the gram matrix.
+
+00:01:23.614 --> 00:01:27.834
+Your next exercise will be to complete this function, gram_matrix.
+
+00:01:27.834 --> 00:01:29.744
+This function takes in a tensor,
+
+00:01:29.745 --> 00:01:31.660
+the output of the convolutional layer,
+
+00:01:31.659 --> 00:01:33.414
+and returns the gram matrix,
+
+00:01:33.415 --> 00:01:36.350
+the correlations of all the features in that layer.
+
+00:01:36.349 --> 00:01:37.939
+So to complete this function,
+
+00:01:37.939 --> 00:01:41.030
+you'll want to take a look at the shape of the past in tensor.
+
+00:01:41.030 --> 00:01:45.844
+This tensor should be four-dimensional with a batch size a depth and a height and width.
+
+00:01:45.844 --> 00:01:48.974
+You'll need to reshape this so that the height and width are flattened,
+
+00:01:48.974 --> 00:01:52.924
+and then you can calculate the gram matrix by doing matrix multiplication.
+
+00:01:52.924 --> 00:01:56.469
+Try this out and then I'll go through one implementation next.
+
