@@ -1,0 +1,25 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:03.280
+Imagine you worked for a production company and
+
+00:00:03.280 --> 00:00:06.490
+your job is to write a script for one of their television shows.
+
+00:00:06.490 --> 00:00:11.260
+You could write the script manually or you could just have a computer do it for you.
+
+00:00:11.260 --> 00:00:16.015
+In the third project, we will generate a TV script using a recurrent neural network.
+
+00:00:16.015 --> 00:00:18.250
+We will train the network on existing scripts
+
+00:00:18.250 --> 00:00:21.290
+then use it to generate an original piece of writing.
+
+00:00:21.290 --> 00:00:24.000
+Good luck and happy scripting.
+

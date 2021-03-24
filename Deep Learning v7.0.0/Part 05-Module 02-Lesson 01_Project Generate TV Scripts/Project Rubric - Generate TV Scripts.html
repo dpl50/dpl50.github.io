@@ -1,0 +1,561 @@
+<!-- udacimak v1.4.4 -->
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="ie=edge" http-equiv="X-UA-Compatible"/>
+  <title>
+   Generate TV Scripts
+  </title>
+  <link href="../assets/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="../assets/css/plyr.css" rel="stylesheet"/>
+  <link href="../assets/css/katex.min.css" rel="stylesheet"/>
+  <link href="../assets/css/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
+  <link href="../assets/css/styles.css" rel="stylesheet"/>
+  <link href="../assets/img/udacimak.png" rel="shortcut icon" type="image/png">
+  </link>
+ </head>
+ <body>
+  <div class="wrapper">
+   <nav id="sidebar">
+    <div class="sidebar-header">
+     <h3>
+      Project: Generate TV Scripts
+     </h3>
+    </div>
+    <ul class="sidebar-list list-unstyled CTAs">
+     <li>
+      <a class="article" href="../index.html">
+       Back to Home
+      </a>
+     </li>
+    </ul>
+    <ul class="sidebar-list list-unstyled components">
+     <li class="">
+      <a href="01. Introduction.html">
+       01. Introduction
+      </a>
+     </li>
+     <li class="">
+      <a href="02. GPU Workspaces Best Practices.html">
+       02. GPU Workspaces: Best Practices
+      </a>
+     </li>
+     <li class="">
+      <a href="03. Project Workspace TV Script Generation.html">
+       03. Project Workspace: TV Script Generation
+      </a>
+     </li>
+     <li class="">
+      <a href="Project Description - Generate TV Scripts.html">
+       Project Description - Generate TV Scripts
+      </a>
+     </li>
+     <li class="">
+      <a href="Project Rubric - Generate TV Scripts.html">
+       Project Rubric - Generate TV Scripts
+      </a>
+     </li>
+    </ul>
+    <ul class="sidebar-list list-unstyled CTAs">
+     <li>
+      <a class="article" href="../index.html">
+       Back to Home
+      </a>
+     </li>
+    </ul>
+   </nav>
+   <div id="content">
+    <header class="container-fluild header">
+     <div class="container">
+      <div class="row">
+       <div class="col-12">
+        <div class="align-items-middle">
+         <button class="btn btn-toggle-sidebar" id="sidebarCollapse" type="button">
+          <div>
+          </div>
+          <div>
+          </div>
+          <div>
+          </div>
+         </button>
+         <h1 style="display: inline-block">
+          Generate TV Scripts
+         </h1>
+        </div>
+       </div>
+      </div>
+     </div>
+    </header>
+    <main class="container">
+     <div class="row">
+      <div class="col-12">
+       <div>
+        <h2>
+         <p>
+          All Required Files and Tests
+         </p>
+        </h2>
+        <table class="table table-bordered table-hover">
+         <thead>
+          <tr class="thead-dark">
+           <th>
+            Criteria
+           </th>
+           <th>
+            Meet Specification
+           </th>
+          </tr>
+         </thead>
+         <tbody>
+          <tr scope="row">
+           <td>
+            <p>
+             All project files are included in the submission
+            </p>
+           </td>
+           <td>
+            <p>
+             The project submission contains the project notebook, called “dlnd_tv_script_generation.ipynb”.
+            </p>
+           </td>
+          </tr>
+          <tr scope="row">
+           <td>
+            <p>
+             All unit tests in the project have passed
+            </p>
+           </td>
+           <td>
+            <p>
+             All the unit tests in project have passed.
+            </p>
+           </td>
+          </tr>
+         </tbody>
+        </table>
+       </div>
+       <div>
+        <h2>
+         <p>
+          Pre-processing Data
+         </p>
+        </h2>
+        <table class="table table-bordered table-hover">
+         <thead>
+          <tr class="thead-dark">
+           <th>
+            Criteria
+           </th>
+           <th>
+            Meet Specification
+           </th>
+          </tr>
+         </thead>
+         <tbody>
+          <tr scope="row">
+           <td>
+            <p>
+             The function
+             <code>
+              create_lookup_tables
+             </code>
+             is implemented
+            </p>
+           </td>
+           <td>
+            <p>
+             The function
+             <code>
+              create_lookup_tables
+             </code>
+             create two dictionaries:
+            </p>
+            <ul>
+             <li>
+              Dictionary to go from the words to an id, we'll call vocab_to_int
+             </li>
+             <li>
+              Dictionary to go from the id to word, we'll call int_to_vocab
+             </li>
+            </ul>
+            <p>
+             The function
+             <code>
+              create_lookup_tables
+             </code>
+             return these dictionaries as a tuple (vocab_to_int, int_to_vocab).
+            </p>
+           </td>
+          </tr>
+          <tr scope="row">
+           <td>
+            <p>
+             A special token dictionary is created
+            </p>
+           </td>
+           <td>
+            <p>
+             The function
+             <code>
+              token_lookup
+             </code>
+             returns a dict that can correctly tokenizes the provided symbols.
+            </p>
+           </td>
+          </tr>
+         </tbody>
+        </table>
+       </div>
+       <div>
+        <h2>
+         <p>
+          Batching Data
+         </p>
+        </h2>
+        <table class="table table-bordered table-hover">
+         <thead>
+          <tr class="thead-dark">
+           <th>
+            Criteria
+           </th>
+           <th>
+            Meet Specification
+           </th>
+          </tr>
+         </thead>
+         <tbody>
+          <tr scope="row">
+           <td>
+            <p>
+             Data is broken into sequences
+            </p>
+           </td>
+           <td>
+            <p>
+             The function
+             <code>
+              batch_data
+             </code>
+             breaks up word id's into the appropriate sequence lengths, such that only complete sequence lengths are constructed.
+            </p>
+           </td>
+          </tr>
+          <tr scope="row">
+           <td>
+            <p>
+             Data is created using TensorDataset
+            </p>
+           </td>
+           <td>
+            <p>
+             In the function
+             <code>
+              batch_data
+             </code>
+             , data is converted into Tensors and formatted with TensorDataset.
+            </p>
+           </td>
+          </tr>
+          <tr scope="row">
+           <td>
+            <p>
+             Data is batched correctly.
+            </p>
+           </td>
+           <td>
+            <p>
+             Finally,
+             <code>
+              batch_data
+             </code>
+             returns a DataLoader for the batched training data.
+            </p>
+           </td>
+          </tr>
+         </tbody>
+        </table>
+       </div>
+       <div>
+        <h2>
+         <p>
+          Build the RNN
+         </p>
+        </h2>
+        <table class="table table-bordered table-hover">
+         <thead>
+          <tr class="thead-dark">
+           <th>
+            Criteria
+           </th>
+           <th>
+            Meet Specification
+           </th>
+          </tr>
+         </thead>
+         <tbody>
+          <tr scope="row">
+           <td>
+            <p>
+             An RNN class has been defined
+            </p>
+           </td>
+           <td>
+            <p>
+             The RNN class has complete
+             <code>
+              __init__
+             </code>
+             ,
+             <code>
+              forward
+             </code>
+             , and
+             <code>
+              init_hidden
+             </code>
+             functions.
+            </p>
+           </td>
+          </tr>
+          <tr scope="row">
+           <td>
+            <p>
+             The RNN includes at least one LSTM (or GRU) and fully-connected layer.
+            </p>
+           </td>
+           <td>
+            <p>
+             The RNN must include an LSTM or GRU and at least one fully-connected layer. The LSTM/GRU should be correctly initialized, where relevant.
+            </p>
+           </td>
+          </tr>
+         </tbody>
+        </table>
+       </div>
+       <div>
+        <h2>
+         <p>
+          RNN Training
+         </p>
+        </h2>
+        <table class="table table-bordered table-hover">
+         <thead>
+          <tr class="thead-dark">
+           <th>
+            Criteria
+           </th>
+           <th>
+            Meet Specification
+           </th>
+          </tr>
+         </thead>
+         <tbody>
+          <tr scope="row">
+           <td>
+            <p>
+             Reasonable hyperparameters are selected for training
+            </p>
+           </td>
+           <td>
+            <ul>
+             <li>
+              Enough epochs to get near a minimum in the training loss, no real upper limit on this. Just need to make sure the training loss is low and not improving much with more training.
+             </li>
+             <li>
+              Batch size is large enough to train efficiently, but small enough to fit the data in memory. No real “best” value here, depends on GPU memory usually.
+             </li>
+             <li>
+              Embedding dimension, significantly smaller than the size of the vocabulary, if you choose to use word embeddings
+             </li>
+             <li>
+              Hidden dimension (number of units in the hidden layers of the RNN) is large enough to fit the data well. Again, no real “best” value.
+             </li>
+             <li>
+              n_layers (number of layers in a GRU/LSTM) is between 1-3.
+             </li>
+             <li>
+              The sequence length (seq_length) here should be about the size of the length of sentences you want to look at before you generate the next word.
+             </li>
+             <li>
+              The learning rate shouldn’t be too large because the training algorithm won’t converge. But needs to be large enough that training doesn’t take forever.
+             </li>
+            </ul>
+           </td>
+          </tr>
+          <tr scope="row">
+           <td>
+            <p>
+             The model shows improvement during training
+            </p>
+           </td>
+           <td>
+            <p>
+             The printed loss should decrease during training. The loss should reach a value lower than 3.5.
+            </p>
+           </td>
+          </tr>
+          <tr scope="row">
+           <td>
+            <p>
+             Question about hyperparameter choices is answered.
+            </p>
+           </td>
+           <td>
+            <p>
+             There is a provided answer that justifies choices about model size, sequence length, and other parameters.
+            </p>
+           </td>
+          </tr>
+         </tbody>
+        </table>
+       </div>
+       <div>
+        <h2>
+         <p>
+          Generate TV Script
+         </p>
+        </h2>
+        <table class="table table-bordered table-hover">
+         <thead>
+          <tr class="thead-dark">
+           <th>
+            Criteria
+           </th>
+           <th>
+            Meet Specification
+           </th>
+          </tr>
+         </thead>
+         <tbody>
+          <tr scope="row">
+           <td>
+            <p>
+             The generator code generates a script
+            </p>
+           </td>
+           <td>
+            <p>
+             The generated script can vary in length, and should look structurally similar to the TV script in the dataset.
+            </p>
+            <p>
+             It doesn’t have to be grammatically correct or make sense.
+            </p>
+           </td>
+          </tr>
+         </tbody>
+        </table>
+       </div>
+       <div class="jumbotron">
+        <h3>
+         Tips to make your project standout:
+        </h3>
+        <p>
+         <ul>
+          <li>
+           Use validation data to choose the best model
+          </li>
+          <li>
+           Initialize your model weights, especially the weights of the embedded layer to encourage model convergence
+          </li>
+          <li>
+           Use topk sampling to generate new words
+          </li>
+          <li>
+           Check out the "Advanced projects" section in the project overview to take this work even further!
+          </li>
+         </ul>
+        </p>
+       </div>
+      </div>
+      <div class="col-12">
+       <p class="text-right">
+       </p>
+      </div>
+     </div>
+    </main>
+    <footer class="footer">
+     <div class="container">
+      <div class="row">
+       <div class="col-12">
+        <p class="text-center">
+         udacity2.0 If you need the newest courses Plase add me wechat: udacity6
+        </p>
+       </div>
+      </div>
+     </div>
+    </footer>
+   </div>
+  </div>
+  <script src="../assets/js/jquery-3.3.1.min.js">
+  </script>
+  <script src="../assets/js/plyr.polyfilled.min.js">
+  </script>
+  <script src="../assets/js/bootstrap.min.js">
+  </script>
+  <script src="../assets/js/jquery.mCustomScrollbar.concat.min.js">
+  </script>
+  <script src="../assets/js/katex.min.js">
+  </script>
+  <script>
+   // Initialize Plyr video players
+    const players = Array.from(document.querySelectorAll('video')).map(p => new Plyr(p));
+
+    // render math equations
+    let elMath = document.getElementsByClassName('mathquill');
+    for (let i = 0, len = elMath.length; i < len; i += 1) {
+      const el = elMath[i];
+
+      katex.render(el.textContent, el, {
+        throwOnError: false
+      });
+    }
+
+    // this hack will make sure Bootstrap tabs work when using Handlebars
+    if ($('#question-tabs').length && $('#user-answer-tabs').length) {
+      $("#question-tabs a.nav-link").on('click', function () {
+        $("#question-tab-contents .tab-pane").hide();
+        $($(this).attr("href")).show();
+      });
+      $("#user-answer-tabs a.nav-link").on('click', function () {
+        $("#user-answer-tab-contents .tab-pane").hide();
+        $($(this).attr("href")).show();
+      });
+    } else {
+      $("a.nav-link").on('click', function () {
+        $(".tab-pane").hide();
+        $($(this).attr("href")).show();
+      });
+    }
+
+    // side bar events
+    $(document).ready(function () {
+      $("#sidebar").mCustomScrollbar({
+        theme: "minimal"
+      });
+
+      $('#sidebarCollapse').on('click', function () {
+        $('#sidebar, #content').toggleClass('active');
+        $('.collapse.in').toggleClass('in');
+        $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+      });
+
+      // scroll to first video on page loading
+      if ($('video').length) {
+        $('html,body').animate({ scrollTop: $('div.plyr').prev().offset().top});
+      }
+
+      // auto play first video: this may not work with chrome/safari due to autoplay policy
+      if (players && players.length > 0) {
+        players[0].play();
+      }
+
+      // scroll sidebar to current concept
+      const currentInSideBar = $( "ul.sidebar-list.components li a:contains('Generate TV Scripts')" )
+      currentInSideBar.css( "text-decoration", "underline" );
+      $("#sidebar").mCustomScrollbar('scrollTo', currentInSideBar);
+    });
+  </script>
+ </body>
+</html>
