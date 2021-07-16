@@ -4,100 +4,133 @@ Language: en
 
 00:00:00.000 --> 00:00:02.359
 Over the next few months Matt,
+在接下来的几个月里 Matt,
 
 00:00:02.359 --> 00:00:04.974
 Luis and I will be your primary instructors.
+路易斯和我将是你们的主要导师 
 
 00:00:04.974 --> 00:00:06.429
 There will also, occasionally,
+偶尔也会有,
 
 00:00:06.429 --> 00:00:10.230
 be some other experts who come in to teach topics that they specialize in.
+成为其他专家来教授他们专长的课题 
 
 00:00:10.230 --> 00:00:11.720
 A little bit about me.
+一点关于我的事 
 
 00:00:11.720 --> 00:00:13.339
 I've been a teacher for a while,
+我当了一段时间的老师,
 
 00:00:13.339 --> 00:00:15.300
 having started teaching programming when I was
+我从岁开始教程序设计
 
 00:00:15.300 --> 00:00:18.210
 completing my Masters in Electrical Engineering at Stanford.
+在斯坦福大学攻读电子工程硕士学位 
 
 00:00:18.210 --> 00:00:21.320
 I focused on learning about medical systems and first
+我专注于学习医疗系统
 
 00:00:21.320 --> 00:00:24.410
 got into deep learning as a tool for medical diagnostics.
+进入深度学习领域 成为医学诊断的工具 
 
 00:00:24.410 --> 00:00:26.420
 I'm happiest when I'm creating and learning,
+我最开心的时候就是创造和学习,
 
 00:00:26.420 --> 00:00:30.730
 and so I'm also very into deep learning as it's used in artistic applications
+所以我也非常喜欢深度学习 因为它被用于艺术应用
 
 00:00:30.730 --> 00:00:33.020
 like learning to imitate the style of an artist
+就像学习模仿艺术家的风格
 
 00:00:33.020 --> 00:00:35.675
 or to generate new kinds of images entirely.
+或者完全生成新类型的图像 
 
 00:00:35.674 --> 00:00:37.174
 I'm a former physicist,
+我以前是物理学家,
 
 00:00:37.174 --> 00:00:41.034
 former neuroscientist and a current huge fan of all things data.
+前神经科学家 现在是所有数据的狂热爱好者 
 
 00:00:41.034 --> 00:00:45.439
 I've been working with Python and data in general for the past nine years.
+在过去的九年里 我一直在使用 Python 和一般的数据 
 
 00:00:45.439 --> 00:00:47.009
 During my PhD work,
+在我攻读博士学位期间,
 
 00:00:47.009 --> 00:00:50.640
 I used machine learning models to classify electrical signals from neurons.
+我使用机器学习模型对神经元的电信号进行分类 
 
 00:00:50.640 --> 00:00:54.710
 I have also created a few Python data science libraries,
+我还创建了一些 Python 数据科学库,
 
 00:00:54.710 --> 00:00:57.350
 a Bayesian data analysis package called Sample,
+一个名为 Sample 的贝叶斯数据分析包,
 
 00:00:57.350 --> 00:01:00.395
 and SQL, SQL for data analysts.
+数据分析师使用 SQL 和 SQL 
 
 00:01:00.395 --> 00:01:03.920
 I'm fascinated by deep learning because automation is the future,
+我着迷于深度学习 因为自动化是未来,
 
 00:01:03.920 --> 00:01:07.135
 and deep learning is the future of automation.
+深度学习是自动化的未来 
 
 00:01:07.135 --> 00:01:11.015
 I'm a pure mathematician and a former Google engineer.
+我是一个纯粹的数学家 也曾是谷歌的工程师 
 
 00:01:11.015 --> 00:01:14.805
 During my PhD, I worked an algebraic combinatorics,
+在读博士期间我在代数组合学工作,
 
 00:01:14.805 --> 00:01:18.285
 a field in which theoretical mathematics and applied probability meet.
+理论数学和应用概率相遇的领域 
 
 00:01:18.284 --> 00:01:22.469
 I then spent some years in academia working on research and teaching at university.
+后来我在学术界花了几年时间在大学里从事研究和教学工作 
 
 00:01:22.469 --> 00:01:24.709
 This is where I fell in love with machine learning and I
+这就是我爱上机器学习的地方
 
 00:01:24.709 --> 00:01:26.839
 decided to switch to Google where I worked in
+我决定跳槽到我工作的谷歌
 
 00:01:26.840 --> 00:01:31.640
 the team that uses machine learning algorithms to generate YouTube video recommendations.
+这个团队使用机器学习算法生成 YouTube 视频推荐 
 
 00:01:31.640 --> 00:01:34.265
 I, too, find deep learning fascinating as it combines
+我也觉得深度学习很吸引人 因为它结合了
 
 00:01:34.265 --> 00:01:37.390
 theoretical beauty with powerful applications
-
+具有强大应用的理论之美.
+最新课程跟课件还有一对一辅导请加wx：udacity6
