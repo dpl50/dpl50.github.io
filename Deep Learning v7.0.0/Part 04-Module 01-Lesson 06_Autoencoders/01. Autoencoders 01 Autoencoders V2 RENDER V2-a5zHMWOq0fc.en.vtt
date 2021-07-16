@@ -135,5 +135,6 @@ I'll start with a simple example where we'll compress images.
 Then, since this is ImageData,
 
 00:02:23.205 --> 00:02:25.790
-we'll improve it by using convolutional layers
+we'll improve it by using convolutional layers.
+最新课程跟课件还有一对一辅导请加wx：udacity6
 
